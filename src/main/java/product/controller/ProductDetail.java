@@ -12,7 +12,7 @@ public class ProductDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
-    public ProductDetail() {
+    public ProductDetail() {  //내용수정 내용수정
     }
 
 

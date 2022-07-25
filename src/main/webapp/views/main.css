@@ -1,0 +1,417 @@
+@charset "utf-8";
+
+html,
+body {
+    margin: 0;
+    font-family: 나눔스퀘어, 'NanumSquare', sans-serif;
+    font-size: 18px;
+
+    
+    /* 기본 크기이면 생략 가능 */
+    /* background-color: #0aa564; */
+
+}
+
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+img {
+    vertical-align: top;
+    /* 이미지 기준 아래로 잡기(글자가 아래 기준이라서) */
+}
+
+* {
+    box-sizing: border-box;
+    /* 박스 padding 지정 시 박스 안에서 만들어지게 (안쓰면 박스 사이즈가 여백만큼 들어가서 더 커진다.) */
+}
+
+hr{
+    margin: 0;
+}
+
+ul {
+    padding-left: 0px;
+    margin-top: 0px;
+}
+
+/* =================== 와이어프레임 ===================*/
+
+main {
+    width: 1280px;
+    /* height: 1800px; */
+    /* border: 1px solid black; */
+    margin: auto; /* 자동으로 화면 가운데 오게함 */
+}
+
+header {
+    Position: sticky;
+    top: 0;
+    width: 100%;
+    /* height: 140px; */
+    background-color: white
+}
+
+div.section {
+    width: 100%;
+    height: 1200px;
+    /* background-color: skyblue; */
+    padding-top: 0px;
+    margin-bottom: 55px;
+}
+
+footer {
+    width: 100%;
+    height: 150px;
+    background-color: #0232e4;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+}
+
+
+/* =================== 헤더 디자인 ===================*/
+
+
+/* -----------------  nav_top ----------------- */
+.nav_top {
+    height: 50px;
+    margin: auto;
+    list-style-type: none;
+    text-align: right;
+    /* background-color: bisque; */
+    /* 블록 요소 가운데 정렬 */
+    padding-top: 15px;
+}
+
+.nav_top li {
+    display: inline;
+    border-left: 1px solid #c0c0c0;
+    
+    /* 테두리와 메뉴 간격 벌리기. padding: 위 오른쪽 아래 왼쪽; */
+    padding: 0px 20px 0px 20px;
+
+    /* 메뉴와 테두리 사이 간격 벌리기. margin: 위 오른쪽 아래 왼쪽; */
+    margin: 5px 0px 5px 0px;
+    /* background-color: #0aa564; */
+}
+
+.nav_top li:first-child {
+    border-left: none;
+}
+
+/* -----------------  nav_middle ----------------- */
+.nav_middle {
+    display: flex;
+    align-items: center;
+    /* background-color: violet; */
+    /* padding-left: 10px; */
+}
+
+.logo {
+    /* width:  */
+    /* height: 88px; */
+    /* background-color: white; */
+    /* margin: auto; */
+    text-align: center;
+    /* 인라인 요소 가운데 정렬 */
+}
+
+.search {
+    position: relative;
+    width: 600px;
+    left: 100px;
+
+    /* padding-left: 00px; */
+}
+
+.search > input {
+    position: relative;
+    /* width: 400px; */
+    width: 100%;
+    border: 2.5px solid #0232e4;
+    border-radius: 10px;
+    padding: 10px 30px;
+    font-size: 18px;
+}
+
+.search > img {
+    position: absolute;
+    width: 25px;
+    top: 10px;
+    right: 12px;
+    margin: 0;
+}
+
+.nav_middle_right {
+    width: 600px;
+    padding-left: 150px;
+    margin: 0px;
+    /* padding: 20px; */
+    /* background-color: #0aa564; */
+}
+
+.nav_middle_right>li {
+    list-style: none;
+    float: left;
+    /* text-align: center; */
+    /* align-items: center; */
+    /* background-color: blueviolet; */
+    /* width: 40%; */
+    margin-left: 30px;
+    /* position: relative; */
+}
+
+/* 드롭다운 */
+
+.drop_down {
+    width: 120px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    /* background-color: violet; */
+    height: 0;
+    /* 숨겨 있어야 하니까 */
+    overflow: hidden;
+    /* 높이가 없는데 넘쳐서 보이는거 없에기 */
+    transition: 0.3s;
+}
+
+.drop_down>li {
+    list-style: none;
+    background-color: white;
+}
+
+.drop_down>li>a {
+    display: block;
+    width: 100%;
+    height: 40px;
+    /* 드롭다운 박스 높이*/
+    text-align: center;
+    align-items: center;
+    padding-top: 8px;
+}
+
+.drop_down>li>a:hover {
+    background-color: #EAEAEA;
+}
+
+.nav_middle_right>li:hover .drop_down {
+    height: 160px;
+    /* 30px 3개니까*/
+}
+
+.dashed {
+    margin: auto;
+    width: 80%;
+    height: 1px;
+    /* border-top: 1px dashed white; */
+    border-bottom: none;
+}
+
+.navb{
+    margin: auto;
+}
+
+.nav_bottom {
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    float: left;
+    /* align-items: center; */
+    margin-left: 100px;
+    /* background-color: #0232e4; */
+    
+}
+
+.nav_bottom li {
+    /* 글자에 변화가 있다면 여기 수정 */
+    width: 12%;
+    /* background-color: yellow; */
+    float: left;
+    /* 가로로 들어가기 */
+    list-style: none;
+    /* 목록 표시 지우기 */
+    /* margin-left: 3.75%; */
+    /* 박스 8개 간격*/
+    text-align: center;
+    /* 글씨 가운데 정렬 */    
+}
+
+.nav_bottom li a {
+    /* 박스에 변화가 있다면 여기 수정 */
+    display: block;
+    /* 글자에 변화가 있다면 여기 수정 */
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    /* 글씨 가운데 정렬 */
+    padding-top: 15px;
+}
+
+.nav_bottom li a:hover {
+    background-color: #EAEAEA;
+}
+
+.hr1{
+    border-top-width: 0px;
+}
+
+.main-view {
+    /* margin: auto; */
+    /* margin-bottom: 20px; */
+    /* margin-top: 0px; */
+    /* text-align: center; */
+    /* background-color: bisque; */
+}
+
+/* .main-view>ul>li {
+    list-style: none;
+} */
+
+.main-view {
+    /* width: ; */
+    height: 371px;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.main-view ul {
+    width: calc(100% * 3);
+    display: flex;
+    animation: slide 8s infinite;
+    /* background-color: #0232e4 */
+}
+
+/* slide를 8초동안 진행하며 무한반복 함 */
+.main-view li {
+    list-style: none;
+    width: calc(100% / 3);
+    height: 300px;
+}
+
+
+@keyframes slide {
+    0% {
+        margin-left: 0;
+    }
+
+    /* 0 ~ 10  : 정지 */
+    10% {
+        margin-left: 0;
+    }
+
+    /* 10 ~ 25 : 변이 */
+    25% {
+        margin-left: -100%;
+    }
+
+    /* 25 ~ 35 : 정지 */
+    35% {
+        margin-left: -100%;
+    }
+
+    /* 35 ~ 50 : 변이 */
+    50% {
+        margin-left: -200%;
+    }
+
+    60% {
+        margin-left: -200%;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+div.pro-wrap {
+    /* width: 90%; */
+    /* height: 00px; */
+    /* margin-left: 40px; */
+    /* margin: auto; */
+    /* background-color: cadetblue; */
+}
+
+h2{
+    margin-bottom: 0;
+    margin-top: 50px;
+    /* background-color: #0232e4; */
+}
+
+ul.pro-list {
+    width: 100%;
+    margin: auto;
+    /* width: 1100px; */
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    /* background-color: #c0c0c0; */
+    padding-left: 0px;
+    
+
+}
+
+ul.pro-list li {
+    
+    width: 20%;
+    float: left;
+    height: 300px;
+    background-color: white;
+    list-style: none;
+    margin-top: 40px;
+    /* margin-left: 4%; */
+    border: 1px solid #D2D2D2;
+}
+
+.pro-list li a {
+    color: black;
+}
+
+/* .pro-list li a:hover {
+    color: #0232e4;
+} */
+
+.thum {
+    width: 100%;
+    height: 200px;
+    /* background-color: yellow; */
+    overflow: hidden;
+}
+
+.thum img {
+    width: 100%;
+    height: 200px;
+    border-bottom: 1px solid #D2D2D2;
+    /* overflow: hidden; */
+}
+
+/* 이미지 위에 hover */
+/* .thum img{
+    transition: 0.6s;
+}
+
+.thum img:hover{
+    transform: scale(1.2);
+} */
+
+
+.text {
+    width: 100%;
+    height: auto;
+    /* background-color: tomato; */
+    /* transparent #000000 */
+    padding: 10px;
+}
+
+

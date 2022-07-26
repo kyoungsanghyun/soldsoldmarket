@@ -10,14 +10,14 @@ li{
     list-style: none;
 }
 .container {
-    width: 60%;
-    padding: 50px;
+    padding: 40px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 200px 400px 400px;
-    grid-template-rows: 100px 300px 150px 1fr 1fr 100px;
-    height: 100vh;
-    grid-gap: 10px;
+    grid-template-columns: 160px 530px 450px;
+    grid-template-rows: 100px 250px 150px 1fr 0.1fr 200px;
+    height: 100%;
+    width: 100%;
+    grid-gap: 30px;
     grid-template-areas:
     'side_img main_img product_title'
     'side_img main_img product_info'
@@ -30,9 +30,9 @@ li{
 
 .container div{
     padding: 0px;
-    border: 1px solid #000;
-    display:grid;
-    text-indent: 5px;
+    /* border: 1px solid #000; */
+    /* display: grid; */
+    /* text-indent: 5px; */
 }
 
 
@@ -47,10 +47,15 @@ li{
     width: 100px;
     height: 200px;
 }
-#side_img_box {
+.side_img_box {
     width: 120px;
     height: 120px;
-    background-color: blue;
+    margin-bottom:  30px;
+    cursor: pointer;
+}
+.side_img_box img {
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -62,13 +67,11 @@ li{
 }
 .main_img img{
     width: 100%;
-    height: 80%;
+    height: 100%;
 }
 #main_img_box {
-    width: 390px;
-    height: 390px;
-    border: 1px solid black;
-
+    width: 520px;
+    height: 520px;
 }
 
 
@@ -81,18 +84,13 @@ li{
     justify-items: start;
 }
 
+
+/* 게시글 내용 영역 */
 .product_detail{
     grid-area: product_detail;
+    height: 100%;
 }
 
-/* 댓글창 영역 */
-.reply_contents{
-    grid-area: reply_contents;
-    background-color:lightgray;
-}
-.reply_write{
-    grid-area: reply_write;
-}
 
 
 
@@ -104,7 +102,7 @@ li{
     line-height: 20px;
 }
 #product_name hr{
-    width: 400px;
+    width: 390px;
 }
 
 /* 게시글 상세 영역 */
@@ -146,13 +144,22 @@ li{
     align-items: center;
 
 }
-
+/* 툴바 각 상세 */
+.toolbar span {
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+.toolbar img {
+    padding-left: 5px;
+}
 #toolbar_like{
     grid-area: like;
-
+    vertical-align:middle;
 }
 #toolbar_view{
     grid-area: view;
+    vertical-align:middle;
 }
 #toolbar_share{
     grid-area: share;
@@ -161,7 +168,62 @@ li{
 #toolbar_buy{
     grid-area: buy;    
 }
-
 #toolbar_comment{
     grid-area: comment;
+    cursor: pointer;
+}
+
+
+
+/* 댓글창 영역 */
+.reply_contents{
+    grid-area: reply_contents;
+    background-color:rgba(220,220,220,0.4);
+    
+
+}
+.reply_contents_userIcon{
+    position: relative;
+    left: 10px;
+}
+.reply_contents span {
+    position: relative;
+    left: 20px;
+    bottom: -5px;
+    padding-right: 30px;
+    text-align: center;
+
+}
+.reply_contents li {
+    position: relative;
+    top: 10px;
+}
+
+/* 댓글 입력창 영역 */
+.reply_write{
+    margin-bottom: 50px;
+    grid-area: reply_write;
+    position: relative;;
+}
+#reply_write_id_icon {
+    display: inline-block;
+    position: absolute;
+    top: 33.3%;
+    left: 10px;
+}
+#reply_write_id {
+    position:absolute;
+    left: 50px;
+    top:  36%;
+}
+#reply_write_upbtn{
+    position: absolute;
+    left: 90%;
+    top: 30%;
+}
+.reply_write textarea {
+    position:absolute;
+    left: 180px;
+    width: 70%;
+    height: 90%;
 }

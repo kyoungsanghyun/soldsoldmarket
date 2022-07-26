@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
+<link rel="stylesheet" href="${ path }/resources/css/admin.css">
 <jsp:include page="/views/common/header.jsp" />
 
 <style>
@@ -91,10 +92,10 @@
 	
 	<nav>
 			<ul class="main-nav">
-				<li class="home"><a href="${ path }/board/member">회원관리</a></li>
-				<li id="board"><a href="${ path }/board/list">게시글관리</a></li>
-				<li id="admin-member"><a href="${ path }/board/report">신고관리</a></li>
-				<li id="admin-member"><a href="${ path }/board/comment">댓글관리</a></li>
+				<li class="admin-member"><a href="${ path }/board/member">회원관리</a></li>
+				<li id="admin-board"><a href="${ path }/board/list">게시글관리</a></li>
+				<li id="admin-report"><a href="${ path }/board/report">신고관리</a></li>
+				<li id="admin-comment"><a href="${ path }/board/comment">댓글관리</a></li>
 			</ul>
 		</nav>
 		

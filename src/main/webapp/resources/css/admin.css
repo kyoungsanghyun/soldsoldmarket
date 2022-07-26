@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+/*e*/
+/* ul태그의 가운데정렬 */
+ul.main-nav {
+	/* width:80%; */
+	display:table;
+	padding:0px;
+	margin:auto;
+}
+
+ul.main-nav li { 
+	list-style-type: none; 
+	width: 8em; 
+	height: 2em;
+	float: left; 
+	text-align: center; 
+	font-family: "휴먼모음T", sans-serif; 
+	border-left: 1px #00bcd4 solid;
+	background-color: #5353ff; 
+}
+
+ul.main-nav li:last-of-type {
+	border-right:1px #00bcd4 solid;
+}
+
+ul.main-nav li a {
+	display: block;
+	padding:.5em;
+	text-decoration: none;
+	color: #292929;
+}
+
+/* hover시 배경색 변경 */
+
+ul.main-nav li:hover{
+	background-color: #3300ff;
+}
+
+ul.main-nav li:hover > a{
+	color:#FFF; /* 글자색*/
+}

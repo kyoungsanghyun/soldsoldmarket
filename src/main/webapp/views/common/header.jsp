@@ -59,13 +59,13 @@
                             </a>
                             <ul class="drop_down">
                                 <li>
-                                    <a href="#">내 상점</a>
+                                    <a href="${ path }/views/mypage/mystore.jsp">내 상점</a>
                                 </li>
                                 <li>
-                                    <a href="#">회원정보</a>
+                                    <a href="${ path }/views/mypage/memberinfo.jsp">회원정보</a>
                                 </li>
-                                <li><a href="#">문의내역</a></li>
-                                <li><a href="#">거래내역</a></li>
+                                <li><a href="${ path }/views/mypage/asklist.jsp">문의내역</a></li>
+                                <li><a href="${ path }/views/mypage/soldlist.jsp">거래내역</a></li>
                             </ul>
                         </li>
                         <li>

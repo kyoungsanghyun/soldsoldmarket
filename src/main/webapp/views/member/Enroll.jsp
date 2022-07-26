@@ -3,7 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>   
+
+<c:set var = "path" value = "${pageContext.request.contextPath}"/>    
+
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,7 +17,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
 
-  <link rel="stylesheet" type="text/css" href="${path }/resources/css/solsol.css">
+	<script src="${ path }/resources/js/jquery-3.6.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="${path }/resources/css/enroll.css">
 
 
 </head>
@@ -26,8 +31,9 @@
     <div id="content01">
             <img src="${path }/resources/images/로고.png" id="img01">
 
-            <form id="enrollForm">
-                    <input type="text" name="enrollId" placeholder="아이디 ">
+            <form id="enrollForm" action="${path }/enroll" method="post">
+                    <input type="text" name="enrollId" id="enrollId" placeholder="아이디 ">
+                    <input type="button" id="idcheck" value="중복검사" >
                     <br>
                     <input type="password" name="enrollPass" placeholder="비밀번호">
                     <br>
@@ -57,20 +63,53 @@
                     <br>
                     <select name="enrollGender" style="height: 45px;">
                         <option selected>===성별===</option>
-                        <option value="남자">남자</option>
-                        <option value="여자">여자</option>
+                        <option value="M">남자</option>
+                        <option value="F">여자</option>
                     </select>
                     <br>
-                    <input type="tel" name="enrollPhone" placeholder="(-없이)01012345678">
+                    <input type="tel" name="enrollPhone" placeholder="(예시))010-1234-5678">
                     <br>
-                    <button id="enrollbtn">회원가입</button>
-            </form>
-            <div id="footer01">
-                <span>이용약관 </span><span>|</span><span> 개인정보처리방침 </span><span>|</span><span> 회원정보약관</span>
-                <p>CopyRight@SKOh osg3419010@naver.com</p>
-            </div>
+					<input type="submit" id="enrollbtn" value="회원가입">        
+					    </form>
     </div>
 </div>
+
+            <jsp:include page="/views/common/footerSk.jsp" />
+<script>
+
+$(document).ready(function(){
+
+	$("#idcheck").on('click',function(){
+			let enroll = $("#enrollId").val().trim();
+			
+			$.ajax({
+				type:"Post",
+				url:"${path}/idcheck",
+				dataType:"json",
+				data:{
+					"enrollId":enroll
+				},
+				success:function(obj){
+					if(obj.duplicate == true){
+						alert("이미 사용중인 아이디 입니다.");
+					}else{
+						alert("사용 가능한 아이디 입니다.");
+					}
+					
+				},
+				error:function(e){
+					console.log(e);
+				}
+				
+			})
+			
+		});
+		
+	});
+	
+
+
+</script>
 
     
 </body>

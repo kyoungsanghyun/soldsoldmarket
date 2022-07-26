@@ -1,0 +1,72 @@
+
+#img01{
+    width: 300px;
+    height: 135px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#wrap01{
+    width: 100%;
+    height: 900px;
+    /* border: 1px solid; */
+    margin-top: 10px;
+}
+#header01{
+    height: 10%;
+    /* border: 1px solid; */
+    text-align: center;
+
+}
+#content01{
+    height: 60%;
+    /* border: 1px solid; */
+    text-align: center;
+}
+#footer01{
+    margin-top: 10%;
+    height: 30%;
+    /* border: 1px solid; */
+    text-align: center;
+}
+#enrollForm{
+    margin-top: 50px;
+    line-height: 60px;
+}
+input[name='enrollPhone']{
+    text-align: center;
+}
+
+
+input{
+    width: 300px;
+    height: 40px;
+}
+
+#birthDay, #birthYear, #birthMonth{
+width: 95px;
+height: 40px;
+}
+
+#enrollbtn{
+    width: 310px;
+    height: 50px;
+    background-color: rgb(2, 50, 228);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+select[name = enrollGender]{
+    width: 310px;
+    text-align: center;
+    
+}
+
+#idcheck{
+    width: 80px;
+    height: 45px;
+    margin-left: 10px;
+    margin-top: 10px;
+    position: absolute;
+}

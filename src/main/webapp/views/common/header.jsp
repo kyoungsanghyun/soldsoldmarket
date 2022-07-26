@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,8 +10,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>í¤ë</title>
-    <link rel="stylesheet" href="headerFooter.css"> 
+    <title>soldsoldMarket</title>
+    <link rel="stylesheet" href="${ path }/resources/css/headerFooter.css"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 </head>
 
@@ -24,8 +26,8 @@
                 <!-- -------------------------- nav_top --------------------------  -->
                 <nav>
                     <ul class="nav_top">
-                        <li><a href="#">ë¡ê·¸ì¸</a></li>
-                        <li><a href="#">íìê°ì</a></li>
+                        <li><a href="#">로그인</a></li>
+                        <li><a href="#">회원가입</a></li>
                     </ul>
                 </nav>
                 
@@ -36,39 +38,39 @@
                 <div class="nav_middle">
                     <div class="no1">
                     <a class="logo" href="#">
-                        <img src="images/logo.png" height="90" alt="ì ì ë§ì¼ ë¡ê³ ">
+                        <img src="${ path }/resources/images/logo.png" height="90" alt="쏠쏠마켓 로고">
                     </a>
                     </div>
 
                     <div class="search">
-                        <input type="text" placeholder="ê²ìì´ ìë ¥">
-                        <img src="resources/images/icon/search.png">
+                        <input type="text" placeholder="검색어 입력">
+                        <img src="${ path }/resources/images/icon/search.png">
                     </div>
 
                     <ul class="nav_middle_right">
                         <li>
                             <a href="#">
-                                <img src="resources/images/icon/edit.png" width="23" height="24" alt="ìíë±ë¡ ìì´ì½"> ìíë±ë¡
+                                <img src="${ path }/resources/images/icon/edit.png" width="23" height="24" alt="상품등록 아이콘"> 상품등록
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img src="resources/images/icon/account.png" width="23" height="24" alt="ë§ì´ì ì  ìì´ì½"> ë§ì´ì ì 
+                                <img src="${ path }/resources/images/icon/account.png" width="23" height="24" alt="마이쏠쏠 아이콘"> 마이쏠쏠
                             </a>
                             <ul class="drop_down">
                                 <li>
-                                    <a href="#">ë´ ìì </a>
+                                    <a href="#">내 상점</a>
                                 </li>
                                 <li>
-                                    <a href="#">íìì ë³´</a>
+                                    <a href="#">회원정보</a>
                                 </li>
-                                <li><a href="#">ë¬¸ìë´ì­</a></li>
-                                <li><a href="#">ê±°ëë´ì­</a></li>
+                                <li><a href="#">문의내역</a></li>
+                                <li><a href="#">거래내역</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#">
-                                <img src="resources/images/icon/favorite.png" width="23" height="24" alt="ì°íê¸° ìì´ì½"> ì°íê¸°
+                                <img src="${ path }/resources/images/icon/favorite.png" width="23" height="24" alt="찜하기 아이콘"> 찜하기
                             </a>
                         </li>
                     </ul>

@@ -6,7 +6,7 @@
 <jsp:include page="/views/common/header.jsp" />
 
         
-<link rel="stylesheet" href="${ path }/resources/css/product.css?after">
+<link rel="stylesheet" href="${ path }/resources/css/productDetail.css?after">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 
 <body>
@@ -29,8 +29,10 @@
         <!-- 게시글 제목 및 가격 -->
         <div class="product_title"> 
             <div id="product_name">
-                <h2>게시글 제목</h2>
-                <h3>제품 가격</h3>
+            	<form action="${path}/product/view" method="get"><button>테스트버튼</button></form>
+            	<input type="hidden" name="pno" value="${product.PNo}">
+                <h2>${product.PName}</h2>
+                <h3>${product.PPrice}</h3>
                 <hr>
             </div>
         </div>
@@ -52,13 +54,13 @@
             <!-- 변화값 -->
             <div id="product_info_varival">
                 <ul>
-                    <li>작성자 ID</li>
-                    <li>0000/00/00</li>
-                    <li>지역명</li>
-                    <li>상태여부</li>
-                    <li>교환여부</li>
-                    <li>00</li>
-                    <li>진행여부</li>
+                    <li>${product.PId}</li>
+                    <li>${product.PDate}</li>
+                    <li>${product.PLocation}</li>
+                    <li>${product.PQlt}</li>
+                    <li>${product.PExchange}</li>
+                    <li>${product.PQtt}</li>
+                    <li>${product.PTrading}</li>
                 </ul>
             </div>
         
@@ -106,7 +108,7 @@
 
     </div>
     <script src="${ path }/resources/js/jquery-3.6.0.min.js"></script>
-    <script src="${ path }/resources/js/product.js"></script>
+    <script src="${ path }/resources/js/productDetail.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </body>
 </html>

@@ -37,7 +37,7 @@
                 <!-- -------------------------- nav_middle --------------------------  -->
                 <div class="nav_middle">
                     <div class="no1">
-                    <a class="logo" href="${ path }">
+                    <a class="logo" href="#">
                         <img src="${ path }/resources/images/logo.png" height="90" alt="쏠쏠마켓 로고">
                     </a>
                     </div>

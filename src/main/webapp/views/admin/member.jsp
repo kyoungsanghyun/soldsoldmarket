@@ -93,10 +93,10 @@
 	
 	<nav>
 			<ul class="main-nav">
-				<li class="admin-member"><a href="${ path }/board/member">회원관리</a></li>
-				<li id="admin-board"><a href="${ path }/board/list">게시글관리</a></li>
-				<li id="admin-report"><a href="${ path }/board/report">신고관리</a></li>
-				<li id="admin-comment"><a href="${ path }/board/comment">댓글관리</a></li>
+				<li class="admin-member"><a href="${ path }/admin/member">회원관리</a></li>
+				<li id="admin-board"><a href="${ path }/admin/list">게시글관리</a></li>
+				<li id="admin-report"><a href="${ path }/admin/report">신고관리</a></li>
+				<li id="admin-comment"><a href="${ path }/admin/comment">댓글관리</a></li>
 			</ul>
 		</nav>
 		
@@ -194,6 +194,8 @@
                     <li>                                                         
                 </ul>
             </li>
+            
+            <br><br><br>
 
             <!-- 게시판 페이징 영역 -->
             <li>

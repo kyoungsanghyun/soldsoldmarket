@@ -38,4 +38,6 @@ public class Product {
 	private String CId;
 	
 	private Date PDate;
+	
+	private int PRowNum;
 }

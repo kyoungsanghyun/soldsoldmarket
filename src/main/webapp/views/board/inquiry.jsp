@@ -4,11 +4,15 @@
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/board.css">
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+<link rel="stylesheet" href="${ path }/resources/css/productregist.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 
 <section id="content">
 	<div class="write">
+		<form>
 		<div class="information">
 			<button>문의등록</button>
 			<br>
@@ -34,30 +38,38 @@
 			<br>
 			<br>
 			<span><b>첨부파일</b></span>
-			<label class="input-file-button" for="input-file">
-				파일 선택
-			</label>
-			<input type="file" id="input-file"/>
-			<div id="preview">
-			<span>${ board.originalFileName }</span>
-			</div>
+			<br><br>
+			<ul class="__add" style="list-style: none;"> 
+			  <li>
+			   <input type="file" id="input-file" name="file_path" class="files">
+			   <button type="button" class="_add" style="vertical-align: sub">추가</button>
+			  </li> 
+			</ul>
 		</div>
+		</form>
+		
 	</div>
 
 </section>
-<script>
-function fileUpload(){
-	var fileInput = document.getElementsByClassName("input-file");
 
-	for( var i=0; i<fileInput.length; i++ ){
-		if( fileInput[i].files.length > 0 ){
-			for( var j = 0; j < fileInput[i].files.length; j++ ){
-				console.log(fileInput[i].files[j].name); // 파일명 출력
-			}
-		}
-	}
+<script type="text/javascript">
+var maxAppend = 1;
 
-}
+$('.__add ._add').on('click',function(){ 
+   if(maxAppend >= 5){
+      alert("파일 업로드 최대 개수는 5개 입니다.");
+      return;
+   }else{
+       $('.__add').append('<li><input type="file"name="file_path" class="files"> <button type="button" class="_add" onclick="addDel(this);">삭제</button></li>'); 
+       maxAppend ++;
+   }
+   
+ });
+ 
+ function addDel(a){ 
+    $(a).closest('li').remove(); 
+    maxAppend --;
+ }
 </script>
 
 

@@ -26,8 +26,8 @@
                 <!-- -------------------------- nav_top --------------------------  -->
                 <nav>
                     <ul class="nav_top">
-                        <li><a href="#">로그인</a></li>
-                        <li><a href="#">회원가입</a></li>
+                        <li><a href="${path}/login">로그인</a></li>
+                        <li><a href="${path}/enrollCheck">회원가입</a></li>
                     </ul>
                 </nav>
                 

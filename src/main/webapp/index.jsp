@@ -10,7 +10,7 @@
  <div class="section">
      <div class="navb">
          <ul class="nav_bottom">
-             <li><a href="${ path }/board/productList">의류</a></li>
+             <li><a href="${ path }/product/list">의류</a></li>
              <li><a href="#">악세서리</a></li>
              <li><a href="#">디지털/가전</a></li>
              <li><a href="#">스포츠/레저</a></li>

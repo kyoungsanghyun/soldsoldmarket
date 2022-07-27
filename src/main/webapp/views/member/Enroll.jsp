@@ -6,7 +6,6 @@
 
 <c:set var = "path" value = "${pageContext.request.contextPath}"/>    
 
-<c:set var="path" value="${pageContext.request.contextPath}"/>
 
 
 <!DOCTYPE html>
@@ -16,7 +15,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-
 	<script src="${ path }/resources/js/jquery-3.6.0.js"></script>
 	<link rel="stylesheet" type="text/css" href="${path }/resources/css/enroll.css">
 

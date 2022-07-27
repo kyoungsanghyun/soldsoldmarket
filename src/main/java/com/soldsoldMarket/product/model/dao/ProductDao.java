@@ -11,7 +11,7 @@ import com.soldsoldMarket.product.model.vo.Product;
 
 public class ProductDao {
 
-	public Product findProductByNo(Connection connection, int pno) {
+	public Product findProductByNo(Connection connection, int no) {
 		Product product = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -50,7 +50,7 @@ public class ProductDao {
 				product.setPQtt(rs.getInt("P_QTT"));
 				product.setPTrading(rs.getString("P_TRADING"));
 				
-				System.out.println(product);
+//				System.out.println(product);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,5 +60,35 @@ public class ProductDao {
 		}		
 		return product;
 	}
+
+	public int updateView(Connection connection, Product product) {
+		int result = 0;
+		PreparedStatement pstm = null;
+		String query = "UPDATE PRODUCT SET P_VIEW=? WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			product.setPView(product.getPView() + 10);
+			
+			pstm.setInt(1,product.getPView());
+			pstm.setInt(2,1);
+			
+			result = pstm.executeUpdate();
+			System.out.println(result);
+
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+		}
+		
+		
+		return result;
+	}
+
+
 
 }

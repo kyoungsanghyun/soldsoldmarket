@@ -21,7 +21,7 @@ public class ProductDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Product product = null;
-//    	int pno = Integer.parseInt(request.getParameter("no"));
+//    	int no = Integer.parseInt(request.getParameter("no"));
     	
     	product = new ProductService().getProductByNo(1);
     	

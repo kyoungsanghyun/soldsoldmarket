@@ -15,8 +15,9 @@
         <!-- 사이드 이미지 -->
         <div class="side_img">
             <ul>
-                <li><div class="side_img_box"><a href="${ path }/resources/images/testimg.jpg"><img src="${ path }/resources/images/testimg.jpg" class="side_img_box_con"></a></div></li>
-                <li><div class="side_img_box"><a href="${ path }/resources/images/testimg2.jpg"><img src="${ path }/resources/images/testimg2.jpg" class="side_img_box_con"></a></div></li>
+                <li class="side_img_box"><img src="${ path }/resources/images/testimg1.jpg" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${ path }/resources/images/testimg2.jpg" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${ path }/resources/images/testimg3.jpg" class="side_img_box_con"></li>
             </ul>
         </div>
         <!-- 메인이미지 -->
@@ -30,7 +31,8 @@
         <div class="product_title"> 
             <div id="product_name">
             	<form action="${path}/product/view" method="get"><button>테스트버튼</button></form>
-            	<input type="hidden" name="pno" value="${product.PNo}">
+            	<input type="hidden" name="no" value="${product.PNo}">
+            	<p>확인용${product.PNo}</p>
                 <h2>${product.PName}</h2>
                 <h3>${product.PPrice}</h3>
                 <hr>
@@ -68,7 +70,7 @@
         <!-- 게시글 툴바 영역 -->
         <div class="toolbar">
             <span id="toolbar_like">찜하기<img src="${ path }/resources/images/heartempty.png"></span>
-            <span id="toolbar_view">조회수<img src="${ path }/resources/images/view.png">0</span>
+            <span id="toolbar_view">조회수<img src="${ path }/resources/images/view.png">${product.PView}</span>
             <span id="toolbar_share">공유하기<img src="${ path }/resources/images/share.png"></span>
             <hr>
             <span id="toolbar_buy"><img src="${ path }/resources/images/buybtn.png"></span>

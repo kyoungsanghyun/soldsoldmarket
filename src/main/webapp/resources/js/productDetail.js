@@ -11,14 +11,14 @@ $(document).ready(() => {
     
     
     
-    $('.side_img_box_con a').on("click", () =>{
-        let srcAdd = $(this).attr("href");
-        $("#main_img_box>img").attr("src","/");
-        return false;
+    $('.side_img_box>img').on("click", () =>{
+        let srcAdd = $(event.target).attr("src");
+        console.log(srcAdd);
+        $("#main_img_box>img").attr("src",srcAdd);
     });
     
     
-    
+    // 좋아요 기능
     let count = 0;
     $('#toolbar_like').on("click", () => {
         if(count == 0) {

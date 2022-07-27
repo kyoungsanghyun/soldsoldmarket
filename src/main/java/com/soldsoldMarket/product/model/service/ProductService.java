@@ -9,12 +9,22 @@ import com.soldsoldMarket.product.model.dao.ProductDao;
 import com.soldsoldMarket.product.model.vo.Product;
 public class ProductService {
 
-	public Product getProductByNo(int pno) {
+	public Product getProductByNo(int no) {
 		Product product = null;
 		Connection connection = getConnection();
 		
-		product = new ProductDao().findProductByNo(connection,pno);
+		product = new ProductDao().findProductByNo(connection, no);
 
+		// 조회수 증가 로직
+		if(product != null) {
+			int result = new ProductDao().updateView(connection, product);
+		
+			if(result > 0) {
+				commit(connection);
+			} else {
+				rollback(connection);
+			}
+		}
 		
 		close(connection);
 

@@ -1,3 +1,7 @@
+-- SOLSOL 계정 생성
+ CREATE USER SOLSOL IDENTIFIED BY SOLSOL;
+ GRANT RESOURCE, DBA, CONNECT TO SOLSOL;
+
 ------------------------------------------------
 -------------- PRODUCT 관련 테이블 -------------
 ------------------------------------------------
@@ -181,4 +185,38 @@ INSERT INTO MEMBER (
     'M', 
     '경기도', 
     010-1234-5678
+);
+
+------------------------------------------------
+--------------- 상품 이미지 관련 테이블 ---------------
+------------------------------------------------
+CREATE TABLE PAdd (
+	PA_IMG_ID    NUMBER NOT NULL,
+	PA_IMG1 VARCHAR2(4000) NULL,
+  PA_IMG2 VARCHAR2(4000) NULL,
+  PA_IMG3 VARCHAR2(4000) NULL,
+  PA_IMG4 VARCHAR2(4000) NULL,
+  PA_IMG5 VARCHAR2(4000) NULL,
+  P_NO NUMBER NOT NULL
+);
+
+-- 상품 이미지 테이블 코멘트 생성
+COMMENT ON COLUMN PAdd.PA_IMG_ID IS '상품이미지번호';
+COMMENT ON COLUMN PAdd.PA_IMG1 IS '상품이미지1주소';
+COMMENT ON COLUMN PAdd.PA_IMG2 IS '상품이미지2주소';
+COMMENT ON COLUMN PAdd.PA_IMG3 IS '상품이미지3주소';
+COMMENT ON COLUMN PAdd.PA_IMG4 IS '상품이미지4주소';
+COMMENT ON COLUMN PAdd.PA_IMG5 IS '상품이미지5주소';
+COMMENT ON COLUMN PAdd.P_NO IS '상품번호';
+
+-- 상품 이미지 테이블 PK,FK 생성
+ALTER TABLE PAdd ADD CONSTRAINT "PK_PAdd" PRIMARY KEY (
+	PA_IMG_ID
+);
+
+ALTER TABLE PAdd ADD CONSTRAINT "FK_PRODUCT_TO_PAdd_1" FOREIGN KEY (
+	P_NO
+)
+REFERENCES PRODUCT (
+  P_NO
 );

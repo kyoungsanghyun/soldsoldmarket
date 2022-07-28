@@ -37,13 +37,14 @@
                 <!-- -------------------------- nav_middle --------------------------  -->
                 <div class="nav_middle">
                     <div class="no1">
-                    <a class="logo" href="#">
+                    <a class="logo" href="${ path }">
                         <img src="${ path }/resources/images/logo.png" height="90" alt="쏠쏠마켓 로고">
                     </a>
                     </div>
 
                     <div class="search">
-                        <input type="text" placeholder="검색어 입력">
+                        <input onkeyup="enterkey()" type="text" placeholder="검색어 입력" 
+                               id="search" name="q" value=""/>
                         <img src="${ path }/resources/images/icon/search.png">
                     </div>
 
@@ -79,3 +80,6 @@
                 <hr>
                 
             </header>
+            
+
+<script src="${ path }/resources/js/header.js"></script>

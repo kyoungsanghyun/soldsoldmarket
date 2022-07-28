@@ -22,10 +22,16 @@ public class ProductListServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	int page = 0;
-    	int listCount = 0;
-    	PageInfo pageInfo = null;
-    	List<Product> list = null;
+    	int page = 0; // 현재 페이지의 수
+    	int listCount = 0; // 상품의 수
+    	PageInfo pageInfo = null; // 페이지 정보
+    	List<Product> list = null; //  상품들 리스트
+    	int category = 0; // 카테고리 ID
+    	String priceOrder = null; // 카테고리 가격 정렬
+    	
+    	category = Integer.parseInt(request.getParameter("category"));
+    	priceOrder = request.getParameter("priceOrder");
+    	
     	
     	// page 입력 안하면 1페이지 보이게 함
     	try {
@@ -34,12 +40,14 @@ public class ProductListServlet extends HttpServlet {
     		page = 1;
     	}
     	
-    	listCount = new ProductService().getProductCount();
+    	listCount = new ProductService().getProductCount(category);
     	pageInfo = new PageInfo(page, 5, listCount, 10);
-    	list = new ProductService().getProductList(pageInfo);
+    	list = new ProductService().getProductList(category, pageInfo, priceOrder);
+    	
     	
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("list", list);
+    	request.setAttribute("category", category);
     	request.getRequestDispatcher("/views/product/list.jsp").forward(request, response);
 	}
 

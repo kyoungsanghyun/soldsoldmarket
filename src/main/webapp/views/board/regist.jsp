@@ -103,13 +103,19 @@ $(function () {
 </script>
 
 <section id="content">
+	<%
+	String PNo = (request.getParameter("PNo") != null) ? request.getParameter("PNo") : "0";
+	%>
 	<div class="write">
-		<form name = "productRegist" action="${ path }/board/regist" method="POST">
+		<form name = "productRegist" action="${ path }/board/regist" method="POST" enctype="multipart/form-data">
 			<div class="information">
 				<button>상품등록</button>
 				<br>
 				<h2>기본정보</h2>
 				<hr>
+				<input type="hidden" name="PNo" value="<%=PNo%>"> <!-- 숨겨진 값 -->
+				<input type="hidden" name="writer" value="${ loginMember.id }" readonly>
+				<!-- PNo, writer는 숨겨진 값 -->
 				<select class="category" name="category" required>
 					<option value="의류">의류</option>
 					<option value="악세서리">악세서리</option>
@@ -139,7 +145,7 @@ $(function () {
 				<br>
 				<span><b>거래지역 *</b></span>
 				<br><br>
-				<input type="text" name="place" id="place"
+				<input type="text" name="location" id="location"
 					placeholder="거래지역을 입력해주세요." required>
 				<hr style="width:90%; margin: 20px 0 0 5%;">     
 				<br>    

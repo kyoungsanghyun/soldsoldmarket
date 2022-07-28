@@ -122,6 +122,59 @@ INSERT INTO CATEGORY (
     '의류'
 );
 
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '02',
+    '악세서리'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '03',
+    '디지털가전'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '04',
+    '스포츠레저'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '05',
+    '도서음반'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '06',
+    '반려동물'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '07',
+    '기타'
+);
 
 
 

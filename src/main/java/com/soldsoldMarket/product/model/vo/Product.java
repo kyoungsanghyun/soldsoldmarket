@@ -13,7 +13,7 @@ public class Product {
 
 	private int PNo;
 
-	private String PId;
+	private String MId;
 	
 	private String PName;
 	

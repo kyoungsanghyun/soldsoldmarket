@@ -11,8 +11,9 @@ a{
 </style>
 	<footer>
 		<div id="footer01">
-            <span><a href="${path}/views/member/Terms.jsp">이용약관</a> </span><span>|</span><span><a href="${path}/views/member/Privacy.jsp">개인정보처리방침</a> </span><span>|</span><span> 회원정보</span>
-            <p>CopyRight@SKOh osg3419010@naver.com</p>
+            <span><a href="${path}/Terms">이용약관</a> </span><span>|</span><span><a href="${path}/Privacy">개인정보처리방침</a> </span><span>|</span><span> 회원정보</span>
+			<p>CopyRight2022<br>
+            soldsoldMarket</p>
         </div>
 	</footer>
 

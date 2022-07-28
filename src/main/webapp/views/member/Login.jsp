@@ -28,7 +28,7 @@
                     <form action="${ path }/login" method="post">
                         <input type="text" name="id" id="logId" placeholder="Userid" size="25" >
                         <br>
-                        <input type="password" name="pwd" id="logPassword" placeholder="password" size="25" >
+                        <input type="password" name="enrollPass" id="logPassword" placeholder="password" size="25" >
                         <br>
                         <input type="submit" value="로그인" id="loginbtn">
                     </form>

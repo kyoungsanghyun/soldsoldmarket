@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.soldsoldMarket.member.model.service.MemberService;
 import com.soldsoldMarket.member.model.vo.Member;
 
-@WebServlet("/enroll")
+@WebServlet(name = "enroll", urlPatterns = "/enroll")
 public class EnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

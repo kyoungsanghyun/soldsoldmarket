@@ -7,18 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/enrollCheck")
-public class EnrollCheckServlet extends HttpServlet {
+@WebServlet("/Privacy")
+public class PrivacyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public EnrollCheckServlet() {
+    public PrivacyServlet() {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/member/enrollCheck.jsp")
-		.forward(request, response);
+
+		request.getRequestDispatcher("views/member/Privacy.jsp").forward(request, response);
+
 	}
 
 }

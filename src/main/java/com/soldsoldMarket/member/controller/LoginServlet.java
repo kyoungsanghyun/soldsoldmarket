@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		String pwd = request.getParameter("enrollPass");
 		Member loginMember = new MemberService().login(id,pwd);
 		HttpSession session = null;
 		

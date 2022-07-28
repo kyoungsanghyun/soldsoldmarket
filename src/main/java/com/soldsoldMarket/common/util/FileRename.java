@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
 
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 
-// File Rename Á¤Ã¥ ¸¸µé±â À§ÇØ¼­ FileRenamePolicy ÀÎÅÍÆäÀÌ½º¸¦ ±¸ÇöÇÑ´Ù.
+// File Rename ï¿½ï¿½Ã¥ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ FileRenamePolicy ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 public class FileRename implements FileRenamePolicy {
 	
-	// ÇØ´ç ¸Þ¼Òµå¸¦ ±¸ÇöÇØ ¾÷·ÎµåµÇ´Â ÆÄÀÏÀÇ ÀÌ¸§À» º¯°æÇÒ ¼ö ÀÖ´Ù.
+	// ï¿½Ø´ï¿½ ï¿½Þ¼Òµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 	@Override
 	public File rename(File oldFile) {		
 		File newFile = null;
@@ -22,20 +22,20 @@ public class FileRename implements FileRenamePolicy {
 		int dot = -1;
 		
 		do { 
-			// ÇöÀç ÆÄÀÏÀÇ ÀÌ¸§À» º¯°æ (³¯Â¥_·£´ý¼ö.ÆÄÀÏÈ®ÀåÀÚ Çü½ÄÀ¸·Î º¯°æ)
-			dateTime = LocalDateTime.now(); // ÇöÀç ½Ã°£						
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Â¥_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)asdasd
+			dateTime = LocalDateTime.now(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½						
 			randomNum = (int)(Math.random() * 1000);			 
-			oriName = oldFile.getName(); // È®ÀåÀÚ Æ÷ÇÔ ÆÄÀÏ¸í °¡Á®¿À±â
+			oriName = oldFile.getName(); // È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			extension = "";			
 			dot = oriName.lastIndexOf("."); // adfds.txt, asdfasf.hwp
 			
 			if(dot > -1) {
-				extension = oriName.substring(dot); // È®ÀåÀÚ¸í °¡Á®¿À±â
+				extension = oriName.substring(dot); // È®ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 			
-			// »õ ÆÄÀÏ ÀÌ¸§ ¸¸µé±â (³¯Â¥_·£´ý¼ö.ÆÄÀÏÈ®ÀåÀÚ)
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Â¥_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ï¿½ï¿½)
 			newName = dateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + "_" + randomNum + extension;
-			// getParent() : ºÎ¸ð °æ·Î¿¡ ´ëÇÑ °æ·Î¸íÀ» ¹®ÀÚ¿­·Î ³Ñ°ÜÁØ´Ù.
+			// getParent() : ï¿½Î¸ï¿½ ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ø´ï¿½.
 			newFile = new File(oldFile.getParent(), newName);			
 		} while (!createNewFile(newFile));
 		

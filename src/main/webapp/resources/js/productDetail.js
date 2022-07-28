@@ -17,15 +17,18 @@ $(document).ready(() => {
         $("#main_img_box>img").attr("src",srcAdd);
     });
     
+
+
+
     
     // 좋아요 기능
     let count = 0;
     $('#toolbar_like').on("click", () => {
         if(count == 0) {
-        $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/heartfilled.png");
+        $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/icon/heartfilled.png");
         count += 1;
         } else if (count == 1) {
-        $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/heartempty.png");
+        $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/icon/heartempty.png");
         count -= 1;
         }
 
@@ -36,7 +39,6 @@ $(document).ready(() => {
     $('#toolbar_comment').on("click", () =>{
         $('#reply_write_area').focus();
     });
-
 
     // 카카오톡 공유 api
         // Kakao.Link.sendDefault({

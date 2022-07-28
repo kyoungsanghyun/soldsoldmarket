@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.service.ProductService;
+import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 
 @WebServlet("/product/list")
@@ -26,6 +27,8 @@ public class ProductListServlet extends HttpServlet {
     	int listCount = 0;
     	PageInfo pageInfo = null;
     	List<Product> list = null;
+
+    	PAdd padd = null;
     	
     	// page 입력 안하면 1페이지 보이게 함
     	try {
@@ -38,8 +41,12 @@ public class ProductListServlet extends HttpServlet {
     	pageInfo = new PageInfo(page, 5, listCount, 10);
     	list = new ProductService().getProductList(pageInfo);
     	
+
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("list", list);
+
+    	System.out.println("서블릿 LIST " + list);
+    		
     	request.getRequestDispatcher("/views/product/list.jsp").forward(request, response);
 	}
 

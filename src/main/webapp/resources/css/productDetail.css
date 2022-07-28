@@ -128,7 +128,19 @@ li{
     grid-area: vari;
     padding-left: 10px;
 }
+#product_info_varival span {
+    position: relative;
+    left: 50%;
+    font-size: 8px;
+    color: lightgray;
+    cursor: pointer;
+    }
+#product_info_varival span img {
+    position: relative;
+    top: 10px;
+    opacity: 0.5;
 
+}
 /* 게시글 툴바 영역*/
 .toolbar{
     grid-area: toolbar;

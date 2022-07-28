@@ -35,9 +35,11 @@ public class Product {
 	
 	private String PLike;
 
-	private String CId;
+	private int CId;
 	
 	private Date PDate;
 	
 	private int PRowNum;
+
+	public String PThumb;
 }

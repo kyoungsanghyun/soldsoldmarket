@@ -37,9 +37,9 @@
              	
              	<% for(int i=0; i<10; i++){ %>
                  <li>
-                     <a href="${path}/product/view">
+                     <a>
                          <div class="thum">
-                            <img src="${ path }/resources/images/product/product1.jpg" alt="이미지">
+                            <a href="${path}/product/view?no=${product.PNo}" name="no"><img src="${ path }/resources/images/product/product1.jpg" alt="이미지"></a>
                          </div>
                          <p class="text">
                              상품 이름 <br>

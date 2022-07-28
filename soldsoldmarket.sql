@@ -102,6 +102,33 @@ INSERT INTO PRODUCT (
     '상품INSERT테스트',
     '01'
 );
+-- 테스트용
+INSERT INTO PRODUCT (
+    P_NO,
+    M_ID,
+    P_NAME,
+    P_PRICE,
+    P_QLT,
+    P_TRADING,
+    P_LOCATION,
+    P_EXCHANGE,
+    P_QTT,
+    P_CONTENTS,
+    C_ID
+)
+    VALUES(
+    2,
+    'osk',
+    '테스트상품2',
+    '20000',
+    '사용감있음',
+    '거래중',
+    '제주도',
+    'Y',
+    5,
+    '상품INSERT테스트2',
+    01
+);
     
 
 -- 카테고리 테이블 FK 생성
@@ -122,6 +149,32 @@ INSERT INTO CATEGORY (
     '의류'
 );
 
+
+
+
+-- 상품댓글 테이블
+CREATE TABLE PCOMMENTS (
+	CM_ID   VARCHAR2(500)	NOT NULL,
+	P_NO	NUMBER	NOT NULL,
+	CM_CONTENT	VARCHAR2(1000)	NULL
+);
+
+-- 상품댓글 테이블 코멘트 생성
+COMMENT ON COLUMN PCOMMENTS.CM_ID IS '댓글아이디';
+COMMENT ON COLUMN PCOMMENTS.P_NO IS '상품번호';
+COMMENT ON COLUMN PCOMMENTS.CM_CONTENT IS '댓글내용';
+
+-- 상품댓글 테이블 PK , FK
+ALTER TABLE PCOMMENTS ADD CONSTRAINT "PK_COMMENTS" PRIMARY KEY (
+	CM_ID
+);
+
+ALTER TABLE PCOMMENTS ADD CONSTRAINT "FK_PRODUCT_TO_COMMENTS_1" FOREIGN KEY (
+	P_NO
+)
+REFERENCES PRODUCT (
+	P_NO
+);
 
 
 
@@ -240,6 +293,25 @@ ALTER TABLE PAdd ADD CONSTRAINT "FK_PRODUCT_TO_PAdd_1" FOREIGN KEY (
 )
 REFERENCES PRODUCT (
   P_NO
+);
+
+
+INSERT INTO PAdd (
+    PA_IMG_ID, 
+    PA_IMG1,
+    PA_IMG2,
+    PA_IMG3,
+    PA_IMG4,
+    PA_IMG5,
+    P_NO
+) VALUES(
+    0002, 
+    '${ path }/resources/images/product/product2-1.png', 
+    '${ path }/resources/images/product/product2-2.png',
+    '${ path }/resources/images/product/product2-3.png',
+    null, 
+    null, 
+    2
 );
 
 ------------------------------------------------

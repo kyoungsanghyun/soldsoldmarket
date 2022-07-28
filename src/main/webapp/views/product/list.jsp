@@ -41,10 +41,11 @@
 		             <ul class="pro-list">	
 	             <c:forEach var="product" items="${ list }">
 		                 <li>
-		                     <a href="#">
+		                     <a href="${path}/product/view?no=${product.PNo}" name="no">
 		                         <div class="thum">
-		                             <img src="${ path }/resources/images/product/product1.jpg" alt="이미지">
+		                             <img src="${ path }/${ product.PThumb }" alt="이미지">
 		                         </div>
+		                         <input type="hidden" value="${product.PNo}">
 		                         <div class="text"> ${ product.PName }</div>
 		                         <div class="text"> ${ product.PPrice }</div>
 		                     </a>

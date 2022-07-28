@@ -15,24 +15,26 @@
         <!-- 사이드 이미지 -->
         <div class="side_img">
             <ul>
-                <li class="side_img_box"><img src="${ path }/resources/images/testimg1.jpg" class="side_img_box_con"></li>
-                <li class="side_img_box"><img src="${ path }/resources/images/testimg2.jpg" class="side_img_box_con"></li>
-                <li class="side_img_box"><img src="${ path }/resources/images/testimg3.jpg" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/${ padd.PAimg1 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/${ padd.PAimg2 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/${ padd.PAimg3 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/${ padd.PAimg4 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/${ padd.PAimg5 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
             </ul>
         </div>
         <!-- 메인이미지 -->
         <div class="main_img">
             <div id="main_img_box">
-                <img src="${ path }/resources/images/testimg.jpg" id="main_img_box_con">
+                <img src="${path}/${ padd.PAimg1 }" onerror="this.parentNode.remove(parentNode)" id="main_img_box_con">
             </div>
         </div>
 
         <!-- 게시글 제목 및 가격 -->
         <div class="product_title"> 
             <div id="product_name">
-            	<form action="${path}/product/view" method="get"><button>테스트버튼</button></form>
+            	<!-- <form action="${path}/product/view" method="get"><button>테스트버튼</button></form> -->
             	<input type="hidden" name="no" value="${product.PNo}">
-            	<p>확인용${product.PNo}</p>
+            	<!-- <p>확인용${product.PNo}</p> -->
                 <h2>${product.PName}</h2>
                 <h3>${product.PPrice}</h3>
                 <hr>
@@ -56,7 +58,16 @@
             <!-- 변화값 -->
             <div id="product_info_varival">
                 <ul>
-                    <li>${product.PId}</li>
+                    <li>${product.PId}
+	                <!--  작성자는 삭제버튼 / 일반회원은 신고버튼이 나오는 로직 -->
+		            	<!-- 삭제 버튼 (작성자)-->
+		            	<c:if test="${not empty loginMember && loginMember.id == product.PId}">
+		                	<span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png">삭제하기</span></li>
+		                </c:if>	
+		            	<!-- 신고 버튼 (일반회원) -->
+		                <c:if test="${empty loginMember || loginMember.id != product.PId}">
+		                	<span id="product_info_varival_report"><img src="${ path }/resources/images/icon/report.png">신고하기</span></li>
+		                </c:if>	
                     <li>${product.PDate}</li>
                     <li>${product.PLocation}</li>
                     <li>${product.PQlt}</li>
@@ -69,12 +80,22 @@
         </div>
         <!-- 게시글 툴바 영역 -->
         <div class="toolbar">
-            <span id="toolbar_like">찜하기<img src="${ path }/resources/images/heartempty.png"></span>
-            <span id="toolbar_view">조회수<img src="${ path }/resources/images/view.png">${product.PView}</span>
-            <span id="toolbar_share">공유하기<img src="${ path }/resources/images/share.png"></span>
+            <span id="toolbar_like">찜하기<img src="${ path }/resources/images/icon/heartempty.png"></span>
+            <span id="toolbar_view">조회수<img src="${ path }/resources/images/icon/view.png">${product.PView}</span>
+            <span id="toolbar_share">공유하기<img src="${ path }/resources/images/icon/share.png"></span>
             <hr>
-            <span id="toolbar_buy"><img src="${ path }/resources/images/buybtn.png"></span>
-            <span id="toolbar_comment"><img src="${ path }/resources/images/cmtbtn.png"></span>
+            <!--  작성자는 수정 버튼 / 일반회원은 구매버튼이 나오는 로직 -->
+            	<!-- 수정 버튼 (작성자)-->
+            	<c:if test="${not empty loginMember && loginMember.id == product.PId}">
+                	<img src="${ path }/resources/images/button/modbtn.png">
+                </c:if>	
+            	<!-- 구매 버튼 (일반회원) -->
+                <c:if test="${empty loginMember || loginMember.id != product.PId}">
+                	<span id="toolbar_buy"><img src="${ path }/resources/images/button/buybtn.png"></span>
+                </c:if>	
+                
+                
+            <span id="toolbar_comment"><img src="${ path }/resources/images/button/cmtbtn.png"></span>
         </div>
         <!-- 게시글 내용 -->
         <div class="product_detail">
@@ -96,16 +117,27 @@
         </div>
 
         <div class="reply_contents">
-            <ul>
-                <li><img src="${ path }/resources/images/user.png" class="reply_contents_userIcon"><span>유저명</span><span> 댓글1</span></li>
-                <li><img src="${ path }/resources/images/user.png" class="reply_contents_userIcon"><span>유저명</span><span> 댓글2</span></li>
+            <ul>					
+
+					
+                <li><img src="${ path }/resources/images/icon/user.png" class="reply_contents_userIcon"><span>유저명</span><span> 댓글1
+             	
+                	<!--  작성자만 댓글 옆에 X 버튼 나오는 로직 -->
+             		<c:if test="${not empty loginMember && loginMember.id == product.PId}">
+                		<img src="${ path }/resources/images/icon/xmark.png">
+                	</c:if>	
+             
+                	</span></li>
+                <li><img src="${ path }/resources/images/icon/user.png" class="reply_contents_userIcon"><span>유저명</span><span> 댓글2</span></li>
                 </ul>
         </div>
 
         <div class="reply_write">
-            <span><img src="${ path }/resources/images/user.png" id="reply_write_id_icon"></span><span id="reply_write_id">유저명</span>
-            <textarea placeholder="댓글을 입력해주세요." style="resize: none;" id="reply_write_area"></textarea>
-            <span><img src="${ path }/resources/images/cmtupbtn.png" id="reply_write_upbtn"></span>
+            <span><img src="${ path }/resources/images/icon/user.png" id="reply_write_id_icon"></span><span id="reply_write_id">유저명</span>
+            <form>
+                <textarea placeholder="댓글을 입력해주세요." style="resize: none;" id="reply_write_area"></textarea>
+                <span><img src="${ path }/resources/images/button/cmtupbtn.png" id="reply_write_upbtn"></span>
+            </form>
         </div>
 
     </div>

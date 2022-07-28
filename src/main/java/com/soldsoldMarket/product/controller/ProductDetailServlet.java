@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.soldsoldMarket.product.model.service.ProductService;
+import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 
 @WebServlet("/product/view")
@@ -21,13 +22,19 @@ public class ProductDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Product product = null;
-//    	int no = Integer.parseInt(request.getParameter("no"));
+    	PAdd pAdd = null;
     	
-    	product = new ProductService().getProductByNo(1);
+    	int no = Integer.parseInt(request.getParameter("no"));
     	
+    	product = new ProductService().getProductByNo(no);
+    	pAdd = new ProductService().getProductimgByNo(no);
     	
     	
     	request.setAttribute("product", product);
+    	request.setAttribute("padd", pAdd);
+    	System.out.println(product);
+    	System.out.println("구분");
+    	System.out.println(pAdd);
     	request.getRequestDispatcher("/views/product/view.jsp").forward(request, response);
 	
 	}

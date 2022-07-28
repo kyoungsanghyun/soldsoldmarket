@@ -7,8 +7,10 @@ import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
+import com.soldsoldMarket.board.model.dao.productRegistDao;
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
+import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 public class ProductService {
 
@@ -25,7 +27,7 @@ public class ProductService {
 		return product;
 	}
 	
-	// 상품의 총개수 확인
+	// �긽�뭹�쓽 珥앷컻�닔 �솗�씤
 	public int getProductCount() {
 		int count = 0;
 		Connection connection = getConnection();
@@ -37,7 +39,7 @@ public class ProductService {
 		return count;
 	}
 
-	// 상품 전체 가져오기
+	// �긽�뭹 �쟾泥� 媛��졇�삤湲�
 	public List<Product> getProductList(PageInfo pageInfo) {
 		List<Product> list = null;
 		Connection connection = getConnection();
@@ -49,5 +51,20 @@ public class ProductService {
 		return list;
 	}
 
-	
+	public int save(Product product) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new productRegistDao().insertProduct(connection, product);
+		
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
 }

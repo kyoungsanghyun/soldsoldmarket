@@ -14,7 +14,6 @@ import com.soldsoldMarket.product.model.vo.Product;
 
 
 public class productRegistDao {
-
 	
 	public int insertProduct(Connection connection, Product product) {
 		int result = 0;
@@ -46,9 +45,6 @@ public class productRegistDao {
 	}
 
 	
-	public int insertProductImg(Connection connection, PAdd pvo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String query = "INSERT INTO PAdd VALUES()";
-
 }
+
+	

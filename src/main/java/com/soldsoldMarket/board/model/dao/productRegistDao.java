@@ -23,16 +23,15 @@ public class productRegistDao {
 		try {
 			pstmt = connection.prepareStatement(query);
 			
-			pstmt.setInt(1, product.getPNo());
-			pstmt.setString(2, product.getMId());
-			pstmt.setString(3, product.getPName());
-			pstmt.setInt(4, product.getPPrice());
-			pstmt.setString(5, product.getPQlt());
-			pstmt.setString(6, product.getPTrading());
-			pstmt.setString(7, product.getPLocation());
-			pstmt.setString(8, product.getPExchange());
-			pstmt.setInt(9, product.getPQtt());
-			pstmt.setString(10, product.getPContents());
+			pstmt.setString(1, product.getMId());
+			pstmt.setString(2, product.getPName());
+			pstmt.setInt(3, product.getPPrice());
+			pstmt.setString(4, product.getPQlt());
+			pstmt.setString(5, product.getPTrading());
+			pstmt.setString(6, product.getPLocation());
+			pstmt.setString(7, product.getPExchange());
+			pstmt.setInt(8, product.getPQtt());
+			pstmt.setString(9, product.getPContents());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

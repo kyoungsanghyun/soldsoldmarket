@@ -24,8 +24,4 @@ public class PAdd {
 	
 	private int PNo;
 	
-	private String originalFileName;
-	
-	private String renamedFileName;
-	
 }

@@ -21,11 +21,6 @@ import com.soldsoldMarket.product.model.service.ProductService;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 
-@MultipartConfig(
-	fileSizeThreshold=1024*1024,
-	maxFileSize=1024*1024*10,
-	maxRequestSize = 1024*1024*10*5
-)
 @WebServlet("/board/regist")
 public class ProductRegistSetvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,17 +31,8 @@ public class ProductRegistSetvlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	HttpSession session = request.getSession(false);
-    	Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
-    	
-    	if (loginMember != null) {    		
-    		request.getRequestDispatcher("/views/board/regist.jsp").forward(request, response);    		
-    	} else {
-    		request.setAttribute("msg", "로그인 후 사용할 수 있습니다.");
-    		request.setAttribute("location", "/");
-    		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-    	}
-	}
+
+    }
 
     
     @Override 
@@ -68,22 +54,24 @@ public class ProductRegistSetvlet extends HttpServlet {
     	String encoding = "UTF-8";
     	
     	// DefaultFileRenamePolicy : 중복되는 이름 뒤에 1 ~ 9999 붙인다.
-    	//MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding);
-    	
-    	//Re
-    	MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new DefaultFileRenamePolicy());
+    	MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
     	
     	// 파일 정보
        	Enumeration<?> files = mr.getFileNames();
-    	int i = 1;
-		PAdd pvo = new PAdd();
-		while (files.hasMoreElements()) { // 업로드 된 파일 이름 얻어오기	
-			String file = (String) files.nextElement(); 
+    	int i = 1; //선언
+    	PAdd pvo = new PAdd();
+		
+    	//files담긴 파일들을 개별적으로 순차적으로 돈다.
+		while (files.hasMoreElements()) { // 업로드 된 파일 이름 얻어오기
+			//files의 다음 항목을 filed에 담는다.
+			String file = (String) files.nextElement();
+			//mr에서 해당 file의 이름을 filename에 담는다.
 			String fileName = mr.getFilesystemName(file);
 			if (fileName == null) {
 				fileName = "";
 			}
 			if (i == 1) {
+				//i가 1이면 pvo의 setPAimg1에 해당 파일명을 담는다.
 				pvo.setPAimg1(fileName);
 			} else if (i == 2) {
 				pvo.setPAimg2(fileName);
@@ -94,7 +82,7 @@ public class ProductRegistSetvlet extends HttpServlet {
 			} else if (i == 5) {
 				pvo.setPAimg5(fileName);
 			}
-			i++;
+			i++;//증가
 		}
 	
 		// 글 정보	
@@ -115,9 +103,7 @@ public class ProductRegistSetvlet extends HttpServlet {
     	
     	HttpSession session = request.getSession(false);
     	Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
-    	
-    	
-    	
+    		
     	if (loginMember != null) {    		
     		product = new Product();
     		
@@ -135,22 +121,6 @@ public class ProductRegistSetvlet extends HttpServlet {
 	    	 
 	    	result = new ProductService().save(product);
 	   
-	    	if(result > 0) {
-	    		request.setAttribute("msg", "게시글 등록 성공");
-	    		request.setAttribute("location", "/board/list");
-			} else {
-	    		request.setAttribute("msg", "게시글 등록 실패");
-	    		request.setAttribute("location", "/board/list");
-			}
-		} else {
-			request.setAttribute("msg", "로그인 후 사용할 수 있습니다.");
-			request.setAttribute("location", "/");
-		}
-		
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-	    	}
-    		
+    	}
+    }
 }
-
-
-    

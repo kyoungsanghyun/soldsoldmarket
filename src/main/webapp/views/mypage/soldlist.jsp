@@ -7,9 +7,15 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
-    <div class="wrap">
+<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
+
+    <div class="section">
         <div class="intro_text">
             <table class="information">
+				<tr>
+                    <td>프로필 사진</td>
+                    <td>img</td>
+                </tr>            
                 <tr>
                     <td>회원아이디 : </td>
                     <td>id</td>
@@ -27,12 +33,20 @@
                     <td>count</td>
                 </tr>
                 <tr>
+                    <td>방문횟수 : </td>
+                    <td>count</td>
+                </tr>
+                <tr>
                     <td>가입일 : </td>
                     <td>date</td>
                 </tr>
+                <tr>
+                    <td>소개글 : </td>
+                    <td>introduce</td>
+                </tr>
             </table>
         </div>
-    </div>
+    
     <hr>
 
     <table class="product_list">
@@ -55,5 +69,5 @@
             <td>판매완료</td>
         </tr>
     </table>
-
+</div>
 <jsp:include page="/views/common/footer.jsp" /> 

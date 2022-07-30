@@ -37,16 +37,18 @@
                 <!-- -------------------------- nav_middle --------------------------  -->
                 <div class="nav_middle">
                     <div class="no1">
-                    <a class="logo" href="${ path }">
+                    <a class="logo" href="${ path }/home">
                         <img src="${ path }/resources/images/logo.png" height="90" alt="쏠쏠마켓 로고">
                     </a>
                     </div>
 
-                    <div class="search">
-                        <input onkeyup="enterkey()" type="text" placeholder="검색어 입력" 
-                               id="search" name="q" value=""/>
-                        <img src="${ path }/resources/images/icon/search.png">
-                    </div>
+                    <form class="search" action="${ path }/product/list">
+                    	<input type="hidden" name="category" value="0"> 
+                        <input type="text" placeholder="검색어 입력" 
+                               name="searchWord" value="${ param.searchWord }"/>
+                       <img src="${ path }/resources/images/icon/search.png">
+                    </form>    
+
 
                     <ul class="nav_middle_right">
                         <li>
@@ -65,8 +67,8 @@
                                 <li>
                                     <a href="${ path }/mypage/memberinfo">회원정보</a>
                                 </li>
-                                <li><a href="${ path }/mypage/asklist">문의내역</a></li>
-                                <li><a href="${ path }/mypage/soldlist">거래내역</a></li>
+                                <li><a href="${ path }/views/mypage/asklist.jsp">문의내역</a></li>
+                                <li><a href="${ path }/views/mypage/soldList.jsp">거래내역</a></li>
                             </ul>
                         </li>
                         <li>
@@ -79,7 +81,4 @@
 
                 <hr>
                 
-            </header>
-            
-
-<script src="${ path }/resources/js/header.js"></script>
+            </header>     

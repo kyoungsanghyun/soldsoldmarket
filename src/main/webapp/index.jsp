@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/main.css"> 
+<link rel="stylesheet" href="${ path }/resources/css/main.css?ver=1"> 
 
  <div class="section">
      <div class="navb">
@@ -35,27 +36,20 @@
          <div class="pro-wrap">
              <h2>최근 등록된 상품</h2>
 
-             <c:if test="${ empty list }">
-             <br><br><br><br>
-             <h2>조회된 상품이 없습니다.</h2>
-             <br><br><br><br>
-             </c:if>
-             <!--  -->
-             <c:if test="${ not empty list }">
 		             <ul class="pro-list">	
-	             <c:forEach var="product" items="${ list }">
-		                 <li>
-		                     <a href="${path}/product/view">
-		                         <div class="thum">
-		                             <img src="${ path }/resources/images/product/product1.jpg" alt="이미지">
-		                         </div>
-		                         <div class="text"> ${ product.PName }</div>
-		                         <div class="text"> ${ product.PPrice }원</div>
-		                     </a>
-		                 </li>
-	             </c:forEach>
+			             <c:forEach var="product" items="${ list }">
+				                 <li>
+				                     <a href="${path}/product/view">
+				                         <div class="thum">
+				                             <img src="${ path }/resources/images/product/product1.jpg" alt="이미지">
+				                         </div>
+			                         <div class="pro-list-name"> ${ product.PName }</div>
+			                         <div class="pro-list-price"><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</div>
+				                     </a>
+				                 </li>
+			             </c:forEach>
 		             </ul>
-             </c:if>
+		             
          </div>
      </div>
  </div>

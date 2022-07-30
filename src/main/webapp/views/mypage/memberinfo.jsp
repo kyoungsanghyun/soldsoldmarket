@@ -9,33 +9,16 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
-<style>
-	section #view-container {
-		text-align:center;
-	}
-	
-	section #view-container input {
-		margin:3px;
-	}
-	
-	section #view-container table {
-		margin:0 auto;
-	}
-	
-	section #view-container table th {
-		padding:0 10px; 
-		text-align:right;
-	}
-	
-	section #view-container table td {
-		padding:0 10px; 
-		text-align:left;
-	}
-</style>
+<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
 
-    <div class="wrap">
+
+    <div class="section">
         <div class="intro_text">
             <table class="information">
+				<tr>
+                    <td>프로필 사진</td>
+                    <td>img</td>
+                </tr>            
                 <tr>
                     <td>회원아이디 : </td>
                     <td>id</td>
@@ -53,12 +36,20 @@
                     <td>count</td>
                 </tr>
                 <tr>
+                    <td>방문횟수 : </td>
+                    <td>count</td>
+                </tr>
+                <tr>
                     <td>가입일 : </td>
                     <td>date</td>
                 </tr>
+                <tr>
+                    <td>소개글 : </td>
+                    <td>introduce</td>
+                </tr>
             </table>
         </div>
-    </div>
+    
     <!-- intro end -->
     <hr> 
        <section id="content">
@@ -72,8 +63,22 @@
 	            <tr>
 	                <th>이름</th>
 					<td>
-						<input type="text" name="userName" id="userName" 
+						<input type="text" name="name" id="name" 
 							value="${ loginMember.name }" required>				
+					</td> 	
+	            </tr>
+	            <tr>
+	                <th>생일</th>
+					<td>
+						<input type="text" name="bDay" id="bDay" 
+							value="${ loginMember.bDay }">				
+					</td> 	
+	            </tr>
+	            <tr>
+	                <th>성별</th>
+					<td>
+						<input type="text" name="gender" id="gender" 
+							value="${ loginMember.gender }" required>				
 					</td> 	
 	            </tr>
       	        <tr>
@@ -104,5 +109,5 @@
  	</div>
 </section>
 
-
+</div>
 <jsp:include page="/views/common/footer.jsp" /> 

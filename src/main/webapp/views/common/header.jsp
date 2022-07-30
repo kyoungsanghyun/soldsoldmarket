@@ -24,13 +24,31 @@
 
             <header>
                 <!-- -------------------------- nav_top --------------------------  -->
+                <c:if test="${empty member }">
                 <nav>
                     <ul class="nav_top">
                         <li><a href="${path}/login">로그인</a></li>
                         <li><a href="${path}/enrollCheck">회원가입</a></li>
                     </ul>
                 </nav>
-                
+                </c:if>
+                <c:if test="${not empty member }">
+                <nav>
+                    <ul class="nav_top">
+                        <li>${member.name} 님 </li>
+                        
+                        <c:if test="${member.author == 'C' }">
+                        <li><a href="#">내 상점</a></li>
+                        <li><a href="${path }/logout">로그 아웃</a></li>
+                        </c:if>
+                        
+                        <c:if test="${member.author == 'M' }">
+                        <li><a href="#">관리자 페이지</a></li>
+                        <li><a href="${path }/logout">로그 아웃</a></li>
+                        </c:if>
+                    </ul>
+                </nav>
+                </c:if>
                 <hr>
 
 

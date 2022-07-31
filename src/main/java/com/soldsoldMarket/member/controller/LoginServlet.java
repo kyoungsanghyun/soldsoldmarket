@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 		if(loginMember != null) {
 			session = request.getSession();
 			session.setAttribute("member", loginMember);
-			response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/home");
 			
 		}else {
 			request.setAttribute("msg", "아이디나 비밀번호를 확인하세요");

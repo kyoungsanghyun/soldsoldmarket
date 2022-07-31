@@ -44,7 +44,7 @@ public class LoginServlet2 extends HttpServlet {
 			if(loginMember != null) {
 				session = request.getSession();
 				session.setAttribute("member", loginMember);
-				response.sendRedirect(request.getContextPath()+"/");
+				response.sendRedirect(request.getContextPath()+"/home");
 				
 			}else {
 				request.setAttribute("msg", "로그인 실패");

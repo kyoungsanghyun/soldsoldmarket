@@ -7,17 +7,46 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
-    <div class="wrap">
+<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
+
+    <div class="section">
         <div class="intro_text">
-            <ul>
-                <li>회원 아이디 : id</li>
-                <li>신고당한 수 : 0</li>
-                <li>주요 거래지역 : 서울 서대문구</li>
-                <li>판매횟수 : 0</li>
-                <li>가입일 : 2022-07-25</li>
-            </ul>
+            <table class="information">
+				<tr>
+                    <td>프로필 사진</td>
+                    <td>img</td>
+                </tr>            
+                <tr>
+                    <td>회원아이디 : </td>
+                    <td>id</td>
+                </tr>
+                <tr>
+                    <td>신고당한 수 : </td>
+                    <td>count</td>
+                </tr>
+                <tr>
+                    <td>주요 거래지역 : </td>
+                    <td>area</td>
+                </tr>
+                <tr>
+                    <td>판매횟수 : </td>
+                    <td>count</td>
+                </tr>
+                <tr>
+                    <td>방문횟수 : </td>
+                    <td>count</td>
+                </tr>
+                <tr>
+                    <td>가입일 : </td>
+                    <td>date</td>
+                </tr>
+                <tr>
+                    <td>소개글 : </td>
+                    <td>introduce</td>
+                </tr>
+            </table>
         </div>
-    </div>
+    
     <!-- intro end -->
     <hr>
     <div>
@@ -63,5 +92,5 @@
             <div class="product_price">상품가격</div>
         </li>
     </ul>
-
+	</div>
 <jsp:include page="/views/common/footer.jsp" /> 

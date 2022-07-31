@@ -25,29 +25,49 @@
 
             <header>
                 <!-- -------------------------- nav_top --------------------------  -->
+                <c:if test="${empty member }">
                 <nav>
                     <ul class="nav_top">
                         <li><a href="${path}/login">로그인</a></li>
                         <li><a href="${path}/enrollCheck">회원가입</a></li>
                     </ul>
                 </nav>
-                
+                </c:if>
+                <c:if test="${not empty member }">
+                <nav>
+                    <ul class="nav_top">
+                        <li>${member.name} 님 </li>
+                        
+                        <c:if test="${member.author == 'C' }">
+                        <li><a href="#">내 상점</a></li>
+                        <li><a href="${path }/logout">로그 아웃</a></li>
+                        </c:if>
+                        
+                        <c:if test="${member.author == 'M' }">
+                        <li><a href="#">관리자 페이지</a></li>
+                        <li><a href="${path }/logout">로그 아웃</a></li>
+                        </c:if>
+                    </ul>
+                </nav>
+                </c:if>
                 <hr>
 
 
                 <!-- -------------------------- nav_middle --------------------------  -->
                 <div class="nav_middle">
                     <div class="no1">
-                    <a class="logo" href="${ path }">
+                    <a class="logo" href="${ path }/home">
                         <img src="${ path }/resources/images/logo.png" height="90" alt="쏠쏠마켓 로고">
                     </a>
                     </div>
 
-                    <div class="search">
-                        <input onkeyup="enterkey()" type="text" placeholder="검색어 입력" 
-                               id="search" name="q" value=""/>
-                        <img src="${ path }/resources/images/icon/search.png">
-                    </div>
+                    <form class="search" action="${ path }/product/list">
+                    	<input type="hidden" name="category" value="0"> 
+                        <input type="text" placeholder="검색어 입력" 
+                               name="searchWord" value="${ param.searchWord }"/>
+                       <img src="${ path }/resources/images/icon/search.png">
+                    </form>    
+
 
                     <ul class="nav_middle_right">
                         <li>
@@ -61,13 +81,13 @@
                             </a>
                             <ul class="drop_down">
                                 <li>
-                                    <a href="${ path }/views/mypage/mystore.jsp">내 상점</a>
+                                    <a href="${ path }/mypage/mystore">내 상점</a>
                                 </li>
                                 <li>
-                                    <a href="${ path }/views/mypage/memberinfo.jsp">회원정보</a>
+                                    <a href="${ path }/mypage/memberinfo">회원정보</a>
                                 </li>
                                 <li><a href="${ path }/views/mypage/asklist.jsp">문의내역</a></li>
-                                <li><a href="${ path }/views/mypage/soldlist.jsp">거래내역</a></li>
+                                <li><a href="${ path }/views/mypage/soldList.jsp">거래내역</a></li>
                             </ul>
                         </li>
                         <li>
@@ -80,7 +100,4 @@
 
                 <hr>
                 
-            </header>
-            
-
-<script src="${ path }/resources/js/header.js"></script>
+            </header>     

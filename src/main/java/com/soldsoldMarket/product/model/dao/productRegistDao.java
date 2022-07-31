@@ -1,4 +1,4 @@
-package com.soldsoldMarket.board.model.dao;
+package com.soldsoldMarket.product.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

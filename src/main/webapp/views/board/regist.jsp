@@ -18,9 +18,6 @@
 </script>
 
 <section id="content">
-	<%
-	String PNo = (request.getParameter("PNo") != null) ? request.getParameter("PNo") : "0";
-	%>
 	<div class="write">
 		<form name = "productRegist" action="${ path }/board/regist" method="POST" enctype="multipart/form-data">
 			<div class="information">
@@ -28,7 +25,6 @@
 				<br>
 				<h2>기본정보</h2>
 				<hr>
-				<input type="hidden" name="PNo" value="<%=PNo%>"> <!-- 숨겨진 값 -->
 				<input type="hidden" name="writer" value="${ member.id }" readonly>
 				<!-- PNo, writer는 숨겨진 값 -->
 				<select class="category" name="category" required>

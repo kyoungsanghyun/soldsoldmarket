@@ -1,4 +1,4 @@
-package com.soldsoldMarket.board.controller;
+package com.soldsoldMarket.product.controller;
 
 
 import java.io.IOException;

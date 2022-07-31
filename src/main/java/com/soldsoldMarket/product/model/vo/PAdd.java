@@ -1,4 +1,4 @@
-package com.soldsoldMarket.board.model.vo;
+package com.soldsoldMarket.product.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -13,6 +13,7 @@
     <title>soldsoldMarket</title>
     <link rel="stylesheet" href="${ path }/resources/css/headerFooter.css"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
+    
 </head>
 
 <body>

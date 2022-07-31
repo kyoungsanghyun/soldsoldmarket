@@ -29,16 +29,16 @@
 				<h2>기본정보</h2>
 				<hr>
 				<input type="hidden" name="PNo" value="<%=PNo%>"> <!-- 숨겨진 값 -->
-				<input type="hidden" name="writer" value="${ loginMember.id }" readonly>
+				<input type="hidden" name="writer" value="${ member.id }" readonly>
 				<!-- PNo, writer는 숨겨진 값 -->
 				<select class="category" name="category" required>
-					<option value="의류">의류</option>
-					<option value="악세서리">악세서리</option>
-					<option value="디지털/가전">디지털/가전</option>
-					<option value="스포츠/레저">스포츠/레저</option>
-					<option value="도서/음반">도서/음반</option>
-					<option value="반려동물">반려동물</option>
-					<option value="기타">기타</option>
+					<option value="1">의류</option>
+					<option value="2">악세서리</option>
+					<option value="3">디지털/가전</option>
+					<option value="4">스포츠/레저</option>
+					<option value="5">도서/음반</option>
+					<option value="6">반려동물</option>
+					<option value="7">기타</option>
 				</select>		
 				<input type="text" name="title" id="write_title"
 					placeholder="상품명을 입력하세요." required>
@@ -66,8 +66,8 @@
 				<br>    
 				<span><b>교환 *</b></span>
 				<br><br>
-				<input type="radio" name="exchange" value="no"/> 불가
-				<input type="radio" name="exchange" value="yes"/> 가능
+				<input type="radio" name="exchange" value="N"/> 불가
+				<input type="radio" name="exchange" value="Y"/> 가능
 				<hr style="width:90%; margin: 20px 0 0 5%;">
 				<br>
 				<span><b>수량</b></span>

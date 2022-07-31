@@ -51,7 +51,8 @@ public class ProductService {
 		return list;
 	}
 
-	public int save(Product product) {
+
+	public int insertProduct(Product product) {
 		int result = 0;
 		Connection connection = getConnection();
 		
@@ -66,5 +67,25 @@ public class ProductService {
 		close(connection);
 		
 		return result;
+	
 	}
+	
+	public int insertPAdd(PAdd padd, Product product) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new productRegistDao().insertProductImg(connection, padd, product);
+		
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
+	
 }

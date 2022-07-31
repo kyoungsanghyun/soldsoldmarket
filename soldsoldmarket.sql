@@ -2,180 +2,8 @@
  CREATE USER SOLSOL IDENTIFIED BY SOLSOL;
  GRANT RESOURCE, DBA, CONNECT TO SOLSOL;
 
-------------------------------------------------
--------------- PRODUCT 관련 테이블 -------------
-------------------------------------------------
-
-
--- 상품 테이블
-CREATE TABLE PRODUCT (
-	P_NO    NUMBER NOT NULL,
-	M_ID	VARCHAR2(500)		NOT NULL,
-	P_NAME	VARCHAR2(300)		NULL,
-	P_PRICE	NUMBER		NULL,
-	P_QLT	VARCHAR2(100)		NULL,
-	P_TRADING	VARCHAR2(100)		NULL,
-	P_LOCATION	VARCHAR2(100)		NULL,
-	P_EXCHANGE	CHAR(1)		CHECK(P_EXCHANGE IN ('Y','N')) NULL,
-	P_QTT	NUMBER		NULL,
-	P_CONTENTS	VARCHAR2(3000)		NULL,
-	P_VIEW	NUMBER		NULL,
-	P_LIKE	NUMBER		NULL,
-	C_ID	NUMBER		NOT NULL,
-	P_DATE	DATE	DEFAULT SYSDATE    NULL
-);
-
--- 상품 테이블 코멘트 생성
-COMMENT ON COLUMN PRODUCT.P_NO IS '상품번호';
-COMMENT ON COLUMN PRODUCT.M_ID IS '회원아이디';
-COMMENT ON COLUMN PRODUCT.P_NAME IS '상풍명';
-COMMENT ON COLUMN PRODUCT.P_PRICE IS '상품가격';
-COMMENT ON COLUMN PRODUCT.P_QLT IS '상품상태';
-COMMENT ON COLUMN PRODUCT.P_TRADING IS '거래상태';
-COMMENT ON COLUMN PRODUCT.P_LOCATION IS '거래지역';
-COMMENT ON COLUMN PRODUCT.P_EXCHANGE IS '교환여부';
-COMMENT ON COLUMN PRODUCT.P_QTT IS '수량';
-COMMENT ON COLUMN PRODUCT.P_CONTENTS IS '상품설명';
-COMMENT ON COLUMN PRODUCT.P_VIEW IS '조회수';
-COMMENT ON COLUMN PRODUCT.P_LIKE IS '찜하기';
-COMMENT ON COLUMN PRODUCT.C_ID IS '카테고리분류아이디';
-COMMENT ON COLUMN PRODUCT.P_DATE IS '상품등록일';
-
--- 카테고리 테이블 생성
-CREATE TABLE CATEGORY (
-	C_ID	NUMBER		NOT NULL,
-	C_NAME	VARCHAR2(300)		NULL
-);
-
--- 카테고리 테이블 코멘트 삽입
-COMMENT ON COLUMN CATEGORY.C_ID IS '카테고리분류아이디';
-COMMENT ON COLUMN CATEGORY.C_NAME IS '카테고리이름';
-
-
--- 상품 테이블 PK FK 생성
-ALTER TABLE PRODUCT ADD CONSTRAINT "PK_PRODUCT" PRIMARY KEY (
-	P_NO
-);
-
-ALTER TABLE PRODUCT ADD CONSTRAINT "FK_Member_TO_PRODUCT_1" FOREIGN KEY (
-	M_ID
-)
-REFERENCES MEMBER (
-	M_ID
-);
-
-
-ALTER TABLE PRODUCT ADD CONSTRAINT "FK_Category_TO_Product_1" FOREIGN KEY (
-	C_ID
-)
-REFERENCES CATEGORY (
-	C_ID
-);
-
-
-
-
--- 상품 테이블 데이터 삽입
-INSERT INTO PRODUCT (
-    P_NO,
-    M_ID,
-    P_NAME,
-    P_PRICE,
-    P_QLT,
-    P_TRADING,
-    P_LOCATION,
-    P_EXCHANGE,
-    P_QTT,
-    P_CONTENTS,
-    C_ID
-)
-    VALUES(
-    '1',
-    'osk',
-    '테스트상품',
-    '10000',
-    '양호',
-    '거래중',
-    '서울',
-    'Y',
-    '3',
-    '상품INSERT테스트',
-    '01'
-);
-    
-
--- 카테고리 테이블 FK 생성
-ALTER TABLE CATEGORY ADD CONSTRAINT "PK_CATEGORY" PRIMARY KEY (
-	C_ID
-);
-
-
-
-
--- 카테고리 테이블 데이터 삽입
-INSERT INTO CATEGORY ( 
-    C_ID,
-    C_NAME
-    )
-    VALUES (
-    '01',
-    '의류'
-);
-
-INSERT INTO CATEGORY ( 
-    C_ID,
-    C_NAME
-    )
-    VALUES (
-    '02',
-    '악세서리'
-);
-
-INSERT INTO CATEGORY ( 
-    C_ID,
-    C_NAME
-    )
-    VALUES (
-    '03',
-    '디지털가전'
-);
-
-INSERT INTO CATEGORY ( 
-    C_ID,
-    C_NAME
-    )
-    VALUES (
-    '04',
-    '스포츠레저'
-);
-
-INSERT INTO CATEGORY ( 
-    C_ID,
-    C_NAME
-    )
-    VALUES (
-    '05',
-    '도서음반'
-);
-
-INSERT INTO CATEGORY ( 
-    C_ID,
-    C_NAME
-    )
-    VALUES (
-    '06',
-    '반려동물'
-);
-
-INSERT INTO CATEGORY ( 
-    C_ID,
-    C_NAME
-    )
-    VALUES (
-    '07',
-    '기타'
-);
-
+-- DROP TABLE PRODUCT CASCADE CONSTRAINTS;
+-- DROP TABLE CATEGORY CASCADE CONSTRAINTS;
 
 
 ------------------------------------------------
@@ -262,6 +90,185 @@ INSERT INTO MEMBER (
 );
 
 ------------------------------------------------
+-------------- PRODUCT 관련 테이블 -------------
+------------------------------------------------
+
+
+-- 상품 테이블
+CREATE TABLE PRODUCT (
+	P_NO    NUMBER NOT NULL,
+	M_ID	VARCHAR2(500)		NOT NULL,
+	P_NAME	VARCHAR2(300)		NULL,
+	P_PRICE	NUMBER		NULL,
+	P_QLT	VARCHAR2(100)		NULL,
+	P_TRADING	VARCHAR2(100)		NULL,
+	P_LOCATION	VARCHAR2(100)		NULL,
+	P_EXCHANGE	CHAR(1)		CHECK(P_EXCHANGE IN ('Y','N')) NULL,
+	P_QTT	NUMBER		NULL,
+	P_CONTENTS	VARCHAR2(3000)		NULL,
+	P_VIEW	NUMBER		NULL,
+	P_LIKE	NUMBER		NULL,
+	C_ID	VARCHAR2(100) NOT NULL, -- NUMBER -> VARCHAR2로 수정 
+	P_DATE	DATE	DEFAULT SYSDATE    NULL
+);
+
+-- 상품 테이블 코멘트 생성
+COMMENT ON COLUMN PRODUCT.P_NO IS '상품번호';
+COMMENT ON COLUMN PRODUCT.M_ID IS '회원아이디';
+COMMENT ON COLUMN PRODUCT.P_NAME IS '상풍명';
+COMMENT ON COLUMN PRODUCT.P_PRICE IS '상품가격';
+COMMENT ON COLUMN PRODUCT.P_QLT IS '상품상태';
+COMMENT ON COLUMN PRODUCT.P_TRADING IS '거래상태';
+COMMENT ON COLUMN PRODUCT.P_LOCATION IS '거래지역';
+COMMENT ON COLUMN PRODUCT.P_EXCHANGE IS '교환여부';
+COMMENT ON COLUMN PRODUCT.P_QTT IS '수량';
+COMMENT ON COLUMN PRODUCT.P_CONTENTS IS '상품설명';
+COMMENT ON COLUMN PRODUCT.P_VIEW IS '조회수';
+COMMENT ON COLUMN PRODUCT.P_LIKE IS '찜하기';
+COMMENT ON COLUMN PRODUCT.C_ID IS '카테고리분류아이디';
+COMMENT ON COLUMN PRODUCT.P_DATE IS '상품등록일';
+
+CREATE SEQUENCE SEQ_PRODUCT_NO;
+
+-- 멤버 로그인 기능 연동 안된 상태라 M_ID NOT NULL에서 일단 NULL로 바꿈 (M_ID)-여울
+-- ALTER TABLE PRODUCT MODIFY M_ID NULL;
+
+------------------------------------------------
+-------------- CATEGORY 관련 테이블 -------------
+------------------------------------------------
+
+-- 카테고리 테이블 생성
+CREATE TABLE CATEGORY (
+	C_ID	VARCHAR2(100) NOT NULL,
+	C_NAME	VARCHAR2(300)		NULL
+);
+
+-- 카테고리 테이블 코멘트 삽입
+COMMENT ON COLUMN CATEGORY.C_ID IS '카테고리분류아이디';
+COMMENT ON COLUMN CATEGORY.C_NAME IS '카테고리이름';
+
+
+-- 카테고리 테이블 PK 생성
+ALTER TABLE CATEGORY ADD CONSTRAINT "PK_CATEGORY" PRIMARY KEY (
+	C_ID
+);
+
+-- 상품 테이블 PK FK 생성
+ALTER TABLE PRODUCT ADD CONSTRAINT "PK_PRODUCT" PRIMARY KEY (
+	P_NO
+);
+
+ALTER TABLE PRODUCT ADD CONSTRAINT "FK_Member_TO_PRODUCT_1" FOREIGN KEY (
+	M_ID
+)
+REFERENCES MEMBER (
+	M_ID
+);
+
+
+ALTER TABLE PRODUCT ADD CONSTRAINT "FK_Category_TO_Product_1" FOREIGN KEY (
+	C_ID
+)
+REFERENCES CATEGORY (
+	C_ID
+);
+
+
+-- 상품 테이블 데이터 삽입
+INSERT INTO PRODUCT (
+    P_NO,
+    M_ID,
+    P_NAME,
+    P_PRICE,
+    P_QLT,
+    P_TRADING,
+    P_LOCATION,
+    P_EXCHANGE,
+    P_QTT,
+    P_CONTENTS,
+    C_ID
+)
+    VALUES(
+    '1',
+    'osk',
+    '테스트상품',
+    '10000',
+    '양호',
+    '거래중',
+    '서울',
+    'Y',
+    '3',
+    '상품INSERT테스트',
+    '1'
+);
+    
+-- 카테고리 테이블 데이터 삽입
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '1',
+    '의류'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '2',
+    '악세서리'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '3',
+    '디지털가전'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '4',
+    '스포츠레저'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '5',
+    '도서음반'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '6',
+    '반려동물'
+);
+
+INSERT INTO CATEGORY ( 
+    C_ID,
+    C_NAME
+    )
+    VALUES (
+    '7',
+    '기타'
+);
+
+COMMIT;
+
+------------------------------------------------
 --------------- 상품 이미지 관련 테이블 ---------------
 ------------------------------------------------
 CREATE TABLE PAdd (
@@ -283,6 +290,26 @@ COMMENT ON COLUMN PAdd.PA_IMG4 IS '상품이미지4주소';
 COMMENT ON COLUMN PAdd.PA_IMG5 IS '상품이미지5주소';
 COMMENT ON COLUMN PAdd.P_NO IS '상품번호';
 
+INSERT INTO PADD (
+    PA_IMG_ID,
+    PA_IMG1,
+    PA_IMG2,
+    PA_IMG3,
+    PA_IMG4,
+    PA_IMG5,
+    P_NO
+)
+    VALUES(
+    '1',
+    '20220730_224212479_52.JPG',
+    '20220730_224212487_508.JPG',
+    '',
+    '',
+    '',
+    '40'
+);
+
+
 -- 상품 이미지 테이블 PK,FK 생성
 ALTER TABLE PAdd ADD CONSTRAINT "PK_PAdd" PRIMARY KEY (
 	PA_IMG_ID
@@ -294,6 +321,9 @@ ALTER TABLE PAdd ADD CONSTRAINT "FK_PRODUCT_TO_PAdd_1" FOREIGN KEY (
 REFERENCES PRODUCT (
   P_NO
 );
+
+CREATE SEQUENCE SEQ_PADD_NO;
+
 
 ------------------------------------------------
 --------------- 게시판 관련 테이블 ------------------

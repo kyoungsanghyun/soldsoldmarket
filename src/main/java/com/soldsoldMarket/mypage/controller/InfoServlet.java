@@ -19,20 +19,18 @@ public class InfoServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/mypage/memberinfo.jsp").forward(request, response);
 		
+		HttpSession session = request.getSession(false);
+		Member loginMember = (session == null) ? null : (Member) session.getAttribute("member"); 
 		
-//		HttpSession session = request.getSession(false);
-//		Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember"); 
-//		
-//		if (loginMember != null) {
-//			request.getRequestDispatcher("/views/mypage/memberinfo.jsp").forward(request, response);
-//		} else {
-//			request.setAttribute("msg", "로그인 후 회원정보를 수정해 주세요.");
-//			request.setAttribute("location", "/");
-//			
-//			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-//		}
+		if (loginMember != null) {
+			request.getRequestDispatcher("/views/mypage/memberinfo.jsp").forward(request, response);
+		} else {
+			request.setAttribute("msg", "로그인 후 회원정보를 수정해 주세요.");
+			request.setAttribute("location", "/");
+			
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		}
 		
 	}
 

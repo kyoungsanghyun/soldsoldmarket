@@ -14,22 +14,22 @@
 
 <section id="content">
 	<div class="write">
-		<form name = "productRegist" action="${ path }/board/regist" method="POST" enctype="multipart/form-data">
+		<form name = "productRegist" action="${ path }/product/update" method="POST" enctype="multipart/form-data">
 			<div class="information">
 				<button>상품수정</button>
 				<br>
 				<h2>기본정보</h2>
 				<hr>
-				<input type="hidden" name="writer" value="${ product.MId }" readonly>
+				<input type="hidden" name="writer" id="writerId" value="${ product.MId }" readonly>
 				<!-- PNo, writer는 숨겨진 값 -->
 				<select class="category" name="category" required>
-					<option value="1">의류</option>
-					<option value="2">악세서리</option>
-					<option value="3">디지털/가전</option>
-					<option value="4">스포츠/레저</option>
-					<option value="5">도서/음반</option>
-					<option value="6">반려동물</option>
-					<option value="7">기타</option>
+					<option value="1" ${ product.CId eq '1'? 'selected' : '' }>의류</option>
+					<option value="2" ${ product.CId eq '2'? 'selected' : '' }>악세서리</option>
+					<option value="3" ${ product.CId eq '3'? 'selected' : '' }>디지털/가전</option>
+					<option value="4" ${ product.CId eq '4'? 'selected' : '' }>스포츠/레저</option>
+					<option value="5" ${ product.CId eq '5'? 'selected' : '' }>도서/음반</option>
+					<option value="6" ${ product.CId eq '6'? 'selected' : '' }>반려동물</option>
+					<option value="7" ${ product.CId eq '7'? 'selected' : '' }>기타</option>
 				</select>
 				<br>		
 				<input type="text" name="title" id="title" value="${ product.PName }" required>
@@ -79,11 +79,31 @@
 	            <table>
 	            <tr>
 					<td style="text-align: center;">
-						대표이미지 : <input type="file" name="filename1" id="filename1"><br/>
-						추가이미지 : <input type="file" name="filename2" id="filename2"><br/>
-						추가이미지 : <input type="file" name="filename3" id="filename3"><br/>
-						추가이미지 : <input type="file" name="filename4" id="filename4"><br/>
-						추가이미지 : <input type="file" name="filename5" id="filename5"><br/>
+						대표이미지 : <input type="file" name="filename1" id="filename1">
+						<c:if test="${ not empty padd.PAimg1 }">
+							<span>${ padd.PAimg1 }</span>
+						</c:if>
+						<br/>
+						추가이미지 : <input type="file" name="filename2" id="filename2">
+						<c:if test="${ not empty padd.PAimg2 }">
+							<span>${ padd.PAimg2 }</span>
+						</c:if>
+						<br/>
+						추가이미지 : <input type="file" name="filename3" id="filename3">
+						<c:if test="${ not empty padd.PAimg3 }">
+							<span>${ padd.PAimg3 }</span>
+						</c:if>
+						<br/>
+						추가이미지 : <input type="file" name="filename4" id="filename4">
+						<c:if test="${ not empty padd.PAimg4 }">
+							<span>${ padd.PAimg4 }</span>
+						</c:if>
+						<br/>
+						추가이미지 : <input type="file" name="filename5" id="filename5">
+						<c:if test="${ not empty padd.PAimg5 }">
+							<span>${ padd.PAimg5 }</span>
+						</c:if>
+						<br/>
 					</td>
 				</tr>
 	            </table> 

@@ -33,7 +33,7 @@ public class Product {
 		
 	private int PView;
 	
-	private String PLike;
+	private int PLike;
 
 	private int CId;
 	

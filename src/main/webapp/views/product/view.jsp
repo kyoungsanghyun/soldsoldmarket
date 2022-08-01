@@ -80,7 +80,7 @@
         </div>
         <!-- 게시글 툴바 영역 -->
         <div class="toolbar">
-            <span id="toolbar_like">찜하기<img src="${ path }/resources/images/icon/heartempty.png"></span>
+            <span id="toolbar_like">찜하기<img src="${ path }/resources/images/icon/heartempty.png">${product.PLike}</span>
             <span id="toolbar_view">조회수<img src="${ path }/resources/images/icon/view.png">${product.PView}</span>
             <span id="toolbar_share">공유하기<img src="${ path }/resources/images/icon/share.png"></span>
             <hr>
@@ -99,28 +99,14 @@
         </div>
         <!-- 게시글 내용 -->
         <div class="product_detail">
-            에이서 스위프트x입니다<br>
-            내장그래픽사용하는 3x 아닙니다<br>
-            실사용시간 100시간도 채안됩니다<br>
-            라이젠5600<br>
-            지포스3050ti<br>
-            16기가램<br>
-            256g ssd<br>
-            입니다<br><br>
-            라이젠백팩과 노트북거치대<br>
-            노트북에 랜선이없어 랜섭꼽는 젠더도 같이드립니다<br>
-            포멧해서 드립니다<br>
-            윈도우미설치 제품입니다<br>
-            박스풀입니다<br>
-            택배배송시 포장은 야무지게하겠지만<br>
-            파손시 판매자 책임 없습니다<br>
+            ${product.PContents}
         </div>
 
         <div class="reply_contents">
             <ul>					
 
 					
-                <li><img src="${ path }/resources/images/icon/user.png" class="reply_contents_userIcon"><span>유저명</span><span> 댓글1
+                <li><img src="${ path }/resources/images/icon/user.png" class="reply_contents_userIcon"><span>${pcomment.PCm_id}</span><span>${pcomment.PCm_content}
              	
                 	<!--  작성자만 댓글 옆에 X 버튼 나오는 로직 -->
              		<c:if test="${not empty loginMember && loginMember.id == product.PId}">
@@ -133,7 +119,7 @@
         </div>
 
         <div class="reply_write">
-            <span><img src="${ path }/resources/images/icon/user.png" id="reply_write_id_icon"></span><span id="reply_write_id">유저명</span>
+            <span><img src="${ path }/resources/images/icon/user.png" id="reply_write_id_icon"></span><span id="reply_write_id">${loginMember.id}</span>
             <form>
                 <textarea placeholder="댓글을 입력해주세요." style="resize: none;" id="reply_write_area"></textarea>
                 <span><img src="${ path }/resources/images/button/cmtupbtn.png" id="reply_write_upbtn"></span>

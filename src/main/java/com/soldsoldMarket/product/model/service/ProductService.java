@@ -10,13 +10,14 @@ import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
 import com.soldsoldMarket.product.model.vo.PAdd;
+import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
 public class ProductService {
 
 
 
 	// 상품 정보 가져오기
-	public Product getProductByNo(int no) {
+	public Product getProductByNo(int no, boolean hasRead) {
 		Product product = null;
 		Connection connection = getConnection();
 		
@@ -24,7 +25,7 @@ public class ProductService {
 
 		
 		// 조회수 증가 로직
-		if(product != null) {
+		if(product != null && !hasRead) {
 			int result = new ProductDao().updateView(connection, product);
 		
 			if(result > 0) {
@@ -51,6 +52,36 @@ public class ProductService {
 		return pAdd;
 		
 	}
+	
+	//좋아요 기능
+	public int likelogic(Product product) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new ProductDao().likelogic(connection, product);
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+	
+	// 상품 코멘트 불러오기
+	public Pcomment getPcommentByNo(int no) {
+		Pcomment pcomment = null;
+		Connection connection = getConnection();
+		
+		pcomment = new ProductDao().findPcomementByNo(connection, no);
+		
+		close(connection);
+				
+		return pcomment;
+	}
+	
 	
 	// 상품의 총개수 확인
 	public int getProductCount() {
@@ -87,7 +118,8 @@ public class ProductService {
 
         return list;
     }
-	
+
+
 
 
 	

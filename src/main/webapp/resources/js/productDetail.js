@@ -21,18 +21,12 @@ $(document).ready(() => {
 
 
     
-    // 좋아요 기능
-    let count = 0;
-    $('#toolbar_like').on("click", () => {
-        if(count == 0) {
-        $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/icon/heartfilled.png");
-        count += 1;
-        } else if (count == 1) {
-        $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/icon/heartempty.png");
-        count -= 1;
-        }
+    // // 좋아요 기능
+    
+    // $('#toolbar_like').on("click", () => {
 
-    });
+
+    // });
 
 
     // 댓글창 바로가기 기능
@@ -53,5 +47,35 @@ $(document).ready(() => {
         //       },
         //     },
         //   });
+
+    //좋아요 기능 
+    let count = 0;
+    $('#toolbar_like').on("click", function(){
+        let no = '';
+
+        $.ajax({
+            type : "GET",
+            url : "/soldsoldmarket/likeAjax.do",
+            data : {no},
+            success : function() {
+                if(count == 0) {
+                    $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/icon/heartfilled.png");
+                    count += 1;
+                    } else if (count == 1) {
+                    $('#toolbar_like img').attr("src","/soldsoldmarket/resources/images/icon/heartempty.png");
+                    count -= 1;
+                    }
+            } ,
+            error : function(error){
+                console.log(error);
+            },
+            complete : function(){
+                
+
+            }
+        
+
+        });
+    });
 
 });

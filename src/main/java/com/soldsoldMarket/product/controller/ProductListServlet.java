@@ -45,8 +45,6 @@ public class ProductListServlet extends HttpServlet {
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("list", list);
 
-    	System.out.println("서블릿 LIST " + list);
-    		
     	request.getRequestDispatcher("/views/product/list.jsp").forward(request, response);
 	}
 

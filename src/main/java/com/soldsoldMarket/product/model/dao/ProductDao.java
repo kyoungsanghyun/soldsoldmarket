@@ -1,7 +1,6 @@
 package com.soldsoldMarket.product.model.dao;
 
-import static com.soldsoldMarket.common.jdbc.JDBCTemplate.close;
-
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +10,7 @@ import java.util.List;
 
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.vo.PAdd;
+import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
 
 
@@ -30,7 +30,9 @@ public class ProductDao {
 							+ "P_EXCHANGE, "
 							+ "P_QTT, "
 							+ "P_TRADING, "
-							+ "P_VIEW "
+							+ "P_VIEW, "
+							+ "P_CONTENTS, "
+							+ "P_LIKE "
 					+ "FROM PRODUCT P "
 					+ "JOIN MEMBER M ON(M.M_ID = P.M_ID)"
 					+ "WHERE P_NO=?";
@@ -59,6 +61,8 @@ public class ProductDao {
 				product.setPQtt(rs.getInt("P_QTT"));
 				product.setPTrading(rs.getString("P_TRADING"));
 				product.setPView(rs.getInt("P_VIEW"));
+				product.setPLike(rs.getInt("P_LIKE"));
+				product.setPContents(rs.getString("P_CONTENTS"));
 				
 			}
 		} catch (SQLException e) {
@@ -125,7 +129,7 @@ public class ProductDao {
 			
 			product.setPView(product.getPView() + 1);
 			pstm.setInt(1,product.getPView());
-			pstm.setInt(2,1);
+			pstm.setInt(2,product.getPNo());
 			
 			result = pstm.executeUpdate();
 
@@ -138,6 +142,62 @@ public class ProductDao {
 
 		return result;
 	}
+	
+	// 상품 좋아요 잠시 보류 
+	public int likelogic(Connection connection, Product product) {
+		int result = 0;
+		PreparedStatement pstm = null;
+		String query = "UPDATE PRODUCT SET P_LIKE=? WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1, 10); 
+			pstm.setInt(2, 1);
+		 	
+			result = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+		}
+
+		return result;
+	}
+	
+	// 상품 코멘트 불러오기
+	public Pcomment findPcomementByNo(Connection connection, int no) {
+		Pcomment pcomment = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String query = "SELECT CM_CONTENT, CM_ID "
+				+ "FROM PCOMMENTS "
+				+ "WHERE P_NO =?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1,no);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				pcomment = new Pcomment();
+				
+				pcomment.setPCm_content(rs.getString("CM_CONTENT"));
+				pcomment.setPCm_id(rs.getString("CM_ID"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}		
+		return pcomment;
+	}
+	
 	
 	// 상품의 총개수 확인
 	public int getProductCount(Connection connection) {
@@ -286,6 +346,10 @@ public class ProductDao {
 	      
 	      return list;
 	   }
+
+
+
+
 
 
 

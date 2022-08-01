@@ -176,6 +176,46 @@ REFERENCES PRODUCT (
 	P_NO
 );
 
+--  상품 좋아요 테이블
+
+CREATE TABLE HEART(
+	M_ID   VARCHAR2(500)	NOT NULL,
+	P_NO	NUMBER	NOT NULL
+);
+
+-- 상품 좋아요 테이블 코멘트
+COMMENT ON COLUMN HEART.M_ID IS '회원아이디';
+COMMENT ON COLUMN HEART.P_NO IS '상품번호';
+
+
+-- 상품 좋아요 테이블 PK , FK
+ALTER TABLE HEART ADD CONSTRAINT "PK_HEART" PRIMARY KEY (
+	P_NO,
+	M_ID
+);
+
+ALTER TABLE HEART ADD CONSTRAINT "FK_Product_TO_Heart_1" FOREIGN KEY (
+	P_NO
+)
+REFERENCES PRODUCT (
+	P_NO
+);
+
+ALTER TABLE HEART ADD CONSTRAINT "FK_Member_TO_Heart_1" FOREIGN KEY (
+	M_ID
+)
+REFERENCES MEMBER (
+	M_ID
+);
+-- 상품 좋아요 샘플데이터
+INSERT INTO HEART (
+    M_ID,
+    P_NO
+    )
+    VALUES (
+    1,
+    'osk'
+);
 
 
 ------------------------------------------------

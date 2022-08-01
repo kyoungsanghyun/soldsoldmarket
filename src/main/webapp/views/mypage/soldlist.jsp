@@ -7,67 +7,65 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
+<link rel="stylesheet" href="${ path }/resources/css/soldList.css">
 
-    <div class="section">
-        <div class="intro_text">
-            <table class="information">
-				<tr>
-                    <td>프로필 사진</td>
-                    <td>img</td>
-                </tr>            
-                <tr>
-                    <td>회원아이디 : </td>
-                    <td>id</td>
-                </tr>
-                <tr>
-                    <td>신고당한 수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>주요 거래지역 : </td>
-                    <td>area</td>
-                </tr>
-                <tr>
-                    <td>판매횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>방문횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>가입일 : </td>
-                    <td>date</td>
-                </tr>
-                <tr>
-                    <td>소개글 : </td>
-                    <td>introduce</td>
-                </tr>
+        <!-- ====================================================== -->
+        <!-- 본문 -->
+        <div class="section">
+
+            <h2>거래내역</h2>
+
+            <hr>
+
+            <!-- ====================================================== -->
+            <!-- 표 -->
+            <table class="board_list">
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>상품</th>
+                        <th>상품명</th>
+                        <th>거래상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2022-07-24</td>
+                        <td>작성자</td>
+                        <td class="tit">
+                            <a href="">문의합니다.</a>
+                        </td>
+                        <td>답변예정</td>
+                    </tr>
+                    <tr>
+                        <td>2022-07-24</td>
+                        <td>작성자</td>
+                        <td class="tit">
+                            <a href="">문의합니다.</a>
+                        </td>
+                        <td>답변예정</td>
+                    </tr>
+
+
+                </tbody>
             </table>
-        </div>
-    
-    <hr>
 
-    <table class="product_list">
-        <tr>
-            <td>2022-07-24</td>
-            <td><img src="../resources/image/flower1.PNG" width="50px" height="50px"></td>
-            <td>상품 이름</td>
-            <td>판매완료</td>
-        </tr>
-        <tr>
-            <td>2022-07-23</td>
-            <td><img src="../resources/image/flower1.PNG" width="50px" height="50px"></td>
-            <td>상품 이름</td>
-            <td>판매완료</td>
-        </tr>
-        <tr>
-            <td>2022-07-22</td>
-            <td><img src="../resources/image/flower1.PNG" width="50px" height="50px"></td>
-            <td>상품 이름</td>
-            <td>판매완료</td>
-        </tr>
-    </table>
-</div>
+
+            <!-- ====================================================== -->
+            <!-- 페이지 버튼 -->
+            <div class="page_wrap">
+                <div class="page_nation">
+                    <a class="arrow pprev" href="#">&#60;&#60;</a>
+                    <a class="arrow prev" href="#">&#60;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a class="arrow next" href="#">&#62;</a>
+                    <a class="arrow nnext" href="#">&#62;&#62;</a>
+                </div>
+            </div>
+        </div>
+        
+        
 <jsp:include page="/views/common/footer.jsp" /> 

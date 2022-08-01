@@ -44,6 +44,10 @@ h2{
     text-align: center;
 }
 
+/* span.searchWord{
+	color: #0232e4;
+} */
+
 .list-rank {
     height: 50px;
     margin: auto;
@@ -67,6 +71,11 @@ h2{
     padding-right: 0px
 }
 
+.clicked {
+    color: #0232e4;
+    font-weight: 600;
+}
+
 
 ul.pro-list {
     width: 100%;
@@ -77,10 +86,7 @@ ul.pro-list {
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: center;
-    text-align: center;
     padding-left: 0px;
-    
-
 }
 
 ul.pro-list li {
@@ -111,11 +117,30 @@ ul.pro-list li {
 }
 
 
-.text {
+.pro-list-name{
     width: 100%;
     height: auto;
     padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;    
 }
+
+.pro-list-price{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    font-weight: 600;
+    margin-left: 10px;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
 
 
 .page_wrap {

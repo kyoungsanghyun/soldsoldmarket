@@ -5,9 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.kh.mvc.common.jdbc.JDBCTemplate.close;
+import static com.kh.mvc.common.jdbc.JDBCTemplate.commit;
+import static com.kh.mvc.common.jdbc.JDBCTemplate.getConnection;
+import static com.kh.mvc.common.jdbc.JDBCTemplate.rollback;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
 import com.soldsoldMarket.product.model.dao.productRegistDao;
+import com.kh.mvc.board.model.dao.BoardDao;
+import com.kh.mvc.board.model.vo.Reply;
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
 import com.soldsoldMarket.product.model.vo.PAdd;
@@ -83,6 +89,23 @@ public class ProductService {
 		return pcomment;
 	}
 	
+	// 상품 댓글
+	public int saveComment(Pcomment pcomment) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new ProductDao().insertComment(connection, pcomment);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
 	
 	// 상품의 개수 가져오기
 	public int getProductCount(int category, String searchcWord) {
@@ -109,6 +132,7 @@ public class ProductService {
 	}	
 
 
+	// 상품 등록
 	public int insertProduct(Product product) {
 		int result = 0;
 		Connection connection = getConnection();
@@ -127,6 +151,7 @@ public class ProductService {
 	
 	}
 	
+	// 상품 이미지 등록
 	public int insertPAdd(PAdd padd, Product product) {
 		int result = 0;
 		Connection connection = getConnection();
@@ -155,6 +180,8 @@ public class ProductService {
 
         return list;
     }
+
+
 
 
 

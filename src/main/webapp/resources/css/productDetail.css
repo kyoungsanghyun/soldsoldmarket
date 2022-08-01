@@ -182,6 +182,7 @@ li{
 #toolbar_buy{
     grid-area: buy;    
 }
+
 #toolbar_comment{
     grid-area: comment;
     cursor: pointer;

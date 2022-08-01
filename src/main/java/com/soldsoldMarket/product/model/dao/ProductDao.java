@@ -1,5 +1,6 @@
 package com.soldsoldMarket.product.model.dao;
 
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,15 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
-
 import com.soldsoldMarket.common.util.PageInfo;
+import com.soldsoldMarket.product.model.vo.PAdd;
+import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
 
 
 public class ProductDao {
 
-	public Product findProductByNo(Connection connection, int pno) {
+	public Product findProductByNo(Connection connection, int no) {
 		Product product = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -28,19 +29,25 @@ public class ProductDao {
 							+ "P_QLT, "
 							+ "P_EXCHANGE, "
 							+ "P_QTT, "
-							+ "P_TRADING "
+							+ "P_TRADING, "
+							+ "P_VIEW, "
+							+ "P_CONTENTS, "
+							+ "P_LIKE "
 					+ "FROM PRODUCT P "
 					+ "JOIN MEMBER M ON(M.M_ID = P.M_ID)"
 					+ "WHERE P_NO=?";
 		
+
+
 		try {
 			pstm = connection.prepareStatement(query);
 			
-			pstm.setInt(1,1);
+			pstm.setInt(1,no);
 			
 			rs = pstm.executeQuery();
-			
+
 			if(rs.next()) {
+				
 				product = new Product();
 				
 				product.setPNo(rs.getInt("P_NO"));
@@ -53,8 +60,10 @@ public class ProductDao {
 				product.setPExchange(rs.getString("P_EXCHANGE"));
 				product.setPQtt(rs.getInt("P_QTT"));
 				product.setPTrading(rs.getString("P_TRADING"));
+				product.setPView(rs.getInt("P_VIEW"));
+				product.setPLike(rs.getInt("P_LIKE"));
+				product.setPContents(rs.getString("P_CONTENTS"));
 				
-				System.out.println(product);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,9 +73,134 @@ public class ProductDao {
 		}		
 		return product;
 	}
+	
+	// 상품 이미지
+	public PAdd findProductimgByNo(Connection connection, int no) {
+		PAdd pAdd = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String query = "SELECT PA_IMG_ID, "
+						+ "PA_IMG1, "
+						+ "PA_IMG2, "
+						+ "PA_IMG3, "
+						+ "PA_IMG4, "
+						+ "PA_IMG5, "
+						+ "P_NO "
+						+ "FROM PADD "
+						+ "WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1,no);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				pAdd = new PAdd();
+				
+				pAdd.setPAimgid(rs.getInt("PA_IMG_ID"));
+				pAdd.setPAimg1(rs.getString("PA_IMG1"));
+				pAdd.setPAimg2(rs.getString("PA_IMG2"));
+				pAdd.setPAimg3(rs.getString("PA_IMG3"));
+				pAdd.setPAimg4(rs.getString("PA_IMG4"));
+				pAdd.setPAimg5(rs.getString("PA_IMG5"));
+				pAdd.setPNo(rs.getInt("P_NO"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}		
+		return pAdd;
+	}
 
-	// 상품 개수 구하기
-	public int getProductCount(Connection connection, int category, String searchWord) {
+
+	// 상품 조회수 
+	public int updateView(Connection connection, Product product) {
+		int result = 0;
+		PreparedStatement pstm = null;
+		String query = "UPDATE PRODUCT SET P_VIEW=? WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			product.setPView(product.getPView() + 1);
+			pstm.setInt(1,product.getPView());
+			pstm.setInt(2,product.getPNo());
+			
+			result = pstm.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+		}
+
+		return result;
+	}
+	
+	// 상품 좋아요 잠시 보류 
+	public int likelogic(Connection connection, Product product) {
+		int result = 0;
+		PreparedStatement pstm = null;
+		String query = "UPDATE PRODUCT SET P_LIKE=? WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1, 10); 
+			pstm.setInt(2, 1);
+		 	
+			result = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+		}
+
+		return result;
+	}
+	
+	// 상품 코멘트 불러오기
+	public Pcomment findPcomementByNo(Connection connection, int no) {
+		Pcomment pcomment = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String query = "SELECT CM_CONTENT, CM_ID "
+				+ "FROM PCOMMENTS "
+				+ "WHERE P_NO =?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1,no);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				pcomment = new Pcomment();
+				
+				pcomment.setPCm_content(rs.getString("CM_CONTENT"));
+				pcomment.setPCm_id(rs.getString("CM_ID"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}		
+		return pcomment;
+	}
+	
+	
+	// 상품의 총개수 확인
+	public int getProductCount(Connection connection) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -116,12 +250,18 @@ public class ProductDao {
 		return count;
 	}
 
+<<<<<<< HEAD
 	// RNUM, 상품번호, 상품명, 상품가격, 카테고리분류, 상품등록일, 첨부파일ID 가져오기
 	public List<Product> selectProductList(Connection connection, int category, PageInfo pageInfo, String priceOrder, String searchWord) {
+=======
+	// 상품리스트 페이지에 제목, 가격, 썸네일이미지 가져오기
+	public List<Product> findAll(Connection connection, PageInfo pageInfo) {
+>>>>>>> yun
 		List<Product> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+<<<<<<< HEAD
 		String query = "SELECT RNUM, P_NO, P_NAME, P_PRICE, C_ID, P_DATE, MAXPAID "
 						+ "FROM ("
 						+    "SELECT ROWNUM AS RNUM, "
@@ -154,6 +294,27 @@ public class ProductDao {
 		     	 }
 		     	  
 		     		query += ")) WHERE RNUM BETWEEN ? and ?";
+=======
+		String query = "SELECT P.RNUM, P.P_NAME, P.P_PRICE, P.P_NO, PAD.PA_IMG1 "
+						+ "FROM ("
+						+    "SELECT ROWNUM AS RNUM, "
+						+           "P_NAME, "
+						+     		"P_PRICE, "
+						+			"P_NO "
+						+ 	 "FROM ("
+						+ 	    "SELECT P.P_NAME, "
+						+ 	   		   "P.P_PRICE, "
+						+			   "P.P_NO, "
+						+			   "PAD.PA_IMG1 "
+						+ 		"FROM PRODUCT P "
+						+ 		"JOIN PADD PAD ON(P.P_NO = PAD.P_NO) "
+						+ 		"ORDER BY P.P_NO DESC "
+						+ 	 ") "
+						+ ") P "
+						+ "JOIN PADD PAD ON(P.P_NO = PAD.P_NO) "
+						+ "WHERE RNUM BETWEEN ? and ?";
+		
+>>>>>>> yun
 		
 		
 		try {
@@ -185,9 +346,16 @@ public class ProductDao {
 				product.setPNo(rs.getInt("P_NO"));
 				product.setPName(rs.getString("P_NAME"));
 				product.setPPrice(rs.getInt("P_PRICE"));
+<<<<<<< HEAD
 				product.setCId(rs.getInt("C_ID"));
 				product.setPDate(rs.getDate("P_DATE"));
+=======
+				product.setPNo(rs.getInt("P_NO"));
+				product.setPThumb(rs.getString("PA_IMG1"));
+>>>>>>> yun
 				
+				System.out.println("리스트 " +list);
+				System.out.println("상품" + product);
 				list.add(product);
 			}
 			
@@ -200,6 +368,77 @@ public class ProductDao {
 		
 		return list;
 	}
+	
+	// RNUM, 상품번호, 상품명, 상품가격, 카테고리분류, 상품등록일, 첨부파일ID 가져오기
+	   public List<Product> selectProductList(Connection connection, int category, PageInfo pageInfo) {
+	      List<Product> list = new ArrayList<>();
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      
+	      String query = "SELECT RNUM, P_NO, P_NAME, P_PRICE, C_ID, P_DATE, MAXPAID "
+	                  + "FROM ("
+	                  +    "SELECT ROWNUM AS RNUM, "
+	                  +           "P_NO, "
+	                  +           "P_NAME, P_PRICE, C_ID, P_DATE, MAXPAID "
+	                  +     "FROM ("
+	                  +        "SELECT P.P_NO, "
+	                  +                "P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE, max(PA.PA_IMG_ID) AS MAXPAID "
+	                  +              "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) ";
+	                  
+	         if( 1 <= category && category <= 7 ) {
+	              query +=             "WHERE P.C_ID = ? ";
+	            } 
+	         
+	                query +=             "GROUP BY P.P_NO, P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE "
+	                  +              "ORDER BY P.P_DATE DESC "
+	                  +              ")"
+	                  +              ") WHERE RNUM BETWEEN ? and ?";
+	      
+	      
+	      try {
+	         pstmt = connection.prepareStatement(query);
+	         
+	         if( 1 <= category && category <= 7 ) {
+	            pstmt.setInt(1, category);
+	            pstmt.setInt(2, pageInfo.getStartList());
+	            pstmt.setInt(3, pageInfo.getEndList());
+	         } else {
+	            pstmt.setInt(1, pageInfo.getStartList());
+	            pstmt.setInt(2, pageInfo.getEndList());            
+	         }
+	         
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	            Product product = new Product();
+	            
+	            product.setPRowNum(rs.getInt("RNUM"));
+	            product.setPNo(rs.getInt("P_NO"));
+	            product.setPName(rs.getString("P_NAME"));
+	            product.setPPrice(rs.getInt("P_PRICE"));
+	            product.setCId(rs.getInt("C_ID"));
+	            product.setPDate(rs.getDate("P_DATE"));
+	            
+	            list.add(product);
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rs);
+	         close(pstmt);
+	      }
+	      
+	      return list;
+	   }
+
+
+
+
+
+
+
 
 
 

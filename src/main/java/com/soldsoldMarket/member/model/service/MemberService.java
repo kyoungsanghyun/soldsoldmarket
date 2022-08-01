@@ -58,4 +58,12 @@ public class MemberService {
 		return member != null;
 	}
 
+	public Member loginByE(String email) {
+
+		Member member = this.findMemberById(email);
+		
+		
+		return member;
+	}
+
 }

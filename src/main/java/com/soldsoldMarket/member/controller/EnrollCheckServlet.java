@@ -17,7 +17,8 @@ public class EnrollCheckServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath()+"/views/member/enrollCheck.jsp");	
+		request.getRequestDispatcher("/views/member/enrollCheck.jsp")
+		.forward(request, response);
 	}
 
 }

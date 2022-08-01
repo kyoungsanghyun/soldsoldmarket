@@ -13,7 +13,7 @@ public class Product {
 
 	private int PNo;
 
-	private String PId;
+	private String MId;
 	
 	private String PName;
 	
@@ -35,7 +35,7 @@ public class Product {
 	
 	private String PLike;
 
-	private String CId;
+	private int CId;
 	
 	private Date PDate;
 	

@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		String pwd = request.getParameter("enrollPass");
 		Member loginMember = new MemberService().login(id,pwd);
 		HttpSession session = null;
 		
@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 		if(loginMember != null) {
 			session = request.getSession();
 			session.setAttribute("member", loginMember);
-			response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/home");
 			
 		}else {
 			request.setAttribute("msg", "아이디나 비밀번호를 확인하세요");

@@ -7,8 +7,10 @@ import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
+import com.soldsoldMarket.board.model.dao.productRegistDao;
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
+import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 public class ProductService {
 
@@ -35,28 +37,64 @@ public class ProductService {
 		return product;
 	}
 	
-	// 상품의 총개수 확인
-	public int getProductCount() {
+	// 상품의 개수 가져오기
+	public int getProductCount(int category, String searchcWord) {
 		int count = 0;
 		Connection connection = getConnection();
 		
-		count = new ProductDao().getProductCount(connection);
+		count = new ProductDao().getProductCount(connection, category, searchcWord);
 		
 		close(connection);
 		
 		return count;
 	}
 
-	// 상품 전체 가져오기
-	public List<Product> getProductList(PageInfo pageInfo) {
+	// 상품 리스트 가져오기
+	public List<Product> getProductList(int category, PageInfo pageInfo, String priceOrder, String searchWord) {
 		List<Product> list = null;
 		Connection connection = getConnection();
 		
-		list = new ProductDao().findAll(connection, pageInfo);
+		list = new ProductDao().selectProductList(connection, category, pageInfo, priceOrder, searchWord);
 		
 		close(connection);
 		
 		return list;
+	}	
+
+
+	public int insertProduct(Product product) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new productRegistDao().insertProduct(connection, product);
+		
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	
+	}
+	
+	public int insertPAdd(PAdd padd, Product product) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new productRegistDao().insertProductImg(connection, padd, product);
+		
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
 	}
 
 	

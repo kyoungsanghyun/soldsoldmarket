@@ -253,46 +253,46 @@ public class ProductDao {
 		return count;
 	}
 
-	// RNUM, 상품번호, 상품명, 상품가격, 카테고리분류, 상품등록일, 첨부파일ID 가져오기
+	// RNUM, 상품번호, 상품명, 상품가격, 카테고리분류, 상품등록일, MAX첨부파일이미지 가져오기
 	public List<Product> selectProductList(Connection connection, int category, PageInfo pageInfo, String priceOrder, String searchWord) {
 		List<Product> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		String query = "SELECT RNUM, P_NO, P_NAME, P_PRICE, C_ID, P_DATE, MAXPAID "
-						+ "FROM ("
-						+    "SELECT ROWNUM AS RNUM, "
-						+           "P_NO, "
-						+     		"P_NAME, P_PRICE, C_ID, P_DATE, MAXPAID "
-						+ 	 "FROM ("
-						+ 	    "SELECT P.P_NO, "
-						+ 	   		   "P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE, max(PA.PA_IMG_ID) AS MAXPAID "
-						+              "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) ";
-					// 검색어 구분
-					if( searchWord != null ) {
-						query += "WHERE P.P_NAME LIKE ? ";
-						category = 0;
-					}
-					
-				 // 카테고리 구분		   	  
-		     	 if( category != 0 ) {
-		     		  query += "AND P.C_ID = ? ";
-		     		} 
 
-		     	 query += "GROUP BY P.P_NO, P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE ";
-		     	 
-		     	 // 최신 등록순, 높은 가격순, 낮은 가격순 구분
-		     	 if(priceOrder != null && priceOrder.equals("high")) {
-		     		 query += "ORDER BY P.P_PRICE DESC ";
-		     	 } else if (priceOrder != null && priceOrder.equals("low")){
-		     		 query += "ORDER BY P.P_PRICE"; 
-		     	 } else {
-		     		 query += "ORDER BY P.P_DATE DESC "; 
-		     	 }
-		     	  
-		     		query += ")) WHERE RNUM BETWEEN ? and ?";
+ 		String query = "SELECT RNUM, P_NO, P_NAME, P_PRICE, C_ID, P_DATE, MAXPAIMG1 "
+				+ "FROM ("
+				+    "SELECT ROWNUM AS RNUM, "
+				+           "P_NO, "
+				+     		"P_NAME, P_PRICE, C_ID, P_DATE, MAXPAIMG1 "
+				+ 	 "FROM ("
+				+ 	    "SELECT P.P_NO, "
+				+ 	   		   "P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE, max(PA.PA_IMG1) AS MAXPAIMG1 "
+				+              "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) ";
+			// 검색어 구분
+			if( searchWord != null ) {
+				query += "WHERE P.P_NAME LIKE ? ";
+				category = 0;
+			}
+
+		 // 카테고리 구분		   	  
+     	 if( category != 0 ) {
+     		  query += "AND P.C_ID = ? ";
+     		} 
+
+     	 query += "GROUP BY P.P_NO, P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE ";
+
+     	 // 최신 등록순, 높은 가격순, 낮은 가격순 구분
+     	 if(priceOrder != null && priceOrder.equals("high")) {
+     		 query += "ORDER BY P.P_PRICE DESC ";
+     	 } else if (priceOrder != null && priceOrder.equals("low")){
+     		 query += "ORDER BY P.P_PRICE"; 
+     	 } else {
+     		 query += "ORDER BY P.P_DATE DESC "; 
+     	 }
+
+     		query += ")) WHERE RNUM BETWEEN ? and ?";
 		
-		
+     		
 		try {
 			pstmt = connection.prepareStatement(query);
 			
@@ -324,6 +324,7 @@ public class ProductDao {
 				product.setPPrice(rs.getInt("P_PRICE"));
 				product.setCId(rs.getString("C_ID"));
 				product.setPDate(rs.getDate("P_DATE"));
+				product.setPThumb(rs.getString("MAXPAIMG1"));
 				
 				list.add(product);
 			}

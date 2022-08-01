@@ -131,11 +131,6 @@ public class ProductService {
 		return list;
 	}	
 
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> ef20b037976f93fe13b51e4d1a8b92574252bf43
 	// 상품 등록
 	public int insertProduct(Product product) {
 		int result = 0;
@@ -155,11 +150,8 @@ public class ProductService {
 	
 	}
 	
-<<<<<<< HEAD
-	// 상품 이미지 등록
-=======
+
 	// 상품 이미지 등록 
->>>>>>> ef20b037976f93fe13b51e4d1a8b92574252bf43
 	public int insertPAdd(PAdd padd, Product product) {
 		int result = 0;
 		Connection connection = getConnection();
@@ -177,17 +169,6 @@ public class ProductService {
 		return result;
 	}
 	
-	// 상품 리스트 구하기
-    public List<Product> getProductList(int category, PageInfo pageInfo) {
-        List<Product> list = null;
-        Connection connection = getConnection();
-
-        list = new ProductDao().selectProductList(connection, category, pageInfo);
-
-        close(connection);
-
-        return list;
-    }
 
 
 

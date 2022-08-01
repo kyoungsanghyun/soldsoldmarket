@@ -9,11 +9,12 @@ import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
+import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.vo.Product;
 
 public class SoldlistDao {
 	// 회원 상품의 등록 날짜, 상품명, 거래상태 가져오기 
-	public List<Product> selectMemberProductList(Connection connection) {
+	public List<Product> selectMemberProductList(Connection connection, PageInfo pageInfo, String pTrading) {
 		List<Product> list = new ArrayList<Product>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

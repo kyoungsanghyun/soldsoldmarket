@@ -39,9 +39,9 @@
 		             <ul class="pro-list">	
 			             <c:forEach var="product" items="${ list }">
 				                 <li>
-		                     <a href="${path}/product/view?no=${product.PNo}" name="no">
+				                     <a href="${path}/product/view?no=${product.PNo}" name="no">
 				                         <div class="thum">
-				                             <img src="${ path }/resources/images/product/product1.jpg" alt="이미지">
+				                             <img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지">
 				                         </div>
 			                         <div class="pro-list-name"> ${ product.PName }</div>
 			                         <div class="pro-list-price"><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</div>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.service.ProductService;
+import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 
 @WebServlet("/product/list")
@@ -21,8 +22,7 @@ public class ProductListServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int page = 0; // 현재 페이지의 수
 		int listCount = 0; // 상품의 수
 		PageInfo pageInfo = null; // 페이지 정보
@@ -30,6 +30,7 @@ public class ProductListServlet extends HttpServlet {
 		int category = 0; // 카테고리 ID
 		String priceOrder = null; // 카테고리 가격 정렬
 		String searchWord = null; // 검색어
+
 
 		category = Integer.parseInt(request.getParameter("category"));
 		priceOrder = request.getParameter("priceOrder");

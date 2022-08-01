@@ -35,7 +35,7 @@ public class Product {
 	
 	private int PLike;
 
-	private int CId;
+	private String CId;
 	
 	private Date PDate;
 	

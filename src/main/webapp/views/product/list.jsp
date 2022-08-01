@@ -14,18 +14,18 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/productList.css?ver=1"> 
 
-<form id="listForm" action="${ path }/product/list" method="post">
+<%-- <form id="listForm" action="${ path }/product/list" method="post">
 	<input type="hidden" name="category" 	id="category" 	value="${ category }">
 	<input type="hidden" name="searchWord" 	id="searchWord" value="${ searchWord }">
 	<input type="hidden" name="priceOrder" 	id="priceOrder" value="${ priceOrder }">
 	<input type="hidden" name="page" 		id="page" 		value="${ page }">
-</form>
+</form> --%>
  
  <div class="section">
      <div class="navb"> 
          <ul class="nav_bottom">
 <%--              <c:forEach items="${ categoryList }" var="categoryItem" varStatus="status" >
-	             <li><a style="cursor:pointer;" onclick="changeProductList('${ status.index }');">${ categoryItem }</a></li>
+	             <li><a style="cursor:pointer;" onclick="changeCategory('${ status.index }');">${ categoryItem }</a></li>
              </c:forEach> --%>
               <li><a href="${ path }/product/list?category=0">전체상품</a></li>
 			 <li><a href="${ path }/product/list?category=1">의류</a></li>
@@ -63,9 +63,20 @@
          	
          	
              <ul class="list-rank">
-                 <li><a id="recent" class="rankBtn" style="cursor:pointer;" onclick="changeProductList('${ category }', '${searchWord}', '', '1');">최신 등록순</a></li>
-                 <li><a id="high" class="rankBtn" style="cursor:pointer;" onclick="changeProductList('${ category }', '${searchWord}', 'high', '');">높은 가격순</a></li>
-                 <li><a id="low" class="rankBtn" style="cursor:pointer;" onclick="changeProductList('${ category }', '${searchWord}', 'low', '');">낮은 가격순</a></li>
+ <%--                 <li><a id="recent" class="rankBtn" style="cursor:pointer;" onclick="changeProductList('${ category }', '${searchWord}', '', '1');">최신 등록순</a></li>
+                 <li><a id="high" class="rankBtn" style="cursor:pointer;" onclick="changeCategory('${ category }', '${searchWord}', 'high', '');">높은 가격순</a></li>
+                 <li><a id="low" class="rankBtn" style="cursor:pointer;" onclick="changeCategory('${ category }', '${searchWord}', 'low', '');">낮은 가격순</a></li> --%>
+             	<c:if test="${ empty searchWord }">
+	                 <li><a class="rankBtn" href="${ path }/product/list?category=${ category }&page=1">최신 등록순</a></li>
+	                 <li><a class="rankBtn" href="${ path }/product/list?category=${ category }&priceOrder=high">높은 가격순</a></li>
+	                 <li><a class="rankBtn" href="${ path }/product/list?category=${ category }&priceOrder=low">낮은 가격순</a></li>
+             	</c:if>
+             	   	<c:if test="${ not empty searchWord }">
+	                 <li><a class="rankBtn" href="${ path }/product/list?category=${ category }&searchWord=${ searchWord }&page=1">최신 등록순</a></li>
+	                 <li><a class="rankBtn" href="${ path }/product/list?category=${ category }&searchWord=${ searchWord }&priceOrder=high">높은 가격순</a></li>
+	                 <li><a class="rankBtn" href="${ path }/product/list?category=${ category }&searchWord=${ searchWord }&priceOrder=low">낮은 가격순</a></li>                 	
+             	</c:if>
+             	
              </ul>
              
              <c:if test="${ empty list }">

@@ -8,35 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.soldsoldMarket.common.util.PageInfo;
-import com.soldsoldMarket.member.model.vo.Member;
 import com.soldsoldMarket.mypage.model.service.SoldListService;
 import com.soldsoldMarket.product.model.vo.Product;
 
-@WebServlet("/mypage/soldlist")
-public class SoldlistServlet extends HttpServlet {
+@WebServlet("/mypage/soldList")
+public class SoldListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SoldlistServlet() {
+    public SoldListServlet() {
     }
 
-	@Override
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession(false);
-		Member loginMember = (session == null) ? null : (Member) session.getAttribute("member"); 
-		
-		if (loginMember != null) {
-			request.getRequestDispatcher("/views/mypage/memberinfo.jsp").forward(request, response);
-		} else {
-			request.setAttribute("msg", "로그인 후 거래내역을 확인해 주세요.");
-			request.setAttribute("location", "/");
-			
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-		}
-		
     	List<Product> list = null; // 회원이 등록한 상품 리스트
     	int page = 0; // 
     	int listCount = 0;
@@ -48,8 +33,7 @@ public class SoldlistServlet extends HttpServlet {
 		
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
-    	request.getRequestDispatcher("/views/mypage/soldlist.jsp").forward(request, response);
-		
+    	request.getRequestDispatcher("/views/mypage/soldlList.jsp").forward(request, response);
 	}
 
     @Override

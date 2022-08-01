@@ -27,29 +27,29 @@ public class ProductService {
 		return product;
 	}
 	
-	// �긽�뭹�쓽 珥앷컻�닔 �솗�씤
-	public int getProductCount() {
+	// 상품의 개수 가져오기
+	public int getProductCount(int category, String searchcWord) {
 		int count = 0;
 		Connection connection = getConnection();
 		
-		count = new ProductDao().getProductCount(connection);
+		count = new ProductDao().getProductCount(connection, category, searchcWord);
 		
 		close(connection);
 		
 		return count;
 	}
 
-	// �긽�뭹 �쟾泥� 媛��졇�삤湲�
-	public List<Product> getProductList(PageInfo pageInfo) {
+	// 상품 리스트 가져오기
+	public List<Product> getProductList(int category, PageInfo pageInfo, String priceOrder, String searchWord) {
 		List<Product> list = null;
 		Connection connection = getConnection();
 		
-		list = new ProductDao().findAll(connection, pageInfo);
+		list = new ProductDao().selectProductList(connection, category, pageInfo, priceOrder, searchWord);
 		
 		close(connection);
 		
 		return list;
-	}
+	}	
 
 
 	public int insertProduct(Product product) {

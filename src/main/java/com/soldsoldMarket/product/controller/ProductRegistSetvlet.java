@@ -17,7 +17,7 @@ import com.soldsoldMarket.member.model.vo.Member;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 
-@WebServlet("/board/regist")
+@WebServlet("/product/regist")
 public class ProductRegistSetvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,39 +27,43 @@ public class ProductRegistSetvlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+    	HttpSession session = request.getSession(false);
+    	Member member = (session == null) ? null : (Member) session.getAttribute("member");
+    	
+    	if (member != null) {    		
+    		request.getRequestDispatcher("/views/board/write.jsp").forward(request, response);    		
+    	} else {
+    		request.setAttribute("msg", "ë¡œê·¸ì¸ í›„ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
+    		request.setAttribute("location", "/");
+    		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+    	}
+	}
 
-    }
+
+    
     @Override 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	int result = 0;
     	int result2 = 0;
     	Product product = null;
 		
-    	// ÆÄÀÏÀÇ ÃÖ´ë »çÀÌÁî ÁöÁ¤ (10MB)
+    	// íŒŒì¼ì˜ ìµœëŒ€ í¬ê¸° (10MB)
     	int maxSize = 10485760;
     	
-    	request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		
-    	
-    	// ÆÄÀÏÀÌ ÀúÀåµÉ °æ·Î
+    	// íŒŒì¼ì˜ ì €ì¥ ê²½ë¡œ
     	String path = getServletContext().getRealPath("/resources/upload/product");
     	
-    	// ÀÎÄÚµù ¼³Á¤
+    	// ì¸ì½”ë”© ì„¤ì •
     	String encoding = "UTF-8";
     	
-    	// DefaultFileRenamePolicy : Áßº¹µÇ´Â ÀÌ¸§ µÚ¿¡ 1 ~ 9999 ºÙÀÎ´Ù.
+    	// DefaultFileRenamePolicy : ì¤‘ë³µë˜ëŠ” ì´ë¦„ ë’¤ì— 1 ~ 9999 ë¶™ì¸ë‹¤.
     	MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
     	
 	
-		// ±Û Á¤º¸	
-    	// ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î¿Â °ªµé
-    	int p_id = Integer.parseInt(mr.getParameter("PNo"));
-    	String p_date = mr.getParameter("PDate");
+		// ê¸€ ê²Œì‹œì ì •ë³´
     	String m_id = mr.getParameter("writer");
     	
-    	// Æû
+    	// í¼íŒŒë¼ë¯¸í„°
     	String category = mr.getParameter("category");
     	String p_name = mr.getParameter("title");
     	int price = Integer.parseInt(mr.getParameter("price"));
@@ -69,22 +73,18 @@ public class ProductRegistSetvlet extends HttpServlet {
     	int count = Integer.parseInt(mr.getParameter("count"));
     	String content = mr.getParameter("content");
     	
-    	// ÆÄÀÏ Á¤º¸
+    	// íŒŒì¼ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
        	Enumeration<?> files = mr.getFileNames();
-    	int i = 1; //¼±¾ğ
+    	int i = 1;
     	PAdd padd = new PAdd();
 		
-    	//files´ã±ä ÆÄÀÏµéÀ» °³º°ÀûÀ¸·Î ¼øÂ÷ÀûÀ¸·Î µ·´Ù.
-		while (files.hasMoreElements()) { // ¾÷·Îµå µÈ ÆÄÀÏ ÀÌ¸§ ¾ò¾î¿À±â
-			//filesÀÇ ´ÙÀ½ Ç×¸ñÀ» filed¿¡ ´ã´Â´Ù.
+		while (files.hasMoreElements()) { 
 			String file = (String) files.nextElement();
-			//mr¿¡¼­ ÇØ´ç fileÀÇ ÀÌ¸§À» filename¿¡ ´ã´Â´Ù.
 			String fileName = mr.getFilesystemName(file);
 			if (fileName == null) {
 				fileName = "";
 			}
 			if (i == 1) {
-				//i°¡ 1ÀÌ¸é pvoÀÇ setPAimg1¿¡ ÇØ´ç ÆÄÀÏ¸íÀ» ´ã´Â´Ù.
 				padd.setPAimg5(fileName);
 			} else if (i == 2) {
 				padd.setPAimg4(fileName);
@@ -95,12 +95,15 @@ public class ProductRegistSetvlet extends HttpServlet {
 			} else if (i == 5) {
 				padd.setPAimg1(fileName);
 			}
-			i++;//Áõ°¡
+			i++;
 		}
     	
+		HttpSession session = request.getSession(false);
+    	Member member = (session == null) ? null : (Member) session.getAttribute("member");
+    	
+			if (member != null) {    	
     		product = new Product();
     		
-	    	product.setPNo(p_id);
 	    	product.setMId(m_id);
 	    	product.setCId(category);
 	    	product.setPName(p_name);
@@ -116,12 +119,19 @@ public class ProductRegistSetvlet extends HttpServlet {
 	    	result2 = new ProductService().insertPAdd(padd, product);
 	    	
 	    	if(result > 0 && result2 > 0) {
-        		request.setAttribute("msg", "°Ô½Ã±Û µî·Ï ¼º°ø");
+        		request.setAttribute("msg", "ê²Œì‹œê¸€ ë“±ë¡ ì„±ê³µ");
         		request.setAttribute("location", "/");
     		} else {
-        		request.setAttribute("msg", "°Ô½Ã±Û µî·Ï ½ÇÆĞ");
+        		request.setAttribute("msg", "ê²Œì‹œê¸€ ë“±ë¡ ì‹¤íŒ¨");
         		request.setAttribute("location", "/");
     		}
+	    } else {
+			request.setAttribute("msg", "ë¡œê·¸ì¸ í›„ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
+			request.setAttribute("location", "/");
+		}
+		
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+	}
 
-    }
 }
+    

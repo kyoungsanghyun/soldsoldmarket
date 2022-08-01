@@ -71,7 +71,7 @@
 
                     <ul class="nav_middle_right">
                         <li>
-                            <a href="#">
+                            <a href="${ path }/views/product/regist.jsp">
                                 <img src="${ path }/resources/images/icon/edit.png" width="23" height="24" alt="상품등록 아이콘"> 상품등록
                             </a>
                         </li>

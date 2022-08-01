@@ -14,18 +14,17 @@
 
 <script>
 
-
 </script>
 
 <section id="content">
 	<div class="write">
-		<form name = "productRegist" action="${ path }/board/regist" method="POST" enctype="multipart/form-data">
+		<form name = "productRegist" action="${ path }/product/regist" method="POST" enctype="multipart/form-data">
 			<div class="information">
 				<button>상품등록</button>
 				<br>
 				<h2>기본정보</h2>
 				<hr>
-				<input type="hidden" name="writer" value="${ member.id }" readonly>
+				<input type="hidden" name="writer" id="writerId" value="${ member.id }" readonly>
 				<!-- PNo, writer는 숨겨진 값 -->
 				<select class="category" name="category" required>
 					<option value="1">의류</option>
@@ -74,7 +73,7 @@
 				<br>
 				<span><b>설명 *</b></span>
 				<br><br>
-				<textarea name="content" cols="128" rows="15" 
+				<textarea name="content" cols="128" rows="15" minlength="20"
 					placeholder="구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 필수로 입력해 주세요. (10자 이상 입력)"></textarea>
 				<br><br>
 				<span><b>이미지 추가</b></span>

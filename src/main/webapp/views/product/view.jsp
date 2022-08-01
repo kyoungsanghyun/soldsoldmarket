@@ -58,14 +58,14 @@
             <!-- 변화값 -->
             <div id="product_info_varival">
                 <ul>
-                    <li>${product.PId}
+                    <li>${product.MId}
 	                <!--  작성자는 삭제버튼 / 일반회원은 신고버튼이 나오는 로직 -->
 		            	<!-- 삭제 버튼 (작성자)-->
-		            	<c:if test="${not empty loginMember && loginMember.id == product.PId}">
+		            	<c:if test="${not empty loginMember && loginMember.id == product.MId}">
 		                	<span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png">삭제하기</span></li>
 		                </c:if>	
 		            	<!-- 신고 버튼 (일반회원) -->
-		                <c:if test="${empty loginMember || loginMember.id != product.PId}">
+		                <c:if test="${empty loginMember || loginMember.id != product.MId}">
 		                	<span id="product_info_varival_report"><img src="${ path }/resources/images/icon/report.png">신고하기</span></li>
 		                </c:if>	
                     <li>${product.PDate}</li>
@@ -86,11 +86,11 @@
             <hr>
             <!--  작성자는 수정 버튼 / 일반회원은 구매버튼이 나오는 로직 -->
             	<!-- 수정 버튼 (작성자)-->
-            	<c:if test="${not empty loginMember && loginMember.id == product.PId}">
+            	<c:if test="${not empty loginMember && loginMember.id == product.MId}">
                 	<img src="${ path }/resources/images/button/modbtn.png">
                 </c:if>	
             	<!-- 구매 버튼 (일반회원) -->
-                <c:if test="${empty loginMember || loginMember.id != product.PId}">
+                <c:if test="${empty loginMember || loginMember.id != product.MId}">
                 	<span id="toolbar_buy"><img src="${ path }/resources/images/button/buybtn.png"></span>
                 </c:if>	
                 
@@ -109,7 +109,7 @@
                 <li><img src="${ path }/resources/images/icon/user.png" class="reply_contents_userIcon"><span>${pcomment.PCm_id}</span><span>${pcomment.PCm_content}
              	
                 	<!--  작성자만 댓글 옆에 X 버튼 나오는 로직 -->
-             		<c:if test="${not empty loginMember && loginMember.id == product.PId}">
+             		<c:if test="${not empty loginMember && loginMember.id == product.MId}">
                 		<img src="${ path }/resources/images/icon/xmark.png">
                 	</c:if>	
              

@@ -7,7 +7,7 @@ import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
-import com.soldsoldMarket.board.model.dao.productRegistDao;
+import com.soldsoldMarket.product.model.dao.productRegistDao;
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
 import com.soldsoldMarket.product.model.vo.PAdd;

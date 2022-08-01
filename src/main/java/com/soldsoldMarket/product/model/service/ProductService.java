@@ -108,7 +108,8 @@ public class ProductService {
 		return list;
 	}	
 
-
+	
+	// 상품 등록
 	public int insertProduct(Product product) {
 		int result = 0;
 		Connection connection = getConnection();
@@ -127,6 +128,7 @@ public class ProductService {
 	
 	}
 	
+	// 상품 이미지 등록 
 	public int insertPAdd(PAdd padd, Product product) {
 		int result = 0;
 		Connection connection = getConnection();

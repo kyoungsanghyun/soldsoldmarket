@@ -10,12 +10,14 @@ import java.util.List;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
 import com.soldsoldMarket.common.util.PageInfo;
+import com.soldsoldMarket.product.model.vo.PAdd;
+import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
 
 
 public class ProductDao {
 
-	public Product findProductByNo(Connection connection, int pno) {
+	public Product findProductByNo(Connection connection, int no) {
 		Product product = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -28,19 +30,25 @@ public class ProductDao {
 							+ "P_QLT, "
 							+ "P_EXCHANGE, "
 							+ "P_QTT, "
-							+ "P_TRADING "
+							+ "P_TRADING, "
+							+ "P_VIEW, "
+							+ "P_CONTENTS, "
+							+ "P_LIKE "
 					+ "FROM PRODUCT P "
 					+ "JOIN MEMBER M ON(M.M_ID = P.M_ID)"
 					+ "WHERE P_NO=?";
 		
+
+
 		try {
 			pstm = connection.prepareStatement(query);
 			
-			pstm.setInt(1,1);
+			pstm.setInt(1,no);
 			
 			rs = pstm.executeQuery();
-			
+
 			if(rs.next()) {
+				
 				product = new Product();
 				
 				product.setPNo(rs.getInt("P_NO"));
@@ -53,8 +61,10 @@ public class ProductDao {
 				product.setPExchange(rs.getString("P_EXCHANGE"));
 				product.setPQtt(rs.getInt("P_QTT"));
 				product.setPTrading(rs.getString("P_TRADING"));
+				product.setPView(rs.getInt("P_VIEW"));
+				product.setPLike(rs.getInt("P_LIKE"));
+				product.setPContents(rs.getString("P_CONTENTS"));
 				
-				System.out.println(product);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,6 +74,133 @@ public class ProductDao {
 		}		
 		return product;
 	}
+	
+	// 상품 이미지
+	public PAdd findProductimgByNo(Connection connection, int no) {
+
+		PAdd pAdd = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String query = "SELECT PA_IMG_ID, "
+						+ "PA_IMG1, "
+						+ "PA_IMG2, "
+						+ "PA_IMG3, "
+						+ "PA_IMG4, "
+						+ "PA_IMG5, "
+						+ "P_NO "
+						+ "FROM PADD "
+						+ "WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1,no);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				pAdd = new PAdd();
+				
+				pAdd.setPAimgid(rs.getInt("PA_IMG_ID"));
+				pAdd.setPAimg1(rs.getString("PA_IMG1"));
+				pAdd.setPAimg2(rs.getString("PA_IMG2"));
+				pAdd.setPAimg3(rs.getString("PA_IMG3"));
+				pAdd.setPAimg4(rs.getString("PA_IMG4"));
+				pAdd.setPAimg5(rs.getString("PA_IMG5"));
+				pAdd.setPNo(rs.getInt("P_NO"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}		
+		return pAdd;
+	}
+
+	// 상품 조회수 
+	public int updateView(Connection connection, Product product) {
+		int result = 0;
+		PreparedStatement pstm = null;
+		String query = "UPDATE PRODUCT SET P_VIEW=? WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			product.setPView(product.getPView() + 1);
+			pstm.setInt(1,product.getPView());
+			pstm.setInt(2,product.getPNo());
+			
+			result = pstm.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+		}
+
+		return result;
+	}
+	
+	// 상품 좋아요 잠시 보류 
+	public int likelogic(Connection connection, Product product) {
+		int result = 0;
+		PreparedStatement pstm = null;
+		String query = "UPDATE PRODUCT SET P_LIKE=? WHERE P_NO=?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1, 10); 
+			pstm.setInt(2, 1);
+		 	
+			result = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+		}
+
+		return result;
+	}
+	
+	// 상품 코멘트 불러오기
+	public Pcomment findPcomementByNo(Connection connection, int no) {
+		Pcomment pcomment = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String query = "SELECT CM_CONTENT, CM_ID "
+				+ "FROM PCOMMENTS "
+				+ "WHERE P_NO =?";
+		
+		try {
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1,no);
+			
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				pcomment = new Pcomment();
+				
+				pcomment.setPCm_content(rs.getString("CM_CONTENT"));
+				pcomment.setPCm_id(rs.getString("CM_ID"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}		
+		return pcomment;
+	}
+	
+	
+
 
 	// 상품 개수 구하기
 	public int getProductCount(Connection connection, int category, String searchWord) {

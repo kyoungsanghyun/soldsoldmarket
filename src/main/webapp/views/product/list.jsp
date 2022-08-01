@@ -89,17 +89,28 @@
 		             <ul class="pro-list">	
 	             <c:forEach var="product" items="${ list }">
 		                 <li>
-		                     <a href="#">
-		                         <span class="thum">
-		                             <img src="${ path }/resources/images/product/product1.jpg" alt="이미지">
+		                     <a href="${path}/product/view?no=${product.PNo}" name="no">
+		                         <span class="thum">		                             
+		                         	<img src="${ path }/${ product.PThumb }" alt="이미지">
 		                         </span>
 		                         <div class="pro-list-name"> ${ product.PName }</div>
 		                         <div class="pro-list-price"><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</div>
+								 
+		                     <a href="${path}/product/view?no=${product.PNo}" name="no">
+		                         <div class="thum">
+		                             <img src="${ path }/${ product.PThumb }" alt="이미지">
+		                         </div>
+		                         <input type="hidden" value="${product.PNo}">
+		                         <div class="text"> ${ product.PName }</div>
+		                         <div class="text"> ${ product.PPrice }</div>
+
 		                     </a>
 		                 </li>
 	             </c:forEach>
 		             </ul>
              </c:if>
+             
+
              
          </div>
      </div>

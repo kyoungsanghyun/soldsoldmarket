@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.member.model.vo.Member;
-import com.soldsoldMarket.mypage.model.service.SoldListService;
+import com.soldsoldMarket.mypage.model.service.SoldlistService;
 import com.soldsoldMarket.product.model.vo.Product;
 
 @WebServlet("/mypage/soldlist")
@@ -43,7 +43,7 @@ public class SoldlistServlet extends HttpServlet {
     	PageInfo pageInfo = null;
     	
 		
-		list = new SoldListService().getMemberProductList();
+		list = new SoldlistService().getMemberProductList();
     	
 		
     	request.setAttribute("list", list);

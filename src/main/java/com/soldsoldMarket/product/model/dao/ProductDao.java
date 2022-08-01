@@ -45,7 +45,7 @@ public class ProductDao {
 				
 				product.setPNo(rs.getInt("P_NO"));
 				product.setPName(rs.getString("P_NAME"));
-				product.setPId(rs.getString("M_ID"));
+				product.setMId(rs.getString("M_ID"));
 				product.setPPrice(rs.getInt("P_PRICE"));
 				product.setPDate(rs.getDate("P_DATE"));
 				product.setPLocation(rs.getString("P_LOCATION"));
@@ -185,7 +185,7 @@ public class ProductDao {
 				product.setPNo(rs.getInt("P_NO"));
 				product.setPName(rs.getString("P_NAME"));
 				product.setPPrice(rs.getInt("P_PRICE"));
-				product.setCId(rs.getInt("C_ID"));
+				product.setCId(rs.getString("C_ID"));
 				product.setPDate(rs.getDate("P_DATE"));
 				
 				list.add(product);

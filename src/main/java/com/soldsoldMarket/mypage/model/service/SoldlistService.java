@@ -5,17 +5,17 @@ import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
-import com.soldsoldMarket.mypage.model.dao.SoldListDao;
+import com.soldsoldMarket.mypage.model.dao.SoldlistDao;
 import com.soldsoldMarket.product.model.vo.Product;
 
-public class SoldListService {
+public class SoldlistService {
 
 	// 회원의 상품 리스트 가져오기
 	public List<Product> getMemberProductList() {
 		List<Product> list = null;
 		Connection connection = getConnection();
 		
-		list = new SoldListDao().selectMemberProductList(connection);
+		list = new SoldlistDao().selectMemberProductList(connection);
 		
 		close(connection);
 				

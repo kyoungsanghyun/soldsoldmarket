@@ -7,7 +7,7 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/soldList.css">
+<link rel="stylesheet" href="${ path }/resources/css/soldlist.css">
 
         <!-- ====================================================== -->
         <!-- 본문 -->

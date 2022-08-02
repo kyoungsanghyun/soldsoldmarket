@@ -2,7 +2,6 @@
 
 div.section {
     width: 100%;
-    /* background-color: skyblue; */
     padding-top: 0px;
     margin-bottom: 55px;
     text-align: center;
@@ -10,7 +9,6 @@ div.section {
 }
 
 
-/* 1:1 문의 */
 table {
     border-collapse: collapse;
 }
@@ -42,12 +40,35 @@ table {
     text-align: center;
 }
 
+.board_list td img{
+    height: 100px;
+}
+
 .board_list .tit {
     text-align: left;
 }
 
 .board_list tit:hover {
     text-decoration: underline;
+}
+
+.td1, .td2, .td4 {
+	width: 20%;
+}
+
+.thd3 {
+	width: 40%;
+}
+
+.pTrading{
+	background-color: #0232e4;
+	color: white;
+	font-weight: 600; 
+	padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px;
 }
 
 

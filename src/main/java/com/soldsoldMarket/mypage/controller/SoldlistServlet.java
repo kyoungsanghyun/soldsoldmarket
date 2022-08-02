@@ -39,14 +39,22 @@ public class SoldlistServlet extends HttpServlet {
     	int page = 0; // 페이지의 수
     	int listCount = 0; // 상품의 수
     	PageInfo pageInfo = null; // 페이지 정보
-    	String pTrading = null;
+    	String memberId = null; // 로그인멤버 아이디
     	
-		
-		list = new SoldlistService().getMemberProductList(pageInfo, pTrading);
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		} catch (NumberFormatException e) {
+			page = 1;
+		}
     	
+		memberId = loginMember.getId();
+		listCount = new SoldlistService().getMemberProductCount(memberId);
+		pageInfo = new PageInfo(page, 5, listCount, 3);
+		list = new SoldlistService().getMemberProductList(memberId, pageInfo);
 		
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
+    	request.setAttribute("page", page);
     	request.getRequestDispatcher("/views/mypage/soldlist.jsp").forward(request, response);
 		
 	}

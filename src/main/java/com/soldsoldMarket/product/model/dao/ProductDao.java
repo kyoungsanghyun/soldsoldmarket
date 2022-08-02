@@ -210,11 +210,12 @@ public class ProductDao {
 		String query = "SELECT COUNT(1)"
 						+ "FROM ( "
 						+ "SELECT  P.P_NO, P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE, max(PA.PA_IMG_ID) AS MAXPAID "
-						+ "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) ";
+						+ "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) "
+						+ "WHERE P.STATUS = 'Y' ";
 		
 						// 검색어 구분
 						if( searchWord != null ) {
-							query += "WHERE P.P_NAME LIKE ? ";
+							query += "AND P.P_NAME LIKE ? ";
 							category = 0;
 						}
 						
@@ -260,17 +261,18 @@ public class ProductDao {
 		ResultSet rs = null;
 
  		String query = "SELECT RNUM, P_NO, P_NAME, P_PRICE, C_ID, P_DATE, MAXPAIMG1 "
-				+ "FROM ("
-				+    "SELECT ROWNUM AS RNUM, "
-				+           "P_NO, "
-				+     		"P_NAME, P_PRICE, C_ID, P_DATE, MAXPAIMG1 "
-				+ 	 "FROM ("
-				+ 	    "SELECT P.P_NO, "
-				+ 	   		   "P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE, max(PA.PA_IMG1) AS MAXPAIMG1 "
-				+              "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) ";
+						+ "FROM ("
+						+    "SELECT ROWNUM AS RNUM, "
+						+           "P_NO, "
+						+     		"P_NAME, P_PRICE, C_ID, P_DATE, MAXPAIMG1 "
+						+ 	 "FROM ("
+						+ 	    "SELECT P.P_NO, "
+						+ 	   		   "P.P_NAME, P.P_PRICE, P.C_ID, P.P_DATE, max(PA.PA_IMG1) AS MAXPAIMG1 "
+						+              "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) "
+		 				+              "WHERE P.STATUS = 'Y' ";
 			// 검색어 구분
 			if( searchWord != null ) {
-				query += "WHERE P.P_NAME LIKE ? ";
+				query += "AND P.P_NAME LIKE ? ";
 				category = 0;
 			}
 

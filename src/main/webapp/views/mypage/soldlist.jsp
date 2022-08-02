@@ -4,10 +4,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="product" value="${ list }"/>
 
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/soldlist.css">
+<link rel="stylesheet" href="${ path }/resources/css/soldlist.css?var=1">
 
         <!-- ====================================================== -->
         <!-- 본문 -->
@@ -19,50 +20,59 @@
 
             <!-- ====================================================== -->
             <!-- 표 -->
-            <table class="board_list">
-                <thead>
-                    <tr>
-                        <th>날짜</th>
-                        <th>상품</th>
-                        <th>상품명</th>
-                        <th>거래상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2022-07-24</td>
-                        <td>작성자</td>
-                        <td class="tit">
-                            <a href="">문의합니다.</a>
-                        </td>
-                        <td>답변예정</td>
-                    </tr>
-                    <tr>
-                        <td>2022-07-24</td>
-                        <td>작성자</td>
-                        <td class="tit">
-                            <a href="">문의합니다.</a>
-                        </td>
-                        <td>답변예정</td>
-                    </tr>
-
-
-                </tbody>
-            </table>
+            
+            <c:if test="${ empty list }">
+	            <br><br><br><br>
+	            <h2>거래내역이 없습니다.</h2>
+	            <br><br><br><br>
+            </c:if>
+            
+            <c:if test="${ not empty list }">       
+	            <table class="board_list">
+	                <thead>
+	                    <tr>
+	                        <th>날짜</th>
+	                        <th>상품</th>
+	                        <th>상품명</th>
+	                        <th>거래상태</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                
+	                	<c:forEach var="product" items="${ list }">	                	
+		                    <tr>
+		                        <td class="td1">${ product.PDate }</td>
+		                        <td class="td2"><img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지"></td>
+		                        <td class="td3">
+		                            <a href="${path}/product/view?no=${product.PNo}" name="no">${ product.PName }</a>
+		                        </td>
+		                        <td class="td4"><span class="pTrading">${ product.PTrading }</span></td>
+		                    </tr>
+	                    </c:forEach>
+	                    	
+	                </tbody>
+	            </table>
+           </c:if>
 
 
             <!-- ====================================================== -->
             <!-- 페이지 버튼 -->
             <div class="page_wrap">
                 <div class="page_nation">
-                    <a class="arrow pprev" href="#">&#60;&#60;</a>
-                    <a class="arrow prev" href="#">&#60;</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a class="arrow next" href="#">&#62;</a>
-                    <a class="arrow nnext" href="#">&#62;&#62;</a>
+                    <a class="arrow pprev" href="${ path }/mypage/soldlist?page=1">&#60;&#60;</a>
+                    <a class="arrow prev" href="${ path }/mypage/soldlist?page=${ pageInfo.prevPage }">&#60;</a>
+                    
+			   		<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+						<c:if test="${ status.current == pageInfo.currentPage }">
+							<a href="#" class="active">${ status.current }</a>
+						</c:if>
+						<c:if test="${ status.current != pageInfo.currentPage }">
+							<a href="${ path }/mypage/soldlist?page=${ status.current }">${ status.current }</a>
+						</c:if>
+					</c:forEach>
+			
+                    <a class="arrow next" href="${ path }/mypage/soldlist?page=${ pageInfo.nextPage }">&#62;</a>
+                    <a class="arrow nnext" href="${ path }/mypage/soldlist?age=${ pageInfo.maxPage }">&#62;&#62;</a>
                 </div>
             </div>
         </div>

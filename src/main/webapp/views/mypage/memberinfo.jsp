@@ -55,7 +55,7 @@
        <section id="content">
         <h2 align="center">회원 정보 수정</h2>
     <div id="view-container">
-		<form id="memberFrm" action="${ path }/member/update" method="post">
+		<form id="memberFrm" action="${ path }/mypage/memberinfo" method="post">
 			<!-- 
 			<input type="hidden" name="userNo" value="${ loginMember.no }">
 			-->
@@ -64,42 +64,44 @@
 	                <th>이름</th>
 					<td>
 						<input type="text" name="name" id="name" 
-							value="${ loginMember.name }" required>				
+							value="${ member.name }" required>				
 					</td> 	
 	            </tr>
+	            
 	            <tr>
 	                <th>생일</th>
 					<td>
-						<input type="text" name="bDay" id="bDay" 
-							value="${ loginMember.bDay }">				
+						<input type="date" name="bDay" id="bDay" 
+							value="${ member.BDay }">				
 					</td> 	
 	            </tr>
+	            
 	            <tr>
 	                <th>성별</th>
 					<td>
 						<input type="text" name="gender" id="gender" 
-							value="${ loginMember.gender }" required>				
+							value="${ member.gender }" required>				
 					</td> 	
 	            </tr>
       	        <tr>
 	                <th>휴대폰</th>
 	                <td>
 	                    <input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" 
-	                    	value="${loginMember.phone }" maxlength="11">
+	                    	value="${ member.phone }" maxlength="11">
 	                </td>
 	            </tr>
 	            <tr>
 	                <th>이메일</th>
 					<td>
 						<input type="email" placeholder="abc@abc.com" name="email" id="email"
-							value="${ loginMember.email }">												
+							value="${ member.email }">												
 					</td> 	
 	            </tr>
 	            <tr>
 	                <th>주소</th>
 						<td>
 							<input type="text" name="address" id="address"
-								value="${ loginMember.address }">
+								value="${ member.address }">
 						</td> 	
 	            </tr>
 	        </table>

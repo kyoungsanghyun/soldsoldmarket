@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.soldsoldMarket.product.model.service.ProductService;
+import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Product;
 
-@WebServlet("/product/update")
+@WebServlet(name = "ProductUpdateServlet", urlPatterns = { "/product/update" })
 public class ProductUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -19,23 +20,27 @@ public class ProductUpdateServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// ·Î±×ÀÎ Ã¼Å© & º»ÀÎ °Ô½Ã±Û ¿©ºÎ È®ÀÎ (ÃßÈÄ Àû¿ë)
+    	// ë¡œê·¸ì¸ ì²´í¬ & ë³¸ì¸ ê²Œì‹œê¸€ ì—¬ë¶€ í™•ì¸ (ì¶”í›„ ì ìš©)
     	Product product = null;
+    	PAdd padd = null;
     	int no = Integer.parseInt(request.getParameter("no"));
     	
-    	System.out.println("°Ô½Ã±Û ¹øÈ£ : " + no);
+    	System.out.println("ê²Œì‹œê¸€ ë²ˆí˜¸ : " + no);
     	
-    	product = new ProductService().getProductByNo(no);
+    	product = new ProductService().getProductByNo(no, false);
     	
     	System.out.println(product);
-    
+    	
     	request.setAttribute("product", product);
-    	request.getRequestDispatcher("views/product/update.jsp").forward(request, response);
+    	request.setAttribute("padd", padd);
+    	request.getRequestDispatcher("/views/product/update.jsp").forward(request, response);
     }
     
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	
 	}
 
 }

@@ -73,7 +73,7 @@
 				<br>
 				<span><b>설명 *</b></span>
 				<br><br>
-				<textarea name="content" cols="128" rows="15" minlength="20"
+				<textarea name="content" cols="128" rows="15" minlength="10"
 					placeholder="구입 연도, 브랜드, 사용감, 하자 유무 등 구매자에게 필요한 정보를 필수로 입력해 주세요. (10자 이상 입력)"></textarea>
 				<br><br>
 				<span><b>이미지 추가</b></span>

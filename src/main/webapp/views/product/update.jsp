@@ -15,28 +15,35 @@
 <section id="content">
 	<div class="write">
 		<form name = "productRegist" action="${ path }/product/update" method="POST" enctype="multipart/form-data">
+		
 			<div class="information">
 				<button>상품수정</button>
 				<br>
 				<h2>기본정보</h2>
 				<hr>
-				<input type="hidden" name="writer" id="writerId" value="${ product.MId }" readonly>
-				<!-- PNo, writer는 숨겨진 값 -->
+				<input type="hidden" name="writer" id="writerId" value="${product.MId}" readonly>
+				<!-- 기존 파일 이름 -->
+				<input type="hidden" name="imgpre5" id="imgpre5" value="${FName[4]}">
+				<input type="hidden" name="imgpre4" id="imgpre4" value="${FName[3]}">
+				<input type="hidden" name="imgpre3" id="imgpre3" value="${FName[2]}">
+		        <input type="hidden" name="imgpre2" id="imgpre2" value="${FName[1]}">
+		      	<input type="hidden" name="imgpre1" id="imgpre1" value="${FName[0]}">
+				<!-- 여기까지 숨겨진 값 -->
 				<select class="category" name="category" required>
-					<option value="1" ${ product.CId eq '1'? 'selected' : '' }>의류</option>
-					<option value="2" ${ product.CId eq '2'? 'selected' : '' }>악세서리</option>
-					<option value="3" ${ product.CId eq '3'? 'selected' : '' }>디지털/가전</option>
-					<option value="4" ${ product.CId eq '4'? 'selected' : '' }>스포츠/레저</option>
-					<option value="5" ${ product.CId eq '5'? 'selected' : '' }>도서/음반</option>
-					<option value="6" ${ product.CId eq '6'? 'selected' : '' }>반려동물</option>
-					<option value="7" ${ product.CId eq '7'? 'selected' : '' }>기타</option>
+					<option value="1" <c:if test="${product.CId eq '1'}">selected</c:if>>의류</option>
+					<option value="2" <c:if test="${product.CId eq '2'}">selected</c:if>>악세서리</option>
+					<option value="3" <c:if test="${product.CId eq '3'}">selected</c:if>>디지털/가전</option>
+					<option value="4" <c:if test="${product.CId eq '4'}">selected</c:if>>스포츠/레저</option>
+					<option value="5" <c:if test="${product.CId eq '5'}">selected</c:if>>도서/음반</option>
+					<option value="6" <c:if test="${product.CId eq '6'}">selected</c:if>>반려동물</option>
+					<option value="7" <c:if test="${product.CId eq '7'}">selected</c:if>>기타</option>
 				</select>
 				<br>		
 				<input type="text" name="title" id="title" value="${ product.PName }" required>
 				<select class="status" name="status" required>
-					<option value="거래중">거래중</option>
-					<option value="예약">예약</option>
-					<option value="거래완료">거래완료</option>
+					<option value="new">거래중</option>
+					<option value="resorved">예약</option>
+					<option value="soldout">거래완료</option>
 				</select>
 			</div>
 			<div class="board-write-box">
@@ -48,9 +55,9 @@
 				<br>
 				<span><b>상품 상태</b></span>
 				<br><br>
-				<input type="radio" name="condition" value="open" checked='<c:if test="${product.PQlt eq 'open'}"></c:if>'> 개봉
-				<input type="radio" name="condition" value="new" checked='<c:if test="${product.PQlt eq 'new'}"></c:if>'>거의 새것
-				<input type="radio" name="condition" value="used" checked='<c:if test="${product.PQlt eq 'used'}"></c:if>'>사용감 있음
+				<input type="radio" name="condition" value="open" <c:if test ="${product.PQlt eq 'open'}">checked="checked"</c:if>> 개봉
+				<input type="radio" name="condition" value="new" <c:if test ="${product.PQlt eq 'new'}">checked="checked"</c:if>>거의 새것
+				<input type="radio" name="condition" value="used" <c:if test ="${product.PQlt eq 'used'}">checked="checked"</c:if>>사용감 있음
 				<hr style="width:90%; margin: 20px 0 0 5%;">
 				<br>
 				<span><b>거래지역 *</b></span>
@@ -60,8 +67,8 @@
 				<br>    
 				<span><b>교환 *</b></span>
 				<br><br>
-				<input type="radio" name="exchange" value="no" checked='<c:if test="${product.PExchange eq 'no'}"></c:if>'> 불가
-				<input type="radio" name="exchange" value="yes" checked='<c:if test="${product.PExchange eq 'yes'}"></c:if>'> 가능
+				<input type="radio" name="exchange" value="N" <c:if test ="${product.PExchange eq 'N'}">checked="checked"</c:if>> 불가
+				<input type="radio" name="exchange" value="Y" <c:if test ="${product.PExchange eq 'Y'}">checked="checked"</c:if>> 가능
 				<hr style="width:90%; margin: 20px 0 0 5%;">
 				<br>
 				<span><b>수량</b></span>
@@ -71,7 +78,7 @@
 				<br>
 				<span><b>설명 *</b></span>
 				<br><br>
-				<textarea name="content" cols="128" rows="15">${ product.Pcontents }</textarea>
+				<textarea name="content" cols="128" rows="15" minlangth="10">${ product.PContents }</textarea>
 				<br><br>
 				<span><b>이미지 추가</b></span>
 		        <br>

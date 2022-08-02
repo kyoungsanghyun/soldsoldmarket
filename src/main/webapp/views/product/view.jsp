@@ -62,8 +62,8 @@
 	                <!--  작성자는 삭제버튼 / 일반회원은 신고버튼이 나오는 로직 -->
 		            	<!-- 삭제 버튼 (작성자)-->
 		            	<c:if test="${not empty member && member.id == product.MId}">
-		                	<span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png">삭제하기</span></li>
-		                </c:if>	
+		                	<span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png" id="btnDelete">삭제하기</span></li>
+		                </c:if>
 		            	<!-- 신고 버튼 (일반회원) -->
 		                <c:if test="${empty member || member.id != product.MId}">
 		                	<span id="product_info_varival_report"><img src="${ path }/resources/images/icon/report.png">신고하기</span></li>
@@ -87,7 +87,7 @@
             <!--  작성자는 수정 버튼 / 일반회원은 구매버튼이 나오는 로직 -->
             	<!-- 수정 버튼 (작성자)-->
             	<c:if test="${not empty member && member.id == product.MId}">
-                	<span id="toolbar_buy"><img src="${ path }/resources/images/button/modbtn.png"></span>
+                	<span id="toolbar_buy"><img src="${ path }/resources/images/button/modbtn.png" onclick="location.href='${ path }/product/update?no=${ product.PNo }'"></span>
                 </c:if>	
             	<!-- 구매 버튼 (일반회원) -->
                 <c:if test="${empty member || member.id != product.MId}">
@@ -131,6 +131,15 @@
     <script src="${ path }/resources/js/jquery-3.6.0.min.js"></script>
     <script src="${ path }/resources/js/productDetail.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script>
+    	$(document).ready(() => {
+    		$('#btnDelete').on("click", () => {
+    			if(confirm("정말로 게시글을 삭제하시겠습니까?")) {
+    				location.replace("${ path }/product/delete?no=${ product.PNo }");
+    			}
+    		})
+    	})
+    </script>
 </body>
 </html>
 

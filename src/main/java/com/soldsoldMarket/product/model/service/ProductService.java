@@ -5,15 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.kh.mvc.common.jdbc.JDBCTemplate.close;
-import static com.kh.mvc.common.jdbc.JDBCTemplate.commit;
-import static com.kh.mvc.common.jdbc.JDBCTemplate.getConnection;
-import static com.kh.mvc.common.jdbc.JDBCTemplate.rollback;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.close;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.commit;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.getConnection;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.rollback;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
 import com.soldsoldMarket.product.model.dao.productRegistDao;
-import com.kh.mvc.board.model.dao.BoardDao;
-import com.kh.mvc.board.model.vo.Reply;
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
 import com.soldsoldMarket.product.model.vo.PAdd;
@@ -131,11 +129,7 @@ public class ProductService {
 		return list;
 	}	
 
-<<<<<<< HEAD
-
-=======
 	
->>>>>>> ef20b037976f93fe13b51e4d1a8b92574252bf43
 	// 상품 등록
 	public int insertProduct(Product product) {
 		int result = 0;
@@ -155,11 +149,8 @@ public class ProductService {
 	
 	}
 	
-<<<<<<< HEAD
-	// 상품 이미지 등록
-=======
 	// 상품 이미지 등록 
->>>>>>> ef20b037976f93fe13b51e4d1a8b92574252bf43
+
 	public int insertPAdd(PAdd padd, Product product) {
 		int result = 0;
 		Connection connection = getConnection();
@@ -188,6 +179,25 @@ public class ProductService {
 
         return list;
     }
+
+    
+    // 상품 삭제
+	public int delete(int no) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new productRegistDao().updateStatus(connection, no, "N");
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
 
 
 

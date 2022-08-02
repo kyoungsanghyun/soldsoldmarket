@@ -42,4 +42,6 @@ public class Product {
 	private int PRowNum;
 
 	public String PThumb;
+	
+	private String status;
 }

@@ -17,8 +17,8 @@
 			<hr>
 			<input type="hidden" name="writer" id="writerId" value="${ member.id }" readonly>
 			<select class="category" name="category" required>
-				<option value="1">1:1문의</option>
-				<option value="2">신고</option>
+				<option value="Q">1:1문의</option>
+				<option value="R">신고</option>
 			</select>
 			<br>
 			<input type="text" name="title" id="title"

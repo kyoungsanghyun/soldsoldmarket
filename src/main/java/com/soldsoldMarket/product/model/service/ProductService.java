@@ -67,8 +67,6 @@ public class ProductService {
 		Connection connection = getConnection();
 		
 
-//		product = new ProductDao().likelogicCount(connection, heart, product);
-		
 		int result = new ProductDao().likelogic(connection, heart);
 		if(result > 0) {
 			commit(connection);
@@ -205,23 +203,6 @@ public class ProductService {
 	}
 
 	
-	// 상품 댓글
-	public int saveComment(Pcomment pcomment) {
-		int result = 0;
-		Connection connection = getConnection();
-		
-		result = new ProductDao().insertComment(connection, pcomment);
-		
-		if(result > 0) {
-			commit(connection);
-		} else {
-			rollback(connection);
-		}
-		
-		close(connection);
-		
-		return result;
-	}
 	
 	// 상품의 개수 가져오기
 	public int getProductCount(int category, String searchcWord) {

@@ -11,7 +11,8 @@
 ------------------------------------------------
 
 CREATE TABLE MEMBER (
-    M_ID    VARCHAR2(500) PRIMARY KEY,
+	M_NO	NUMBER PRIMARY KEY,
+    M_ID    VARCHAR2(500),
     M_PW    VARCHAR2(50),
     M_NAME    VARCHAR2(500),
     M_BIRTH    DATE,
@@ -31,6 +32,7 @@ CREATE TABLE MEMBER (
 );
 
 
+COMMENT ON COLUMN MEMBER.M_NO IS '회원번호';
 COMMENT ON COLUMN MEMBER.M_ID IS '회원아이디';
 COMMENT ON COLUMN MEMBER.M_PW IS '회원비밀번호';
 COMMENT ON COLUMN MEMBER.M_NAME IS '회원명';
@@ -51,6 +53,7 @@ COMMENT ON COLUMN MEMBER.M_JOINWAY IS '가입방법';
 
 
 INSERT INTO MEMBER (
+	M_NO,
     M_ID, 
     M_PW, 
     M_NAME, 
@@ -59,6 +62,7 @@ INSERT INTO MEMBER (
     M_ADDRESS, 
     M_PHONE 
 ) VALUES(
+	'1',
     'osk', 
     '1234', 
     '오성균',
@@ -70,6 +74,7 @@ INSERT INTO MEMBER (
 
 -- 관리자 계정
 INSERT INTO MEMBER (
+	M_NO,
     M_ID, 
     M_PW, 
     M_NAME, 
@@ -79,6 +84,7 @@ INSERT INTO MEMBER (
     M_PHONE,
     M_AUTHORIZATION
 ) VALUES(
+	'2',
     'admin', 
     'admin', 
     '관리자',

@@ -12,20 +12,35 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Member {
 
+	private int no;
+	
 	private String id;
+	
 	private String pwd;
+	
 	private String name;
+	
 	private Date BDay;
+	
 	private String gender;
+	
 	private String address;
+	
 	private Date joinDate;
+	
 	private String intro;
+	
 	private int sellAmount;
+	
 	private int visit;
+	
 	private String img;
+	
 	private String phone;
-	private String report;
+	
+	private String reportCount;
+	
 	private String area;
-	private String email;
+	
 	private String author;
 }

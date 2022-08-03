@@ -13,7 +13,7 @@
     <title>soldsoldMarket</title>
     <link rel="stylesheet" href="${ path }/resources/css/headerFooter.css"> 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
-    
+    <script src="${ path }/resources/js/jquery-3.6.0.js"></script>
 </head>
 
 <body>
@@ -28,6 +28,7 @@
                 <c:if test="${empty member }">
                 <nav>
                     <ul class="nav_top">
+                        <li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height=25px;"></a></li>
                         <li><a href="${path}/login">로그인</a></li>
                         <li><a href="${path}/enrollCheck">회원가입</a></li>
                     </ul>
@@ -36,14 +37,15 @@
                 <c:if test="${not empty member }">
                 <nav>
                     <ul class="nav_top">
+                        <li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height=25px;"></a></li>
                         <li>${member.name} 님 </li>
                         
-                        <c:if test="${member.author == 'C' }">
+                        <c:if test="${member.authority == 'C' }">
                         <li><a href="#">내 상점</a></li>
                         <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                         
-                        <c:if test="${member.author == 'M' }">
+                        <c:if test="${member.authority == 'M' }">
                         <li><a href="#">관리자 페이지</a></li>
                         <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>

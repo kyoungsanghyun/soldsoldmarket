@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+#chat{
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+}

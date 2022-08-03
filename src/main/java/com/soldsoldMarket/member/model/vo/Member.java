@@ -42,5 +42,5 @@ public class Member {
 	
 	private String area;
 	
-	private String author;
+	private String authority;
 }

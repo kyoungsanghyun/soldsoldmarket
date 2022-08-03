@@ -5,9 +5,11 @@
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 <jsp:include page="/views/common/header.jsp" />
-
+<script src="${ path }/resources/js/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="${ path }/resources/css/main.css?ver=1"> 
+<link rel="stylesheet" href="${ path }/resources/css/chat.css">
 
+<img src="${ path }/resources/images/chat01.jpg" title="실시간 채팅" id="chat">
  <div class="section">
      <div class="navb">
          <ul class="nav_bottom">
@@ -53,5 +55,18 @@
          </div>
      </div>
  </div>
+  <script type="text/javascript">
+$(document).ready(function(){
+	$('#chat').on('click',function(){
+		let url = "${path}/chat";
+		open(url,"",status);
+	})
+	
+	
+})
+ 
+ 
+ 
+</script>
 
 <jsp:include page="/views/common/footer.jsp" />

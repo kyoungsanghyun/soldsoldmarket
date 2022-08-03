@@ -168,18 +168,6 @@ public class ProductService {
 		return result;
 	}
 	
-	// 상품 리스트 구하기
-    public List<Product> getProductList(int category, PageInfo pageInfo) {
-        List<Product> list = null;
-        Connection connection = getConnection();
-
-        list = new ProductDao().selectProductList(connection, category, pageInfo);
-
-        close(connection);
-
-        return list;
-    }
-
     
     // 상품 삭제
 	public int delete(int no) {

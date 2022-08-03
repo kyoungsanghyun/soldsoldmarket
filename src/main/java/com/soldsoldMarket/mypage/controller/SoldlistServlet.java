@@ -28,26 +28,33 @@ public class SoldlistServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Member loginMember = (session == null) ? null : (Member) session.getAttribute("member"); 
 		
-		if (loginMember != null) {
-			request.getRequestDispatcher("/views/mypage/memberinfo.jsp").forward(request, response);
-		} else {
+		if (loginMember == null) {
 			request.setAttribute("msg", "로그인 후 거래내역을 확인해 주세요.");
-			request.setAttribute("location", "/");
+			request.setAttribute("location", "/home");
 			
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 		
     	List<Product> list = null; // 회원이 등록한 상품 리스트
-    	int page = 0; // 
-    	int listCount = 0;
-    	PageInfo pageInfo = null;
+    	int page = 0; // 페이지의 수
+    	int listCount = 0; // 상품의 수
+    	PageInfo pageInfo = null; // 페이지 정보
+    	String memberId = null; // 로그인멤버 아이디
     	
-		
-		list = new SoldlistService().getMemberProductList();
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		} catch (NumberFormatException e) {
+			page = 1;
+		}
     	
+		memberId = loginMember.getId();
+		listCount = new SoldlistService().getMemberProductCount(memberId);
+		pageInfo = new PageInfo(page, 5, listCount, 3);
+		list = new SoldlistService().getMemberProductList(memberId, pageInfo);
 		
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
+    	request.setAttribute("page", page);
     	request.getRequestDispatcher("/views/mypage/soldlist.jsp").forward(request, response);
 		
 	}

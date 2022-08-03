@@ -40,12 +40,12 @@
                         
                         <c:if test="${member.author == 'C' }">
                         <li><a href="#">내 상점</a></li>
-                        <li><a href="${path }/logout">로그 아웃</a></li>
+                        <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                         
                         <c:if test="${member.author == 'M' }">
                         <li><a href="#">관리자 페이지</a></li>
-                        <li><a href="${path }/logout">로그 아웃</a></li>
+                        <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                     </ul>
                 </nav>
@@ -87,7 +87,7 @@
                                     <a href="${ path }/mypage/memberinfo">회원정보</a>
                                 </li>
                                 <li><a href="${ path }/views/mypage/asklist.jsp">문의내역</a></li>
-                                <li><a href="${ path }/views/mypage/soldlist.jsp">거래내역</a></li>
+                                <li><a href="${ path }/mypage/soldlist">거래내역</a></li>
                             </ul>
                         </li>
                         <li>

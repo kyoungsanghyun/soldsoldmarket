@@ -10,6 +10,7 @@ import java.util.List;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
 import com.soldsoldMarket.common.util.PageInfo;
+import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
@@ -33,7 +34,8 @@ public class ProductDao {
 							+ "P_TRADING, "
 							+ "P_VIEW, "
 							+ "P_CONTENTS, "
-							+ "P_LIKE "
+							+ "P_LIKE, "
+							+ "P_COMMENTS "
 					+ "FROM PRODUCT P "
 					+ "JOIN MEMBER M ON(M.M_ID = P.M_ID)"
 					+ "WHERE P_NO=?";
@@ -64,6 +66,7 @@ public class ProductDao {
 				product.setPView(rs.getInt("P_VIEW"));
 				product.setPLike(rs.getInt("P_LIKE"));
 				product.setPContents(rs.getString("P_CONTENTS"));
+				product.setPcomments(this.getCommentsByNo(connection,no));;
 				
 			}
 		} catch (SQLException e) {
@@ -75,6 +78,51 @@ public class ProductDao {
 		return product;
 	}
 	
+	
+	// 상품 댓글창
+	private List<Pcomment> getCommentsByNo(Connection connection, int no) {
+		List<Pcomment> pcomments = new ArrayList();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String query = "SELECT PC.CM_NO, PC.P_NO, PC.CM_ID, PC.CM_CONTENT, M.M_ID, PC.CM_DATE "
+				+ "FROM PCOMMENTS PC "
+				+ "JOIN MEMBER M ON(PC.CM_ID = M.M_ID) "
+				+ "WHERE P_NO=? "
+				+ "ORDER BY PC.CM_NO ASC";
+		
+		
+		try {
+			
+			pstm = connection.prepareStatement(query);
+			
+			pstm.setInt(1, no);
+			rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				Pcomment pcomment = new Pcomment();
+				
+				pcomment.setPNo(rs.getInt("P_NO"));
+				pcomment.setPCm_id(rs.getString("CM_ID"));
+				pcomment.setPCm_no(rs.getInt("CM_NO"));
+				pcomment.setPCm_content(rs.getString("CM_CONTENT"));
+				pcomment.setPCm_date(rs.getDate("CM_DATE"));
+				
+				pcomments.add(pcomment);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}
+		
+		return pcomments;
+	}
+	
+
+
+
 	// 상품 이미지
 	public PAdd findProductimgByNo(Connection connection, int no) {
 
@@ -144,62 +192,182 @@ public class ProductDao {
 		return result;
 	}
 	
-	// 상품 좋아요 잠시 보류 
-	public int likelogic(Connection connection, Product product) {
+	// 상품 좋아요
+	public int likelogic(Connection connection, Heart heart) {
 		int result = 0;
-		PreparedStatement pstm = null;
-		String query = "UPDATE PRODUCT SET P_LIKE=? WHERE P_NO=?";
-		
+		PreparedStatement pstmt = null;
+		String query = 	"INSERT INTO HEART (M_ID, P_NO) "
+			+	"SELECT ?, ? "
+			+	"FROM DUAL "
+			+	"WHERE NOT EXISTS ( "
+			+	"SELECT 1, 2 "
+			+	"FROM HEART "
+			+	"WHERE M_ID = ? AND P_NO = ?) ";
+				    
+	
 		try {
-			pstm = connection.prepareStatement(query);
+			pstmt = connection.prepareStatement(query);
 			
-			pstm.setInt(1, 10); 
-			pstm.setInt(2, 1);
-		 	
-			result = pstm.executeUpdate();
+			pstmt.setString(1, heart.getMId());
+			pstmt.setInt(2, heart.getPNo());
+			pstmt.setString(3, heart.getMId());
+			pstmt.setInt(4, heart.getPNo());
 			
+			result = pstmt.executeUpdate();	
+			System.out.println("좋아요 리스트 업 dao ");
+			System.out.println(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstm);
+			close(pstmt);
 		}
-
 		return result;
 	}
 	
-	// 상품 코멘트 불러오기
-	public Pcomment findPcomementByNo(Connection connection, int no) {
-		Pcomment pcomment = null;
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		String query = "SELECT CM_CONTENT, CM_ID "
-				+ "FROM PCOMMENTS "
-				+ "WHERE P_NO =?";
-		
+	// 상품 좋아요 숫자 더하기 
+	public int likelogicCount(Connection connection, Heart heart, Product product) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = 	"UPDATE PRODUCT P "
+				+"SET P.P_LIKE = P.P_LIKE + 1 "
+				+"WHERE P.P_NO IN ( "
+				+    "SELECT P.P_NO "
+				+    "FROM PRODUCT P "
+				+    "JOIN HEART H ON (H.P_NO = P.P_NO) "
+				+    "WHERE H.P_NO = ? AND H.M_ID = ?) ";
 		try {
-			pstm = connection.prepareStatement(query);
+			pstmt = connection.prepareStatement(query);
 			
-			pstm.setInt(1,no);
+			System.out.println("접근확인 카운트 다오");
+			pstmt.setInt(1, heart.getPNo());
+			pstmt.setString(2, heart.getMId());
 			
-			rs = pstm.executeQuery();
-			
-			if(rs.next()) {
-				pcomment = new Pcomment();
-				
-				pcomment.setPCm_content(rs.getString("CM_CONTENT"));
-				pcomment.setPCm_id(rs.getString("CM_ID"));
-				
-			}
+			result = pstmt.executeUpdate();	
+			System.out.println(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs);
-			close(pstm);
-		}		
-		return pcomment;
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 상품 좋아요 취소
+	public int dislikelogic(Connection connection, Heart heart) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = 	 "DELETE FROM HEART WHERE M_ID=? AND P_NO=?";
+		
+		
+		try {
+			System.out.println("dislike 테스트");
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, heart.getMId());
+			pstmt.setInt(2, heart.getPNo());
+
+			result = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	// 상품 좋아요 숫자 더하기 
+	public int dislikelogicCount(Connection connection, Heart heart, Product product) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = 	"UPDATE PRODUCT P "
+				+"SET P.P_LIKE = P.P_LIKE - 1 "
+				+"WHERE P.P_NO IN ( "
+				+    "SELECT P.P_NO "
+				+    "FROM PRODUCT P "
+				+    "JOIN HEART H ON (H.P_NO = P.P_NO) "
+				+    "WHERE H.P_NO = ? AND H.M_ID = ?) ";
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			System.out.println("접근확인 마이너스 카운트 다오");
+			pstmt.setInt(1, heart.getPNo());
+			pstmt.setString(2, heart.getMId());
+			
+			result = pstmt.executeUpdate();	
+			System.out.println(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	// 상품 삭제
+	public int deleteStatus(Connection connection, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "DELETE FROM PADD PRODUCT WHERE P_NO=?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);		
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+
+	// 상품 댓글 삽입
+	public int insertComment(Connection connection, Pcomment pcomment) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO PCOMMENTS VALUES(SEQ_PCOMMENTS_NO.NEXTVAL,?,?,?,DEFAULT)";
+
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, pcomment.getPCm_id());
+			pstmt.setInt(2, pcomment.getPNo());
+			pstmt.setString(3, pcomment.getPCm_content());
+			
+			result = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	
+	// 상품 댓글 삭제
+	public int deletePcomment(Connection connection, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "DELETE FROM PCOMMENTS WHERE CM_NO=?";
+
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);		
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 
 	// 상품 개수 구하기
@@ -337,6 +505,40 @@ public class ProductDao {
 		
 		return list;
 	}
+
+
+	public Heart likecheck(Connection connetion, String hid, int hno) {
+		Heart heart = null;
+		PreparedStatement pstm = null;
+		String query = " SELECT P_NO, M_ID FROM HEART WHERE M_ID=? AND P_NO=?";
+		ResultSet rs = null;
+		
+		try {
+			pstm = connetion.prepareStatement(query);
+			pstm.setString(1, hid);
+			pstm.setInt(2, hno);
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				heart = new Heart();
+				heart.setMId(rs.getString("M_ID"));
+				heart.setPNo(rs.getInt("P_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}
+		
+		return heart;
+	}
+
+
+
+
+
+
 
 
 

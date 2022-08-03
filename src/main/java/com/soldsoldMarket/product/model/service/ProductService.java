@@ -5,11 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
 import com.soldsoldMarket.product.model.dao.productRegistDao;
+
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
+import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
@@ -54,12 +57,91 @@ public class ProductService {
 		
 	}
 	
-	//좋아요 기능
-	public int likelogic(Product product) {
+// SELECT 문 수행
+//		TURE 일시 DELETE 수행 
+//		PRODUCT TABLE 에 카운트 -1
+//		이후 COMMIT
+//		FALSE 일시 INSERT 
+//		COUNT + 1
+//		 객체 생성으로 TURE FALSE로 받아옴
+	
+	// 좋아요 로직
+	public int likelogic(Heart heart, Product product) {
+		
+		Connection connection = getConnection();
+		
+
+//		product = new ProductDao().likelogicCount(connection, heart, product);
+		
+		int result = new ProductDao().likelogic(connection, heart);
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+
+		return result;
+	}
+	
+	// 좋아요 숫자 증가 로직
+	public int likelogicCount(Heart heart, Product product) {
+		System.out.println("접근확인 카운트");
+		Connection connection = getConnection();
+		
+		int result = new ProductDao().likelogicCount(connection, heart, product);
+
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+
+		return result;
+	}
+
+	// 좋아요 취소 로직
+	public int dislikelogic(Heart heart, Product product) {
+		
+		Connection connection = getConnection();
+		
+		int result = new ProductDao().dislikelogic(connection, heart);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+		
+		return result;
+	}
+	// 좋아요 숫자 감소 로직
+	public int dislikelogicCount(Heart heart, Product product) {
+		System.out.println("접근확인 카운트");
+		Connection connection = getConnection();
+		
+		int result = new ProductDao().dislikelogicCount(connection, heart, product);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+		
+		return result;
+	}
+	
+	// 상품 삭제 (status 로 구현됨)
+	public int deleteProduct(int no) {
 		int result = 0;
 		Connection connection = getConnection();
 		
-		result = new ProductDao().likelogic(connection, product);
+		result = new ProductDao().deleteStatus(connection, no);
+		
+		System.out.println("service result : " + result);
 		if(result > 0) {
 			commit(connection);
 		} else {
@@ -70,18 +152,48 @@ public class ProductService {
 		
 		return result;
 	}
-	
-	// 상품 코멘트 불러오기
-	public Pcomment getPcommentByNo(int no) {
-		Pcomment pcomment = null;
+
+	// 댓글 삭제
+	public int deletePcomment(int no) {
+		int result = 0;
 		Connection connection = getConnection();
 		
-		pcomment = new ProductDao().findPcomementByNo(connection, no);
+		result = new ProductDao().deletePcomment(connection, no);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
 		
 		close(connection);
-				
-		return pcomment;
+		
+		return result;
 	}
+
+	
+	
+	
+	
+	// 상품 코멘트 달기
+
+	public int saveComment(Pcomment pcomment) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new ProductDao().insertComment(connection, pcomment);
+
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
 	
 	
 	// 상품의 개수 가져오기
@@ -149,12 +261,23 @@ public class ProductService {
         List<Product> list = null;
         Connection connection = getConnection();
 
-        list = new ProductDao().selectProductList(connection, category, pageInfo);
+        list = new ProductDao().selectProductList(connection, category, pageInfo, null, null);
 
         close(connection);
 
         return list;
     }
+
+	public Heart likecheck(String hid, int hno) {
+		Connection connetion = getConnection();
+		
+		Heart heart = new ProductDao().likecheck(connetion, hid, hno);
+		
+		close(connetion);
+		
+		return heart;
+	}
+
 
 
 

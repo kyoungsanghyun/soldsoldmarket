@@ -1,6 +1,8 @@
 package com.soldsoldMarket.product.model.vo;
 
 import java.util.Date;
+import java.util.List;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,4 +44,6 @@ public class Product {
 	private int PRowNum;
 
 	public String PThumb;
+	
+	private List<Pcomment> pcomments;
 }

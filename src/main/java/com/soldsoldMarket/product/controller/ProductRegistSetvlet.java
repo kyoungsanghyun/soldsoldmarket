@@ -98,6 +98,7 @@ public class ProductRegistSetvlet extends HttpServlet {
 			i++;
 		}
     	
+		
 		HttpSession session = request.getSession(false);
     	Member member = (session == null) ? null : (Member) session.getAttribute("member");
     	

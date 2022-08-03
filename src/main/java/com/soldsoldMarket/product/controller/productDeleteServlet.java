@@ -23,7 +23,6 @@ public class productDeleteServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 로그인 체크 & 본인게시글 여부 확인
 		
 		int result = 0;
 		int no = Integer.parseInt(request.getParameter("no"));

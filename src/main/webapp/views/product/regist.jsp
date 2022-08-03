@@ -6,15 +6,7 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/productregist.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
-
-<style>
-
-
-</style>
-
-<script>
-
-</script>
+<script src="${ path }/resources/js/jquery-3.6.0.js"></script>
 
 <section id="content">
 	<div class="write">
@@ -89,6 +81,15 @@
 						추가이미지 : <input type="file" name="filename5" id="filename5"><br/>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2">
+					<img id="showimg1" style="width: 60px; height: 60px;"><span class="filetext"></span>
+					<img id="showimg2" style="width: 60px; height: 60px;"><span class="filetext"></span>
+					<img id="showimg3" style="width: 60px; height: 60px;"><span class="filetext"></span>
+					<img id="showimg4" style="width: 60px; height: 60px;"><span class="filetext"></span>
+					<img id="showimg5" style="width: 60px; height: 60px;"><span class="filetext"></span>
+					</td>
+				</tr>
 	            </table> 
 	          	<div class="bottom">
 	            	<button type="submit">등록하기</button>
@@ -98,7 +99,56 @@
        </form>
      </div>
   </section>
-						    
-				
+  
+  <script>
+  $(function() {
+      $("#filename1").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg1").attr("src", temp);
+         $("#showimg1").css("display", "inline");
+      });
+      $("#filename2").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg2").attr("src", temp);
+         $("#showimg2").css("display", "inline");
+      });
+      $("#filename3").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg3").attr("src", temp);
+         $("#showimg3").css("display", "inline");
+      })
+      $("#filename4").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg4").attr("src", temp);
+         $("#showimg4").css("display", "inline");
+      })
+      $("#filename5").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg5").attr("src", temp);
+         $("#showimg5").css("display", "inline");
+      })
+   });
+  </script>
+
 
 <jsp:include page="/views/common/footer.jsp" />

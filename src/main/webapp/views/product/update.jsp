@@ -6,11 +6,7 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/productregist.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
-
-<script>
-
-
-</script>
+<script src="${ path }/resources/js/jquery-3.6.0.js"></script>
 
 <section id="content">
 	<div class="write">
@@ -21,7 +17,8 @@
 				<br>
 				<h2>기본정보</h2>
 				<hr>
-				<input type="hidden" name="writer" id="writerId" value="${product.MId}" readonly>
+				<input type="hidden" name="writer" id="writerId" value="${product.MId}" readonly> <!-- 작성자 아이디 -->
+				
 				<!-- 기존 파일 이름 -->
 				<input type="hidden" name="imgpre5" id="imgpre5" value="${FName[4]}">
 				<input type="hidden" name="imgpre4" id="imgpre4" value="${FName[3]}">
@@ -29,6 +26,7 @@
 		        <input type="hidden" name="imgpre2" id="imgpre2" value="${FName[1]}">
 		      	<input type="hidden" name="imgpre1" id="imgpre1" value="${FName[0]}">
 				<!-- 여기까지 숨겨진 값 -->
+				
 				<select class="category" name="category" required>
 					<option value="1" <c:if test="${product.CId eq '1'}">selected</c:if>>의류</option>
 					<option value="2" <c:if test="${product.CId eq '2'}">selected</c:if>>악세서리</option>
@@ -87,41 +85,91 @@
 	            <tr>
 					<td style="text-align: center;">
 						대표이미지 : <input type="file" name="filename1" id="filename1">
-						<c:if test="${ not empty padd.PAimg1 }">
-							<span>${ padd.PAimg1 }</span>
-						</c:if>
 						<br/>
 						추가이미지 : <input type="file" name="filename2" id="filename2">
-						<c:if test="${ not empty padd.PAimg2 }">
-							<span>${ padd.PAimg2 }</span>
-						</c:if>
 						<br/>
 						추가이미지 : <input type="file" name="filename3" id="filename3">
-						<c:if test="${ not empty padd.PAimg3 }">
-							<span>${ padd.PAimg3 }</span>
-						</c:if>
 						<br/>
 						추가이미지 : <input type="file" name="filename4" id="filename4">
-						<c:if test="${ not empty padd.PAimg4 }">
-							<span>${ padd.PAimg4 }</span>
-						</c:if>
 						<br/>
 						추가이미지 : <input type="file" name="filename5" id="filename5">
-						<c:if test="${ not empty padd.PAimg5 }">
-							<span>${ padd.PAimg5 }</span>
-						</c:if>
 						<br/>
 					</td>
 				</tr>
+				<tr>
+		            <td colspan="2" style="text-align: center;">
+		            <c:if test="${not empty FName[2]}">
+		               <img src="/resources/upload/product/${FName[2]}" id="showimg1" style="width: 60px; height: 60px;"><span class="filetext"></span>
+		            </c:if>
+		            <c:if test="${not empty FName[1]}">
+		               <img src="/resources/upload/product/${FName[1]}" id="showimg2" style="width: 60px; height: 60px;"><span class="filetext"></span>
+		            </c:if>
+		            <c:if test="${not empty FName[0]}">
+		               <img src="/resources/upload/product/${FName[0]}" id="showimg3" style="width: 60px; height: 60px;"><span class="filetext"></span>
+		            </c:if>
+		            
+		            </td>
+		         </tr>
 	            </table> 
 	          	<div class="bottom">
-	            	<button type="submit">등록하기</button>
+	            	<button type="submit">수정하기</button>
 	         	</div>
-	         	
 	         	
 	      </div>
        </form>
      </div>
   </section>
 
+
+  <script>
+  $(function() {
+
+      $("#filename1").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg1").attr("src", temp);
+      });
+
+      $("#filename2").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg2").attr("src", temp);
+      });
+
+      $("#filename3").on("change", function() {
+         if (window.FileReader) {
+            var filename = $(this)[0].files[0].name;
+         }
+         $(this).next().html(filename);
+         var temp = URL.createObjectURL(event.target.files[0]);
+         $("#showimg3").attr("src", temp);
+      });
+      
+      $("#filename4").on("change", function() {
+          if (window.FileReader) {
+             var filename = $(this)[0].files[0].name;
+          }
+          $(this).next().html(filename);
+          var temp = URL.createObjectURL(event.target.files[0]);
+          $("#showimg4").attr("src", temp);
+       });
+      
+      $("#filename5").on("change", function() {
+          if (window.FileReader) {
+             var filename = $(this)[0].files[0].name;
+          }
+          $(this).next().html(filename);
+          var temp = URL.createObjectURL(event.target.files[0]);
+          $("#showimg5").attr("src", temp);
+       });
+      
+
+   });
+  </script>
 <jsp:include page="/views/common/footer.jsp" />

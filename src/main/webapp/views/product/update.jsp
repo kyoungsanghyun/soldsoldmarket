@@ -18,17 +18,17 @@
 				<h2>기본정보</h2>
 				<hr>
 				<input type="hidden" name="writer" id="writerId" value="${product.MId}" readonly> <!-- 작성자 아이디 -->
-				
+				<input type="hidden" name="p_no" value="${product.PNo}">
 				<!-- 기존 파일 이름 -->
-				<input type="hidden" name="imgpre5" id="imgpre5" value="${FName[4]}">
-				<input type="hidden" name="imgpre4" id="imgpre4" value="${FName[3]}">
-				<input type="hidden" name="imgpre3" id="imgpre3" value="${FName[2]}">
-		        <input type="hidden" name="imgpre2" id="imgpre2" value="${FName[1]}">
-		      	<input type="hidden" name="imgpre1" id="imgpre1" value="${FName[0]}">
+				<input type="hidden" name="imgpre5" id="imgpre5" value="${padd.PAimg1}">
+				<input type="hidden" name="imgpre4" id="imgpre4" value="${padd.PAimg2}">
+				<input type="hidden" name="imgpre3" id="imgpre3" value="${padd.PAimg3}">
+		        <input type="hidden" name="imgpre2" id="imgpre2" value="${padd.PAimg4}">
+		      	<input type="hidden" name="imgpre1" id="imgpre1" value="${padd.PAimg5}">
 				<!-- 여기까지 숨겨진 값 -->
 				
 				<select class="category" name="category" required>
-					<option value="1" <c:if test="${product.CId eq '1'}">selected</c:if>>의류</option>
+					<option value="1" <c:if test="${product.CId eq '1'}">selected</c:if>>의류 >>> ${product.CId}</option>
 					<option value="2" <c:if test="${product.CId eq '2'}">selected</c:if>>악세서리</option>
 					<option value="3" <c:if test="${product.CId eq '3'}">selected</c:if>>디지털/가전</option>
 					<option value="4" <c:if test="${product.CId eq '4'}">selected</c:if>>스포츠/레저</option>
@@ -97,18 +97,7 @@
 					</td>
 				</tr>
 				<tr>
-		            <td colspan="2" style="text-align: center;">
-		            <c:if test="${not empty FName[2]}">
-		               <img src="/resources/upload/product/${FName[2]}" id="showimg1" style="width: 60px; height: 60px;"><span class="filetext"></span>
-		            </c:if>
-		            <c:if test="${not empty FName[1]}">
-		               <img src="/resources/upload/product/${FName[1]}" id="showimg2" style="width: 60px; height: 60px;"><span class="filetext"></span>
-		            </c:if>
-		            <c:if test="${not empty FName[0]}">
-		               <img src="/resources/upload/product/${FName[0]}" id="showimg3" style="width: 60px; height: 60px;"><span class="filetext"></span>
-		            </c:if>
-		            
-		            </td>
+		          
 		         </tr>
 	            </table> 
 	          	<div class="bottom">
@@ -122,54 +111,6 @@
 
 
   <script>
-  $(function() {
-
-      $("#filename1").on("change", function() {
-         if (window.FileReader) {
-            var filename = $(this)[0].files[0].name;
-         }
-         $(this).next().html(filename);
-         var temp = URL.createObjectURL(event.target.files[0]);
-         $("#showimg1").attr("src", temp);
-      });
-
-      $("#filename2").on("change", function() {
-         if (window.FileReader) {
-            var filename = $(this)[0].files[0].name;
-         }
-         $(this).next().html(filename);
-         var temp = URL.createObjectURL(event.target.files[0]);
-         $("#showimg2").attr("src", temp);
-      });
-
-      $("#filename3").on("change", function() {
-         if (window.FileReader) {
-            var filename = $(this)[0].files[0].name;
-         }
-         $(this).next().html(filename);
-         var temp = URL.createObjectURL(event.target.files[0]);
-         $("#showimg3").attr("src", temp);
-      });
-      
-      $("#filename4").on("change", function() {
-          if (window.FileReader) {
-             var filename = $(this)[0].files[0].name;
-          }
-          $(this).next().html(filename);
-          var temp = URL.createObjectURL(event.target.files[0]);
-          $("#showimg4").attr("src", temp);
-       });
-      
-      $("#filename5").on("change", function() {
-          if (window.FileReader) {
-             var filename = $(this)[0].files[0].name;
-          }
-          $(this).next().html(filename);
-          var temp = URL.createObjectURL(event.target.files[0]);
-          $("#showimg5").attr("src", temp);
-       });
-      
-
-   });
+  
   </script>
 <jsp:include page="/views/common/footer.jsp" />

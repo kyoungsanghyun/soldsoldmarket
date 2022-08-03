@@ -187,6 +187,40 @@ public class ProductService {
 		return result;
 	}
 
+	public int updateProduct(Product product) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new productRegistDao().updateProduct(connection, product);
+		
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	
+	}
+
+	public int updateProductImg(PAdd padd, Product product) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new productRegistDao().updateProductImg(connection, padd, product);
+		
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
 
 
 

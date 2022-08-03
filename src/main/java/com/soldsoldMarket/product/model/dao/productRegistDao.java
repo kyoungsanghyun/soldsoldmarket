@@ -117,6 +117,66 @@ public class productRegistDao {
 		return result;
 	}
 
+	public int updateProduct(Connection connection, Product product) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE PRODUCT SET P_NAME=?,P_PRICE=?,P_QLT=?,P_TRADING=?,P_LOCATION=?,P_EXCHANGE=?,P_QTT=?,P_CONTENTS=?,C_ID=?,P_DATE=SYSDATE WHERE P_NO=?";
+		
+		System.out.println("product.getPTrading() >>>" +  product.getPTrading() + "\nproduct.getPNo() >>>" + product.getPNo());
+		try {
+			pstmt = connection.prepareStatement(query);
+
+			pstmt.setString(1, product.getPName());
+			pstmt.setInt(2, product.getPPrice());
+			pstmt.setString(3, product.getPQlt());
+			pstmt.setString(4, product.getPTrading()); 
+			pstmt.setString(5, product.getPLocation());
+			pstmt.setString(6, product.getPExchange()); 
+			pstmt.setInt(7, product.getPQtt());
+			pstmt.setString(8, product.getPContents());
+			pstmt.setString(9, product.getCId());
+			pstmt.setInt(10, product.getPNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+		
+	}
+
+//	public int updateProductImg(Connection connection, PAdd padd, Product product) {
+//		int result = 0;
+//		PreparedStatement pstmt = null;
+//		
+//		String query = "UPDATE PADD SET (PA_IMG1,PA_IMG2,PA_IMG3,PA_IMG4,PA_IMG5) = (SELECT ?,?,?,?,? FROM DUAL) WHERE P_NO = ?";
+//		
+//		try {
+//			pstmt = connection.prepareStatement(query);
+//
+//			pstmt.setString(1, padd.getPAimg1());
+//			pstmt.setString(2, padd.getPAimg2());
+//			pstmt.setString(3, padd.getPAimg3());
+//			pstmt.setString(4, padd.getPAimg4());
+//			pstmt.setString(5, padd.getPAimg5());
+//			pstmt.setInt(6, padd.getPNo());
+//			
+//			result = pstmt.executeUpdate();
+//			System.out.println("result img >>>>>" + result);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//		}
+//		
+//		return result;
+//	}
+
 	
 }
 

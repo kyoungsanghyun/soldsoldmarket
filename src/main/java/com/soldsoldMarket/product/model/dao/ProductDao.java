@@ -25,6 +25,7 @@ public class ProductDao {
 		String query = "SELECT  P_NO, "
 							+ "P.M_ID, "
 							+ "P_NAME, "
+							+ "C_ID, "
 							+ "P_PRICE, "
 							+ "P_DATE, "
 							+ "P_LOCATION, "
@@ -56,6 +57,7 @@ public class ProductDao {
 				product.setPNo(rs.getInt("P_NO"));
 				product.setPName(rs.getString("P_NAME"));
 				product.setMId(rs.getString("M_ID"));
+				product.setCId(rs.getString("C_ID"));
 				product.setPPrice(rs.getInt("P_PRICE"));
 				product.setPDate(rs.getDate("P_DATE"));
 				product.setPLocation(rs.getString("P_LOCATION"));

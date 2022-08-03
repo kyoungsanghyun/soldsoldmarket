@@ -14,7 +14,8 @@
 </style>
 
 <section id="content">
-	<h2 align="center">관리자페이지</h2>
+	<br>
+	<h3 align="center">관리자페이지</h3>
 	
 	<nav>
 			<ul class="main-nav">

@@ -8,7 +8,7 @@
 <jsp:include page="/views/common/header.jsp" />
 
 <style>
-	.pagination {
+.pagination {
 	justify-content : center;
 }
 </style>
@@ -27,20 +27,21 @@
 		
 		<br>
 		
+		
 		<div id="mainWrapper">
 
         <ul>
             <!-- 게시판 제목 -->
-            <h5 align="center">신고 관리</h5>
+            <h5 align="center">게시판 관리</h5>
 
             <!-- 게시판 목록  -->
             <table class="table">
 			<tr>
 				<th>번호</th>
 				<th>작성자</th>
+				<th>게시글명</th>
 				<th>제목</th>
 				<th>작성일</th>
-				<th>신고취소</th>
 				<th>삭제</th>
 			</tr>
                     <!-- 게시물이 출력될 영역 -->
@@ -68,20 +69,23 @@
 			</c:if>
 		</table>
         </ul>
-            
+        
+           
+          
             <br><br><br>
 
             <!-- 게시판 페이징 영역 -->
+            
             <nav aria-label="Page navigation example">
             <ul class="pagination pagination-sm">
             <li class="page-item">
 			<!-- 맨 처음으로 -->
-			<a class="page-link" href='${ path }/admin/report?page=1'">&lt;&lt;</a>
+			<a class="page-link" href='${ path }/admin/adminlist?page=1'">&lt;&lt;</a>
       		</li>
 
 			<!-- 이전 페이지로 -->
 			<li class="page-item">
-			<a class="page-link" href='${ path }/admin/report?page=${ pageInfo.prevPage }'>&lt; 
+			<a class="page-link" href='${ path }/admin/adminlist?page=${ pageInfo.prevPage }'>&lt; 
       		</a>
       		</li>
 
@@ -91,7 +95,7 @@
 					<li class="page-item"><a href='${ status.current }'></a></li>
 				</c:if>
 				<c:if test="${ status.current != pageInfo.currentPage }">
-					<li class="page-item"><a class="page-link" href='${ path }/admin/report?page=${ status.current }'>${ status.current }</a></li>
+					<li class="page-item"><a class="page-link" href='${ path }/admin/adminlist?page=${ status.current }'>${ status.current }</a></li>
 				</c:if>
 			</c:forEach>
 			
@@ -99,16 +103,17 @@
 
 			<!-- 다음 페이지로 -->
 			<li class="page-item">
-			<a class="page-link" href='${ path }/admin/report?page=${ pageInfo.nextPage }'>&gt;
+			<a class="page-link" href='${ path }/admin/adminlist?page=${ pageInfo.nextPage }'>&gt;
       		</a>
       		</li>
 
 			<!-- 맨 끝으로 -->
 			<li class="page-item">
-			<a class="page-link" href='${ path }/admin/report?page=${ pageInfo.maxPage }'">&gt;&gt;</a>
+			<a class="page-link" href='${ path }/admin/adminlist?page=${ pageInfo.maxPage }'">&gt;&gt;</a>
 			</li>
             </ul>
             </nav>
+
 </section>
 
 

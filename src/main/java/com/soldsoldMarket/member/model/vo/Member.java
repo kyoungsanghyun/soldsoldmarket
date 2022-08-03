@@ -43,4 +43,8 @@ public class Member {
 	private String area;
 	
 	private String author;
+	
+	private String status;
+	
+	private int MRowNum;
 }

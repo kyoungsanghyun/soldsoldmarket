@@ -45,8 +45,13 @@
                         <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                         
+<<<<<<< HEAD
                         <c:if test="${member.authority == 'M' }">
                         <li><a href="#">관리자 페이지</a></li>
+=======
+                        <c:if test="${member.author == 'M' }">
+                        <li><a href="${path }/admin/member">관리자 페이지</a></li>
+>>>>>>> 06fd6a62373084a9e45492ce5fb95e8a2d1a765d
                         <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                     </ul>

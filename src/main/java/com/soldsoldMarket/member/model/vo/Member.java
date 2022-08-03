@@ -42,5 +42,13 @@ public class Member {
 	
 	private String area;
 	
+<<<<<<< HEAD
 	private String authority;
+=======
+	private String author;
+	
+	private String status;
+	
+	private int MRowNum;
+>>>>>>> 06fd6a62373084a9e45492ce5fb95e8a2d1a765d
 }

@@ -1,0 +1,11 @@
+diff a/.gitignore b/.gitignore	(rejected hunks)
+@@ -11,3 +11,9 @@
+ src/main/webapp/resources/upload/board/IMG_54423.jpg
+ src/main/webapp/resources/upload/board/IMG_54424.jpg
+ src/main/webapp/resources/upload/board/개껌.jpg
++src/main/webapp/resources/upload/product/20220731_002037099_426.jpg
++src/main/webapp/resources/upload/product/20220731_002037102_831.jpg
++src/main/webapp/resources/upload/product/20220731_003426594_516.jpg
++src/main/webapp/resources/upload/product/20220731_003426597_597.jpg
++src/main/webapp/resources/upload/product/20220731_005726892_789.png
++src/main/webapp/resources/upload/product/20220731_005745630_978.png

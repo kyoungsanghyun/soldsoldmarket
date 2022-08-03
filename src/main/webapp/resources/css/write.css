@@ -1,0 +1,128 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+section.notice {
+
+padding: 80px 0;
+}
+
+
+.page-title {
+
+margin-bottom: 60px;
+}
+.page-title h3 {
+
+font-size: 28px;
+color: #333333;
+font-weight: 400;
+text-align: center;
+}
+
+#board-search .search-window {
+padding: 15px 0;
+background-color: #999;
+}
+
+
+.board-table {
+font-size: 15px;
+width: 100%;
+border-bottom: 1px solid #ccc; 
+text-align: center;
+}
+
+
+.board-table th {
+text-align: left;
+}
+
+#writingName{
+    margin-left: 20px;
+    border: none;
+    font-size: 20px;
+    width: 1000px;
+
+}
+
+#writingFile{
+    margin-left: 20px;
+}
+
+input:focus{
+    outline: none;
+}
+
+tr{
+    border-bottom: 1px solid #ccc;
+}
+#btn1{
+text-align: center;
+}
+#subBtn,#goBack{
+    display: inline-block;
+width: 100px;
+height: 50px;
+/* border: none; */
+background-color: white;
+color: black;
+}
+
+#cimg{
+margin-left: 150px;
+width: 700px;
+text-align: center;
+}
+
+
+
+.board-table th, .board-table td {
+padding: 14px 0;
+}
+
+#writing{
+height: 250px;
+width: 1100px;
+text-align: left;
+border: none;
+border-bottom: 1px solid #ccc;
+margin-bottom: 20px;
+font-size: 15px;
+resize: none;
+}
+
+textarea:focus{
+    outline: none;
+}
+
+
+
+/* reset */
+
+* {
+list-style: none;
+text-decoration: none;
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+.clearfix:after {
+content: '';
+display: block;
+clear: both;
+}
+.container {
+width: 1100px;
+margin: 0 auto;
+}
+.blind {
+overflow: hidden;
+clip: rect(0 0 0 0);
+margin: -1px;
+width: 1px;
+height: 1px;
+}

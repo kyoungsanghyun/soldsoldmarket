@@ -144,7 +144,6 @@ li{
 /* 게시글 툴바 영역*/
 .toolbar{
     grid-area: toolbar;
-    text-align: center;
     align-items: center;
     display: grid;
     grid-template-areas: 
@@ -177,8 +176,51 @@ li{
 }
 #toolbar_share{
     grid-area: share;
-
 }
+/* 툴바 공유버튼 */
+.toolbar_share_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .toolbar_share_modal .toolbar_share_modal_bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .toolbar_share_modalBox {
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 400px;
+    padding: 15px;
+  }
+
+  .toolbar_share_modalBox span {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .hidden {
+    display: none;
+  }
+  .toolbar_share_modalBox li {
+    line-height: 30px;
+    padding-top: 30px;
+    padding-left: 10px;
+
+  }
+  .toolbar_share_modalBox img {
+    cursor: pointer;
+  }
+
 #toolbar_buy{
     grid-area: buy;    
 }
@@ -194,9 +236,15 @@ li{
 .reply_contents{
     grid-area: reply_contents;
     background-color:rgba(220,220,220,0.4);
-    
-
 }
+.reply_contents_delete{
+    cursor: pointer;
+    position: relative;
+    bottom: 2px;
+    opacity: 0.7;
+}
+
+
 .reply_contents_userIcon{
     position: relative;
     left: 10px;
@@ -205,7 +253,7 @@ li{
     position: relative;
     left: 20px;
     bottom: -5px;
-    padding-right: 30px;
+
     text-align: center;
 
 }
@@ -213,6 +261,16 @@ li{
     position: relative;
     top: 10px;
 }
+
+#reply_contents_date {
+	font-size: 3px;
+	padding-left: 10px;
+}
+#reply_contents_writer{
+	font-weight: bold;
+	padding-right: 30px;
+}
+
 
 /* 댓글 입력창 영역 */
 .reply_write{
@@ -235,6 +293,11 @@ li{
     position: absolute;
     left: 90%;
     top: 30%;
+    background: url('/soldsoldmarket/resources/images/button/cmtupbtn.png');
+    width: 101px;
+    height: 51px;
+    border: none;
+    cursor: pointer;
 }
 .reply_write textarea {
     position:absolute;
@@ -242,3 +305,4 @@ li{
     width: 70%;
     height: 90%;
 }
+

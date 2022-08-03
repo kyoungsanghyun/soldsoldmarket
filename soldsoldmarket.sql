@@ -107,9 +107,10 @@ CREATE TABLE PRODUCT (
 	P_QTT	NUMBER		NULL,
 	P_CONTENTS	VARCHAR2(3000)		NULL,
 	P_VIEW	NUMBER		NULL,
-	P_LIKE	NUMBER		NULL,
+	P_LIKE	NUMBER	DEFAULT 0 NULL, -- DEFAULT 0 값 생성됨
 	C_ID	VARCHAR2(100) NOT NULL, -- NUMBER -> VARCHAR2로 수정 
-	P_DATE	DATE	DEFAULT SYSDATE    NULL
+	P_DATE	DATE	DEFAULT SYSDATE    NULL,
+    P_COMMENTS VARCHAR2(3000) NULL
 );
 
 -- 상품 테이블 코멘트 생성
@@ -127,31 +128,13 @@ COMMENT ON COLUMN PRODUCT.P_VIEW IS '조회수';
 COMMENT ON COLUMN PRODUCT.P_LIKE IS '찜하기';
 COMMENT ON COLUMN PRODUCT.C_ID IS '카테고리분류아이디';
 COMMENT ON COLUMN PRODUCT.P_DATE IS '상품등록일';
+COMMENT ON COLUMN PRODUCT.P_COMMENTS IS '상품댓글';
 
 CREATE SEQUENCE SEQ_PRODUCT_NO;
 
 -- 멤버 로그인 기능 연동 안된 상태라 M_ID NOT NULL에서 일단 NULL로 바꿈 (M_ID)-여울
 -- ALTER TABLE PRODUCT MODIFY M_ID NULL;
 
-------------------------------------------------
--------------- CATEGORY 관련 테이블 -------------
-------------------------------------------------
-
--- 카테고리 테이블 생성
-CREATE TABLE CATEGORY (
-	C_ID	VARCHAR2(100) NOT NULL,
-	C_NAME	VARCHAR2(300)		NULL
-);
-
--- 카테고리 테이블 코멘트 삽입
-COMMENT ON COLUMN CATEGORY.C_ID IS '카테고리분류아이디';
-COMMENT ON COLUMN CATEGORY.C_NAME IS '카테고리이름';
-
-
--- 카테고리 테이블 PK 생성
-ALTER TABLE CATEGORY ADD CONSTRAINT "PK_CATEGORY" PRIMARY KEY (
-	C_ID
-);
 
 -- 상품 테이블 PK FK 생성
 ALTER TABLE PRODUCT ADD CONSTRAINT "PK_PRODUCT" PRIMARY KEY (
@@ -174,7 +157,7 @@ REFERENCES CATEGORY (
 );
 
 
--- 상품 테이블 데이터 삽입
+-- 상품 테이블 테스트 데이터 삽입
 INSERT INTO PRODUCT (
     P_NO,
     M_ID,
@@ -189,18 +172,41 @@ INSERT INTO PRODUCT (
     C_ID
 )
     VALUES(
-    '1',
+    1,
     'osk',
     '테스트상품',
-    '10000',
+    10000,
     '양호',
     '거래중',
     '서울',
     'Y',
-    '3',
+    3,
     '상품INSERT테스트',
-    '1'
+    1
 );
+
+------------------------------------------------
+-------------- CATEGORY 관련 테이블 -------------
+------------------------------------------------
+
+-- 카테고리 테이블 생성
+CREATE TABLE CATEGORY (
+	C_ID	VARCHAR2(100) NOT NULL,
+	C_NAME	VARCHAR2(300)		NULL
+);
+
+-- 카테고리 테이블 코멘트 삽입
+COMMENT ON COLUMN CATEGORY.C_ID IS '카테고리분류아이디';
+COMMENT ON COLUMN CATEGORY.C_NAME IS '카테고리이름';
+
+
+-- 카테고리 테이블 PK 생성
+ALTER TABLE CATEGORY ADD CONSTRAINT "PK_CATEGORY" PRIMARY KEY (
+	C_ID
+);
+
+
+
     
 -- 카테고리 테이블 데이터 삽입
 INSERT INTO CATEGORY ( 
@@ -323,6 +329,67 @@ REFERENCES PRODUCT (
 );
 
 CREATE SEQUENCE SEQ_PADD_NO;
+
+------------------------------------------------
+--------------- 상품 댓글 테이블 -----------------
+------------------------------------------------
+-- 상품댓글 테이블
+DROP TABLE PCOMMENTS;
+CREATE TABLE PCOMMENTS (
+    CM_NO   NUMBER NOT NULL,
+	CM_ID   VARCHAR2(500)	NOT NULL,
+	P_NO	NUMBER	NOT NULL,
+	CM_CONTENT	VARCHAR2(1000)	NULL,
+    CM_DATE DATE DEFAULT SYSDATE
+);
+
+-- 상품댓글 테이블 코멘트 생성
+COMMENT ON COLUMN PCOMMENTS.CM_NO IS '댓글번호';
+COMMENT ON COLUMN PCOMMENTS.CM_ID IS '댓글작성아이디';
+COMMENT ON COLUMN PCOMMENTS.P_NO IS '상품번호';
+COMMENT ON COLUMN PCOMMENTS.CM_CONTENT IS '댓글내용';
+COMMENT ON COLUMN PCOMMENTS.CM_CONTENT IS '작성날짜';
+
+-- 상품 댓글 시퀀스
+CREATE SEQUENCE SEQ_PCOMMENTS_NO;
+
+-- 상품댓글 테이블 PK
+ALTER TABLE PCOMMENTS ADD CONSTRAINT PK_PCOMMENTS PRIMARY KEY (
+	CM_NO
+);
+
+------------------------------------------------
+--------------- 상품 좋아요 테이블 ---------------
+------------------------------------------------
+-- 좋아요 테이블
+DROP TABLE HEART;
+CREATE TABLE HEART (
+    M_ID VARCHAR2(500),
+    P_NO NUMBER
+);
+-- 좋아요 테이블 코멘트 생성
+COMMENT ON COLUMN HEART.M_ID IS '좋아요누른회원아이디';
+COMMENT ON COLUMN HEART.P_NO IS '좋아요누른상품번호';
+
+-- 좋아요 중복 방지 쿼리문
+INSERT INTO HEART (M_ID, P_NO)
+SELECT ? , ?
+FROM DUAL
+WHERE NOT EXISTS (
+    SELECT 1, 2
+    FROM HEART     
+    WHERE M_ID = ? AND P_NO = ?
+    );
+    
+-- 상품테이블 좋아요 추가 쿼리문
+UPDATE PRODUCT P
+SET P.P_LIKE = P.P_LIKE + 1
+WHERE P.P_NO IN (
+    SELECT P.P_NO
+    FROM PRODUCT P
+    JOIN HEART H ON (H.P_NO = P.P_NO)
+    WHERE H.P_NO = ? AND H.M_ID = ?
+);
 
 
 ------------------------------------------------

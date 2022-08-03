@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.soldsoldMarket.member.model.vo.Member;
 import com.soldsoldMarket.product.model.service.ProductService;
+import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
@@ -28,13 +29,12 @@ public class ProductDetailServlet extends HttpServlet {
     	Product product = null;
     	PAdd pAdd = null;
     	Pcomment pcomment = null;
-    	
+    	Heart heart = new Heart();
     	Member member = null;
     	
     	
     	int no = Integer.parseInt(request.getParameter("no"));
-    	System.out.println(request.getParameter("no"));
-    	System.out.println(no);
+
     	// 조회수 쿠키 관련
     	Cookie[] cookies = request.getCookies();
     	String viewhistory = "";
@@ -68,31 +68,34 @@ public class ProductDetailServlet extends HttpServlet {
     	
     	
     	HttpSession session = request.getSession(false);
-    	Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
+    	Member loginMember = (session == null) ? null : (Member) session.getAttribute("member");
     	
     	
-    	
-    	if (loginMember != null) {
-//    		request.getRequestDispatcher("/views/board/write.jsp").forward(request, response);    		
+    	if (loginMember != null) { 		
     		System.out.println(loginMember + "로그인");
+    		
+    		
     	} else {
     		System.out.println(loginMember + "로그인 안됨");
-//    		request.setAttribute("msg", "로그인 후 사용할 수 있습니다.");
-//    		request.setAttribute("location", "/");
-//    		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+
     	}
     
-    	
-    	
-    	
+//    	
+//    	heart.setP_No(no);
+//    	heart.setM_Id(loginMember.getId());
+//    	
+//    	session = request.getSession();
+//    	String hid = heart.getM_Id();
+//    	int hno = heart.getP_No();
+//    	Heart likecheck = new ProductService().likecheck(hid,hno);
+//    	session.setAttribute("likecheck", likecheck);
+//    	response.sendRedirect(request.getContextPath()+"/home");
     	
     	product = new ProductService().getProductByNo(no ,hasRead);
     	pAdd = new ProductService().getProductimgByNo(no);
-    	pcomment = new ProductService().getPcommentByNo(no);
+//    	pcomment = new ProductService().getPcommentByNo(no);
     	
-    	System.out.println(no);
-    	
-    	
+    	request.setAttribute("no", product);
     	request.setAttribute("product", product);
     	request.setAttribute("padd", pAdd);
     	request.setAttribute("pcomment", pcomment);

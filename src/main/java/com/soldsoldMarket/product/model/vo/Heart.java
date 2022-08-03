@@ -1,6 +1,8 @@
 package com.soldsoldMarket.product.model.vo;
 
 import java.util.Date;
+import java.util.List;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,17 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+public class Heart {
 
-public class Pcomment {
-
-	private int PCm_no;
-	
-	private String PCm_id;
+	private String MId;
 	
 	private int PNo;
-
-	private String PCm_content;
-	
-	private Date PCm_date;
-	
 }

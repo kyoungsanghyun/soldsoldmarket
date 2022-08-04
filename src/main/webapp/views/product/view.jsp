@@ -16,17 +16,17 @@
         <!-- 사이드 이미지 -->
         <div class="side_img">
             <ul>
-                <li class="side_img_box"><img src="${path}/${ padd.PAimg1 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
-                <li class="side_img_box"><img src="${path}/${ padd.PAimg2 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
-                <li class="side_img_box"><img src="${path}/${ padd.PAimg3 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
-                <li class="side_img_box"><img src="${path}/${ padd.PAimg4 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
-                <li class="side_img_box"><img src="${path}/${ padd.PAimg5 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg1 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg2 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg3 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg4 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg5 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
             </ul>
         </div>
         <!-- 메인이미지 -->
         <div class="main_img">
             <div id="main_img_box">
-                <img src="${path}/${ padd.PAimg1 }" onerror="this.parentNode.remove(parentNode)" id="main_img_box_con">
+                <img src="${path}/resources/upload/product/${ padd.PAimg1 }" onerror="this.parentNode.remove(parentNode)" id="main_img_box_con">
             </div>
         </div>
 
@@ -154,7 +154,7 @@
 	                	<!--  작성자만 댓글 옆에 X 버튼 나오는 로직 -->
             				<c:if test="${not empty member}">
             				<c:if test="${member.id == product.MId || member.id == Pconmment.PCm_id }">
-	                			<span><img class="reply_contents_delete" src="${ path }/resources/images/icon/xmark.png"><input type="hidden" id="pcno" value="${Pconmment.PCm_no}"></span>
+	                			<span><input type="hidden" id="pcno" value="${Pconmment.PCm_no}"><img class="reply_contents_delete" src="${ path }/resources/images/icon/xmark.png">${Pconmment.PCm_no}</span>
 	                		</c:if>	
 	                		</c:if>
 	                	

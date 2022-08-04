@@ -29,7 +29,7 @@
                 <nav>
                 
                     <ul class="nav_top">
-                     	<li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height=25px;"></a></li>
+                     	<li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height:25px;  vertical-align : middle;">&nbsp공지사항</a></li>
                         <li><a href="${path}/login">로그인</a></li>
                         <li><a href="${path}/enrollCheck">회원가입</a></li>
                     </ul>
@@ -38,7 +38,7 @@
                 <c:if test="${not empty member }">
                 <nav>
                     <ul class="nav_top">
-                        <li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height=25px;"></a></li> 
+                        <li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height:25px;  vertical-align : middle;">&nbsp공지사항</a></li> 
                         <li>${member.name} 님 </li>
                         <c:if test="${member.authority == 'C' }">
                         <li><a href="#">내 상점</a></li>

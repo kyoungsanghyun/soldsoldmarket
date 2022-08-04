@@ -39,4 +39,6 @@ public class board {
 	
 	private String MId;
 	
+	private int BRowNum;
+	
 }

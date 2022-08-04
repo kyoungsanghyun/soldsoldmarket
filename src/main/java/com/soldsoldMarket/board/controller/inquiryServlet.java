@@ -1,4 +1,4 @@
-package com.soldsoldMarket.board;
+package com.soldsoldMarket.board.controller;
 
 import java.io.IOException;
 import java.util.Enumeration;

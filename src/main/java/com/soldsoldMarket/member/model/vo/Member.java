@@ -28,4 +28,6 @@ public class Member {
 	private String area;
 	private String email;
 	private String authority;
+	private String status;
+	private int MRowNum;
 }

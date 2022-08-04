@@ -6,8 +6,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
+
+import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.member.model.vo.Member;
 
 public class MemberDao {
@@ -107,5 +111,83 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+	public int getMemberCount(Connection connection) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT COUNT(*) FROM MEMBER";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+
+
+	public List<Member> findAll(Connection connection, PageInfo pageInfo) {
+		List<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT RNUM, M_ID, M_NAME, M_PHONE, M_ADDRESS, M_STATUS "
+						+ "FROM ("
+						+    "SELECT ROWNUM AS RNUM, "
+						+           "M_ID, "
+						+           "M_NAME, "
+						+ 			"M_PHONE, "
+						+ 			"M_ADDRESS, "
+						+ 			"M_STATUS "
+						+ 	 "FROM ("
+						+ 	    "SELECT M.M_ID, "
+						+ 			   "M.M_NAME, "
+						+  			   "M.M_PHONE, "
+						+ 			   "M.M_ADDRESS, "
+						+ 			   "M.M_STATUS "
+						+ 		"FROM MEMBER M "
+						+ 		"WHERE M.M_STATUS = 'Y' ORDER BY M.M_ID DESC"
+						+ 	 ")"
+						+ ") WHERE RNUM BETWEEN ? and ?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, pageInfo.getStartList());
+			pstmt.setInt(2, pageInfo.getEndList());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Member member = new Member();
+				
+				member.setMRowNum(rs.getInt("RNUM"));
+				member.setId(rs.getString("M_ID"));
+				member.setName(rs.getString("M_NAME"));
+				member.setPhone(rs.getString("M_PHONE"));
+				member.setAddress(rs.getString("M_ADDRESS"));
+				member.setStatus(rs.getString("M_STATUS"));
+				
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}		
+		
+		return list;
+	  }
 
 }

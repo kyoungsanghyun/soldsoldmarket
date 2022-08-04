@@ -15,7 +15,7 @@ public class productRegistDao {
 	public int insertProduct(Connection connection, Product product) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "INSERT INTO PRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,?,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT,?,DEFAULT,DEFAULT)";
+		String query = "INSERT INTO PRODUCT VALUES(SEQ_PRODUCT_NO.NEXTVAL,?,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT,?,DEFAULT,DEFAULT,DEFAULT)";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -68,32 +68,32 @@ public class productRegistDao {
 		return result;
 	}
 	
-	public String[] selectProductImg(Connection connection, int PNo) {
-		ResultSet rs = null;
-		PreparedStatement pstmt = null;
-		String[] FName = new String[5];
-		String query = "SELECT PA_IMG1, PA_IMG2, PA_IMG3, PA_IMG4, PA_IMG5 FROM PADD WHERE P_NO = ?";
-		try {
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, PNo);
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				FName[0] = rs.getString("PA_IMG1");
-				FName[1] = rs.getString("PA_IMG2");
-				FName[2] = rs.getString("PA_IMG3");
-				FName[3] = rs.getString("PA_IMG4");
-				FName[4] = rs.getString("PA_IMG5");
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rs);
-		}
-		return FName;
-	}
+//	public String[] selectProductImg(Connection connection, int PNo) {
+//		ResultSet rs = null;
+//		PreparedStatement pstmt = null;
+//		String[] FName = new String[5];
+//		String query = "SELECT PA_IMG1, PA_IMG2, PA_IMG3, PA_IMG4, PA_IMG5 FROM PADD WHERE P_NO = ?";
+//		try {
+//			pstmt = connection.prepareStatement(query);
+//			pstmt.setInt(1, PNo);
+//			rs = pstmt.executeQuery();
+//			
+//			if (rs.next()) {
+//				FName[0] = rs.getString("PA_IMG1");
+//				FName[1] = rs.getString("PA_IMG2");
+//				FName[2] = rs.getString("PA_IMG3");
+//				FName[3] = rs.getString("PA_IMG4");
+//				FName[4] = rs.getString("PA_IMG5");
+//				
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//			close(rs);
+//		}
+//		return FName;
+//	}
 
 	
 	public int updateStatus(Connection connection, int no, String status) {

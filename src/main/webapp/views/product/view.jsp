@@ -22,7 +22,7 @@
                 <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg2 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
                 <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg3 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
                 <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg4 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
-                <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg5 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li>
+                <li class="side_img_box"><img src="${path}/resources/upload/product/${ padd.PAimg5 }" onerror="this.parentNode.remove(parentNode)" class="side_img_box_con"></li> 
             </ul>
         </div>
         
@@ -75,8 +75,21 @@
 		                </c:if>	
                     <li><fmt:formatDate type="both"  pattern="yyyy년 MM월 dd일" value="${product.PDate}"/></li>
                     <li>${product.PLocation}</li>
-                    <li>${product.PQlt}</li>
-                    <li>${product.PExchange}</li>
+	                    <li>
+	                    <!-- 상태 NE-->
+		                    <c:choose>
+		                    	<c:when test="${product.PQlt eq 'new'}">거의 새것</c:when>
+		                    	<c:when test="${product.PQlt eq 'open'}">개봉됨</c:when>
+		                    	<c:when test="${product.PQlt eq 'used'}">사용감 있음</c:when>
+		                    </c:choose>
+	                    </li>
+                    	<li>
+	                    <!-- 교환 가능(Y/N) -->
+	                    	<c:choose> 
+	                    		<c:when test="${product.PExchange == 'Y'}">가능</c:when>
+	                    		<c:when test="${product.PExchange == 'N'}">불가</c:when>
+	                    	</c:choose>
+                    	</li>
                     <li>${product.PQtt}</li>
                     <li>${product.PTrading}</li>
                 </ul>
@@ -180,7 +193,7 @@
              				<textarea placeholder="로그인 후 이용해주세요." style="resize: none;" id="reply_write_area" readonly="readonly"></textarea>
    					  </form>
                 </c:if>	
-    	</div>
+    	
 	</div>
 	
     <script src="${ path }/resources/js/jquery-3.6.0.min.js"></script>
@@ -242,7 +255,7 @@
 			document.querySelector(".toolbar_share_modal_bg").addEventListener("click", close);
 			
 			// url 주소 선언
-			let urladd = document.URL;
+			let urladd = 'http://localhost:8090${path}/product/view?no=${product.PNo}';
 
 			// 카카오스토리 
 				Kakao.init('ce784bf4ee0394bb4ce429ce2ec5d38e');
@@ -251,20 +264,22 @@
 				
 				btnShareKs.addEventListener('click', () => {
 				  Kakao.Story.share({
-					url: urladd,
+					url: 'urladd',
 					text: '내용을 입력하세요.'
 				  });
 				})
+				
+				
 		    // 카카오톡 공유
 			const btnShareKt = document.querySelector('#toolbar_share_modalBox_kt');
-
+				
 				btnShareKt.addEventListener('click',() => {
 				
 				Kakao.Link.sendDefault({
 				objectType: 'feed',
 				content: {
 					title: '${product.PName}',
-					description: '${product.PContents}',
+					description: '${product.PPrice}',
 					imageUrl:
 					'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbmRWSv%2FbtrIOwo5CJJ%2FeKaDPTSyQpgrUHdlflNayk%2Fimg.png',
 					link: {
@@ -289,17 +304,17 @@
 			const btnShareTw = document.querySelector('#toolbar_share_modalBox_tw');
 
 			btnShareTw.addEventListener('click', () => {
-			const sendText = ${product.PName};
+			const sendText = '${product.PName}';
 			const pageUrl = urladd;
-			window.open(`https://twitter.com/intent/tweet?text=${sendText}&url=${pageUrl}`);
+			window.open('https://twitter.com/intent/tweet?text=${sendText}&url=${pageUrl}');
 			})
 
 			// 페이스북 공유 
 			const btnShareFb = document.querySelector('#toolbar_share_modalBox_fb');
 
 			btnShareFb.addEventListener('click', () => {
-			const pageUrl = 'window.document.location.href';
-			window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);
+			const pageUrl = urladd;
+			window.open('http://www.facebook.com/sharer/sharer.php?u=${pageUrl}');
 			})
 			
 			// URL 주소 복사

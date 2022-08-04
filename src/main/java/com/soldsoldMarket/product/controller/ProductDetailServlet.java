@@ -73,6 +73,8 @@ public class ProductDetailServlet extends HttpServlet {
     	
     	if (loginMember != null) { 		
     		System.out.println(loginMember + "로그인");
+    		Heart like = new ProductService().likecheck(loginMember.getId(), no);
+    		request.setAttribute("like", like);
     		
     		
     	} else {
@@ -82,7 +84,6 @@ public class ProductDetailServlet extends HttpServlet {
     
     	
 
-    	Heart like = new ProductService().likecheck(loginMember.getId(), no);
 //    	session.setAttribute("likecheck", likecheck);
 //    	response.sendRedirect(request.getContextPath()+"/home");
     	
@@ -92,7 +93,6 @@ public class ProductDetailServlet extends HttpServlet {
     	
     	// like가 null 이면 안보이게
     	
-    	request.setAttribute("like", like);
     	request.setAttribute("no", product);
     	request.setAttribute("product", product);
     	request.setAttribute("padd", pAdd);

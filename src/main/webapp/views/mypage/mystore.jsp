@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                     <td>신고당한 수 : </td>
-                    <td>${ member.reportCount }</td>
+                    <td>${ member.report }</td>
                 </tr>
                 <tr>
                     <td>주요 거래지역 : </td>

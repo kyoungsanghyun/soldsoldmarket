@@ -11,95 +11,77 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/mypage.css">
 
-
-    <div class="section">
-        <div class="intro_text">
-            <table class="information">
-				<tr>
-                    <td>프로필 사진</td>
-                    <td>img</td>
-                </tr>            
-                <tr>
-                    <td>회원아이디 : </td>
-                    <td>id</td>
-                </tr>
-                <tr>
-                    <td>신고당한 수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>주요 거래지역 : </td>
-                    <td>area</td>
-                </tr>
-                <tr>
-                    <td>판매횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>방문횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>가입일 : </td>
-                    <td>date</td>
-                </tr>
-                <tr>
-                    <td>소개글 : </td>
-                    <td>introduce</td>
-                </tr>
-            </table>
-        </div>
-    
-    <!-- intro end -->
-    <hr> 
        <section id="content">
         <h2 align="center">회원 정보 수정</h2>
     <div id="view-container">
-		<form id="memberFrm" action="${ path }/member/update" method="post">
+		<form id="memberFrm" action="${ path }/mypage/memberinfo" method="post">
 			<!-- 
 			<input type="hidden" name="userNo" value="${ loginMember.no }">
 			-->
 			<table>
 	            <tr>
-	                <th>이름</th>
+	                <th>프로필 사진</th>
 					<td>
-						<input type="text" name="name" id="name" 
-							value="${ loginMember.name }" required>				
+						<input type="file" name="profileUpdate" id="profileUpdate" 
+							value="${ member.img }">				
 					</td> 	
 	            </tr>
 	            <tr>
-	                <th>생일</th>
+	                <th>이름</th>
 					<td>
-						<input type="text" name="bDay" id="bDay" 
-							value="${ loginMember.bDay }">				
+						<input type="text" name="nameUpdate" id="nameUpdate" 
+							value="${ member.name }" required>				
 					</td> 	
 	            </tr>
+	            <tr>
+	                <th>아이디</th>
+					<td>
+						<input type="text" name="idUpdate" id="idUpdate" 
+							value="${ member.id }" required>				
+					</td> 	
+	            </tr>
+	            <tr>
+	                <th>비밀번호</th>
+					<td>
+						<input type="text" name="passwordUpdate" id="passwordUpdate" 
+							value="${ member.pwd }" required>				
+					</td> 	
+	            </tr>
+	            
+	            <tr>
+	                <th>생일</th>
+					<td>
+						<input type="date" name="bDay" id="bDay" 
+							value="${ member.BDay }">				
+					</td> 	
+	            </tr>
+	            
 	            <tr>
 	                <th>성별</th>
 					<td>
 						<input type="text" name="gender" id="gender" 
-							value="${ loginMember.gender }" required>				
+							value="${ member.gender }" required>				
 					</td> 	
 	            </tr>
       	        <tr>
 	                <th>휴대폰</th>
 	                <td>
 	                    <input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" 
-	                    	value="${loginMember.phone }" maxlength="11">
+	                    	value="${ member.phone }" maxlength="11">
 	                </td>
-	            </tr>
-	            <tr>
-	                <th>이메일</th>
-					<td>
-						<input type="email" placeholder="abc@abc.com" name="email" id="email"
-							value="${ loginMember.email }">												
-					</td> 	
 	            </tr>
 	            <tr>
 	                <th>주소</th>
 						<td>
 							<input type="text" name="address" id="address"
-								value="${ loginMember.address }">
+								value="${ member.address }">
+						</td> 	
+	            </tr>
+	            <tr>
+	                <th>소개글</th>
+						<td>
+							<input type="text" name="introduceUpdate" id="introduceUpdate"
+								value="${ member.intro }">
 						</td> 	
 	            </tr>
 	        </table>

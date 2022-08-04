@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.soldsoldMarket.member.model.service.MemberService;
 import com.soldsoldMarket.member.model.vo.Member;
 
 @WebServlet("/mypage/memberinfo")
@@ -36,8 +37,6 @@ public class InfoServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD
-=======
 		 HttpSession session = request.getSession(false);
 		 Member member = (session == null) ? null : (Member) session.getAttribute("member");
 		      
@@ -72,8 +71,8 @@ public class InfoServlet extends HttpServlet {
 
 		    
 		  }
->>>>>>> ja
+
 
 	}
 
-}
+

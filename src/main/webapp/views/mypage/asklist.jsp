@@ -14,46 +14,6 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/mypage.css">
 
-  <div class="section">
-        <div class="intro_text">
-            <table class="information">
-				<tr>
-                    <td>프로필 사진</td>
-                    <td>img</td>
-                </tr>            
-                <tr>
-                    <td>회원아이디 : </td>
-                    <td>id</td>
-                </tr>
-                <tr>
-                    <td>신고당한 수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>주요 거래지역 : </td>
-                    <td>area</td>
-                </tr>
-                <tr>
-                    <td>판매횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>방문횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>가입일 : </td>
-                    <td>date</td>
-                </tr>
-                <tr>
-                    <td>소개글 : </td>
-                    <td>introduce</td>
-                </tr>
-            </table>
-        </div>
-    
-    <!-- intro end -->
-    <hr>  
 
     <div class="board_list_wrap">
             <h2>문의내역</h2>

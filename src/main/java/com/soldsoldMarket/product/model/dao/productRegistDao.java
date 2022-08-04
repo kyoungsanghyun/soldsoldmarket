@@ -149,33 +149,32 @@ public class productRegistDao {
 		
 	}
 
-//	public int updateProductImg(Connection connection, PAdd padd, Product product) {
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		
-//		String query = "UPDATE PADD SET (PA_IMG1,PA_IMG2,PA_IMG3,PA_IMG4,PA_IMG5) = (SELECT ?,?,?,?,? FROM DUAL) WHERE P_NO = ?";
-//		
-//		try {
-//			pstmt = connection.prepareStatement(query);
-//
-//			pstmt.setString(1, padd.getPAimg1());
-//			pstmt.setString(2, padd.getPAimg2());
-//			pstmt.setString(3, padd.getPAimg3());
-//			pstmt.setString(4, padd.getPAimg4());
-//			pstmt.setString(5, padd.getPAimg5());
-//			pstmt.setInt(6, padd.getPNo());
-//			
-//			result = pstmt.executeUpdate();
-//			System.out.println("result img >>>>>" + result);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//		}
-//		
-//		return result;
-//	}
+	public int updateProductImg(Connection connection, PAdd padd, Product product) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "UPDATE PADD SET (PA_IMG1,PA_IMG2,PA_IMG3,PA_IMG4,PA_IMG5) = (SELECT ?,?,?,?,? FROM DUAL) WHERE P_NO = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+
+			pstmt.setString(1, padd.getPAimg1());
+			pstmt.setString(2, padd.getPAimg2());
+			pstmt.setString(3, padd.getPAimg3());
+			pstmt.setString(4, padd.getPAimg4());
+			pstmt.setString(5, padd.getPAimg5());
+			pstmt.setInt(6, padd.getPNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 	
 }

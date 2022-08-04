@@ -93,7 +93,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="${ path }/mypage/likelist">
                                 <img src="${ path }/resources/images/icon/favorite.png" width="23" height="24" alt="찜하기 아이콘"> 찜하기
                             </a>
                         </li>

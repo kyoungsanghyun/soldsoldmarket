@@ -34,7 +34,7 @@ public class MemberDao {
 				member.setAddress(rs.getString("M_ADDRESS"));
 				member.setGender(rs.getString("M_GENDER"));
 				member.setJoinDate(rs.getDate("M_JOINDATE"));
-				member.setAuthor(rs.getString("M_AUTHORIZATION"));
+				member.setAuthority(rs.getString("M_AUTHORIZATION"));
 			}
 			
 			

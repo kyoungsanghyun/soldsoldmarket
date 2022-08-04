@@ -27,5 +27,5 @@ public class Member {
 	private String report;
 	private String area;
 	private String email;
-	private String author;
+	private String authority;
 }

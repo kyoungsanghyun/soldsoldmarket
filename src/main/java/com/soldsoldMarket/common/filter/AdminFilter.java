@@ -28,7 +28,7 @@ public class AdminFilter implements Filter {
 		HttpSession session = ((HttpServletRequest)request).getSession(false);
 		Member loginMember = (Member)(session.getAttribute("member"));
 		
-		if(loginMember == null || !loginMember.getAuthor().equals("M")) {
+		if(loginMember == null || !loginMember.getAuthority().equals("M")) {
 			request.setAttribute("msg","잘못된 경로로 접근하셨습니다.");
 			request.setAttribute("location","/");
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);

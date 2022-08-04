@@ -46,7 +46,7 @@
                         </c:if>
                         
                         <c:if test="${member.authority == 'M' }">
-                        <li><a href="#">관리자 페이지</a></li>
+                        <li><a href="${path }/admin/member">관리자 페이지</a></li>
                         <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                     </ul>

@@ -88,7 +88,7 @@
                                 <li>
                                     <a href="${ path }/mypage/memberinfo">회원정보</a>
                                 </li>
-                                <li><a href="${ path }/views/mypage/asklist.jsp">문의내역</a></li>
+                                <li><a href="${ path }/mypage/asklist">문의내역</a></li>
                                 <li><a href="${ path }/mypage/soldlist">거래내역</a></li>
                             </ul>
                         </li>

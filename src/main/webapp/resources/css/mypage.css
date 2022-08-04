@@ -154,28 +154,6 @@ table {
     text-decoration: underline;
 }
 
-.board_list_wrap .paging {
-    text-align: center;
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 0;
-}
-
-.board_list_wrap .paging a{
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 12px
-
-}
-
-.board_list_wrap .paging button:first-child {
-    margin-left: 0;
-}
-
-.caption1 {
-    margin-bottom: 40px;
-    font-size: 20px;
-}
 
 .product_list td {
     padding: 20px;

@@ -86,4 +86,26 @@ public class MemberDao {
 		return result;
 	}
 
+	public int updateMember(Connection connection, Member member) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE MEMBER SET NAME=?,PHONE=?,ADDRESS=? WHERE ID=?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
+	public int insertMember(Connection connection, Member member) {
+		int result = 0;
+		
+		
+		return result;
+	}
+
 }

@@ -14,35 +14,35 @@
             <table class="information">
 				<tr>
                     <td>프로필 사진</td>
-                    <td>img</td>
+                    <td>${ member.img }</td>
                 </tr>            
                 <tr>
                     <td>회원아이디 : </td>
-                    <td>id</td>
+                    <td>${ member.id }</td>
                 </tr>
                 <tr>
                     <td>신고당한 수 : </td>
-                    <td>count</td>
+                    <td>${ member.reportCount }</td>
                 </tr>
                 <tr>
                     <td>주요 거래지역 : </td>
-                    <td>area</td>
+                    <td>${ member.area }</td>
                 </tr>
                 <tr>
                     <td>판매횟수 : </td>
-                    <td>count</td>
+                    <td>${ member.sellAmount }</td>
                 </tr>
                 <tr>
                     <td>방문횟수 : </td>
-                    <td>count</td>
+                    <td>${ member.visit }</td>
                 </tr>
                 <tr>
                     <td>가입일 : </td>
-                    <td>date</td>
+                    <td>${ member.joinDate }</td>
                 </tr>
                 <tr>
                     <td>소개글 : </td>
-                    <td>introduce</td>
+                    <td>${ member.intro }</td>
                 </tr>
             </table>
         </div>

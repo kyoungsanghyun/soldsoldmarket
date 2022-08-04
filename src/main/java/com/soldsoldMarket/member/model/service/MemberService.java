@@ -51,6 +51,25 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public int save2(Member member) {
+		int result = 0;
+		
+		Connection connection = getConnection();
+		
+		if(member.getNo() != 0) {
+			result = new MemberDao().updateMember(connection,member);
+		} else {
+			result = new MemberDao().insertMember(connection, member);
+		}
+			if(result > 0 ) {
+				commit(connection);
+			}else {
+				rollback(connection);
+			}
+		
+		return result;
+	}
 
 	public Boolean isduplicateId(String userId) {
 		Member member = this.findMemberById(userId);

@@ -16,7 +16,7 @@
 <section id="content">
 	<br>
 	<h3 align="center">관리자페이지</h3>
-	
+	<br>
 	<nav>
 			<ul class="main-nav">
 				<li class="admin-member"><a href="${ path }/admin/member">회원관리</a></li>
@@ -26,23 +26,23 @@
 			</ul>
 		</nav>
 		
-		<br>
+		<br><br>
 		
-		<div id="mainWrapper">
 
         <ul>
             <!-- 게시판 제목 -->
             <h5 align="center">회원 관리</h5>
 
             <!-- 게시판 목록  -->
-            <table class="table">
+            <div class="table-responsive">
+            <table class="table align-middle">
+            <br>
 			<tr>
 				<th>아이디</th>
 				<th>회원명</th>
 				<th>이메일</th>
 				<th>전화</th>
 				<th>주소</th>
-				<th>권한</th>
 				<th>차단</th>
 			</tr>
                     <!-- 게시물이 출력될 영역 -->
@@ -61,10 +61,12 @@
 						<td>${member.name}</td>
 						<td>${member.phone}</td>
 						<td>${member.address}</td>
+						<td><button class="btn btn-primary btn-sm" type="submit">차단</button></td>
 					</tr>
 				</c:forEach>
 			</c:if>
 		</table>
+		</div>
         </ul>
             
             <br><br><br>
@@ -74,7 +76,7 @@
             <ul class="pagination pagination-sm">
             <li class="page-item">
 			<!-- 맨 처음으로 -->
-			<a class="page-link" href='${ path }/admin/member?page=1'">&lt;&lt;</a>
+			<a class="page-link" href='${ path }/admin/member?page=1'>&lt;&lt;</a>
       		</li>
 
 			<!-- 이전 페이지로 -->
@@ -102,7 +104,7 @@
 
 			<!-- 맨 끝으로 -->
 			<li class="page-item">
-			<a class="page-link" href='${ path }/admin/member?page=${ pageInfo.maxPage }'">&gt;&gt;</a>
+			<a class="page-link" href='${ path }/admin/member?page=${ pageInfo.maxPage }'>&gt;&gt;</a>
 			</li>
             </ul>
             </nav>

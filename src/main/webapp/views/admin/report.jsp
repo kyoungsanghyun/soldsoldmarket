@@ -16,7 +16,7 @@
 <section id="content">
 	<br>
 	<h3 align="center">관리자페이지</h3>
-	
+	<br>
 	<nav>
 			<ul class="main-nav">
 				<li class="admin-member"><a href="${ path }/admin/member">회원관리</a></li>
@@ -26,7 +26,7 @@
 			</ul>
 		</nav>
 		
-		<br>
+		<br><br>
 		
 		<div id="mainWrapper">
 
@@ -36,6 +36,7 @@
 
             <!-- 게시판 목록  -->
             <table class="table">
+            <br>
 			<tr>
 				<th>번호</th>
 				<th>작성자</th>

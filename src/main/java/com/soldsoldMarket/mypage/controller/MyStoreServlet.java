@@ -29,7 +29,7 @@ public class MyStoreServlet extends HttpServlet {
 		Member loginMember = (session == null) ? null : (Member) session.getAttribute("member"); 
 		
 		if (loginMember != null) {
-			request.getRequestDispatcher("/views/mypage/memberinfo.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/mypage/mystore.jsp").forward(request, response);
 		} else {
 			request.setAttribute("msg", "로그인 후 내 상점을 이용해 주세요.");
 			request.setAttribute("location", "/");

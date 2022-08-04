@@ -2,7 +2,9 @@ package com.soldsoldMarket.member.model.service;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 import java.sql.Connection;
+import java.util.List;
 
+import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.member.model.dao.MemberDao;
 import com.soldsoldMarket.member.model.vo.Member;
 
@@ -51,6 +53,25 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public int save2(Member member) {
+		int result = 0;
+		
+		Connection connection = getConnection();
+		
+		if(member.getNo() != 0) {
+			result = new MemberDao().updateMember(connection,member);
+		} else {
+			result = new MemberDao().insertMember(connection, member);
+		}
+			if(result > 0 ) {
+				commit(connection);
+			}else {
+				rollback(connection);
+			}
+		
+		return result;
+	}
 
 	public Boolean isduplicateId(String userId) {
 		Member member = this.findMemberById(userId);
@@ -64,6 +85,28 @@ public class MemberService {
 		
 		
 		return member;
+	}
+	
+	public int getMemberCount() {
+		int count = 0;
+		Connection connection = getConnection();
+		
+		count = new MemberDao().getMemberCount(connection);
+		
+		close(connection);
+		
+		return count;
+	}
+
+	public List<Member> getMemberList(PageInfo pageInfo) {
+		List<Member> list = null;
+		Connection connection = getConnection();
+		
+		list = new MemberDao().findAll(connection, pageInfo);
+		
+		close(connection);
+		
+		return list;
 	}
 
 }

@@ -7,112 +7,72 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
+<style>
+	div #pageBar{margin-top:10px; text-align:center; }
+	h2 { text-align: center;}
+</style>
+
 <link rel="stylesheet" href="${ path }/resources/css/mypage.css">
 
-  <div class="section">
-        <div class="intro_text">
-            <table class="information">
-				<tr>
-                    <td>프로필 사진</td>
-                    <td>img</td>
-                </tr>            
-                <tr>
-                    <td>회원아이디 : </td>
-                    <td>id</td>
-                </tr>
-                <tr>
-                    <td>신고당한 수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>주요 거래지역 : </td>
-                    <td>area</td>
-                </tr>
-                <tr>
-                    <td>판매횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>방문횟수 : </td>
-                    <td>count</td>
-                </tr>
-                <tr>
-                    <td>가입일 : </td>
-                    <td>date</td>
-                </tr>
-                <tr>
-                    <td>소개글 : </td>
-                    <td>introduce</td>
-                </tr>
-            </table>
-        </div>
-    
-    <!-- intro end -->
-    <hr>  
 
     <div class="board_list_wrap">
+            <h2>문의내역</h2>
         <table class="board_list">
-            <caption class="caption1">문의내역</caption>
-            <thead>
+			<button type="button" onclick="location.href='${path}/board/write'">글쓰기</button>
                 <tr>
+                    <th>번호</th>
                     <th>날짜</th>
-                    <th>이름</th>
+                    <th>아이디</th>
                     <th>제목</th>
                     <th>답변상태</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2022-07-24</td>
-                    <td>작성자</td>
-                    <td class="tit">
-                        <a href="">문의합니다.</a>
-                    </td>
-                    <td>답변예정</td>
-                </tr>
-                <tr>
-                    <td>2022-07-23</td>
-                    <td>작성자</td>
-                    <td class="tit">
-                        <a href="">문의합니다.</a>
-                    </td>
-                    <td>답변완료</td>
-                </tr>
-                <tr>
-                    <td>2022-07-22</td>
-                    <td>작성자</td>
-                    <td class="tit">
-                        <a href="">문의합니다.</a>
-                    </td>
-                    <td>답변완료</td>
-                </tr>
-                <tr>
-                    <td>2022-07-21</td>
-                    <td>작성자</td>
-                    <td class="tit">
-                        <a href="">문의합니다.</a>
-                    </td>
-                    <td>답변완료</td>
-                </tr>
-                <tr>
-                    <td>2022-07-20</td>
-                    <td>작성자</td>
-                    <td class="tit">
-                        <a href="">문의합니다.</a>
-                    </td>
-                    <td>답변완료</td>
-                </tr>
-            </tbody>
+                <c:if test="${ empty list }">
+                	<tr>
+                		<td colspan="6">
+                			조회된 문의가 없습니다.
+                		</td>
+                	</tr>
+                </c:if>
+                <c:if test="${ not empty list }">
+	                <c:forEach var="board" items="${ list }">
+		                <tr>
+		                	<td>${ board.rowNum }</td>
+		                    <td>${ board.createDate }</td>
+		                    <td>${ board.writerId }</td>
+		                    <td class="tit">
+		                        <a href="${ path }/mypage/askboardview?no=${ board.no }">
+		                        	${ board.title }
+		                        </a>
+		                    </td>
+		                    <td>${ board.answerStatus }</td>
+		                </tr>
+	                </c:forEach>
+                </c:if>
         </table>
-        <div class="paging">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
-        </div>
+        <div id="pageBar">
+			<!-- 맨 처음으로 -->
+			<button onclick="location.href='${ path }/mypage/asklist?page=1'">&lt;&lt;</button>
+
+			<!-- 이전 페이지로 -->
+			<button onclick="location.href='${ path }/mypage/asklist?page=${ pageInfo.prevPage }'">&lt;</button>
+
+			<!--  10개 페이지 목록 -->
+			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+				<c:if test="${ status.current == pageInfo.currentPage }">
+					<button disabled>${ status.current }</button>
+				</c:if>
+				<c:if test="${ status.current != pageInfo.currentPage }">
+					<button onclick="location.href='${ path }/mypage/asklist?page=${ status.current }'">${ status.current }</button>
+				</c:if>
+			</c:forEach>
+
+
+			<!-- 다음 페이지로 -->
+			<button onclick="location.href='${ path }/mypage/asklist?page=${ pageInfo.nextPage }'">&gt;</button>
+
+			<!-- 맨 끝으로 -->
+			<button onclick="location.href='${ path }/mypage/asklist?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+		</div>
     </div>
 </div>
 <jsp:include page="/views/common/footer.jsp" /> 

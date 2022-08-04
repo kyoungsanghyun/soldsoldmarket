@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.soldsoldMarket.common.util.PageInfo;
-import com.soldsoldMarket.member.model.service.MemberService;
-import com.soldsoldMarket.member.model.vo.Member;
-import com.soldsoldMarket.product.model.service.ProductService;
-import com.soldsoldMarket.product.model.vo.Product;
+import com.soldsoldMarket.board.service.BoardService;
+import com.soldsoldMarket.board.model.vo.board;
 
 @WebServlet("/admin/adminlist")
 public class AdminListServlet extends HttpServlet {
@@ -23,11 +21,11 @@ public class AdminListServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	int page = 0;
     	int listCount = 0;
     	PageInfo pageInfo = null;
-    	List<Product> list = null;
+    	List<board> list = null;
     	
     	try {
     		page = Integer.parseInt(request.getParameter("page"));
@@ -35,19 +33,12 @@ public class AdminListServlet extends HttpServlet {
 			page = 1;
 		}
     	
-    	listCount = new ProductService().getProductCount(listCount, null);
-    	pageInfo = new PageInfo(page, 10, listCount, 10);
-    	list = new ProductService().getProductList(listCount, pageInfo, null, null);
-    	System.out.println(list);
+    	listCount = new BoardService().getBoardCount();
+    	pageInfo = new PageInfo(page, 10, listCount, 10);    
+    	list = new BoardService().getBoardList(pageInfo);
     	
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("list", list);
-    	request.getRequestDispatcher("/views/admin/adminlist.jsp").forward(request, response);
-    	
+		request.getRequestDispatcher("/views/admin/adminlist.jsp").forward(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-
 }

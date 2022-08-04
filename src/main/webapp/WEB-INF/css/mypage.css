@@ -1,15 +1,18 @@
 @charset "UTF-8";
 
-div.section {
-    width: 100%;
-    height: 1200px;
-    /* background-color: skyblue; */
-    padding-top: 0px;
-    margin-bottom: 55px;
+* {
+    list-style: none;
+    text-decoration: none;
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+}
+
+.information {
     text-align: center;
     margin: auto;
 }
-
 
 .btn {
     background-color: #0232e4;
@@ -51,28 +54,6 @@ div.section {
     background: #fff;
     text-align: center;
     font-size: 20px;
-}
-
-#view-container {
-	text-align:center;
-}
-	
-#view-container input {
-	margin:3px;
-}
-	
-#view-container table {
-	margin:0 auto;
-}
-	
-#view-container table th {
-	padding:0 10px; 
-	text-align:right;
-}
-	
-#view-container table td {
-	padding:0 10px; 
-	text-align:left;
 }
 
 /* 내 상점 */
@@ -154,6 +135,28 @@ table {
     text-decoration: underline;
 }
 
+.board_list_wrap .paging {
+    text-align: center;
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 0;
+}
+
+.board_list_wrap .paging a{
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 12px
+
+}
+
+.board_list_wrap .paging button:first-child {
+    margin-left: 0;
+}
+
+.caption1 {
+    margin-bottom: 40px;
+    font-size: 20px;
+}
 
 .product_list td {
     padding: 20px;

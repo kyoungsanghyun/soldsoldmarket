@@ -19,7 +19,7 @@ public class NoticeDao {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "SELECT COUNT(*) FROM NOTICE WHERE STATUS='Y'";
+		String query = "SELECT COUNT(*) FROM NOTICE WHERE N_STATUS='Y'";
 
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -43,13 +43,13 @@ public class NoticeDao {
 		ResultSet rs = null;
 		List<Notice> list = new ArrayList<>();
 		String query = 
-				"SELECT RNUM, NO, TITLE, WRITER_ID, CREATE_DATE, READCOUNT, STATUS,RENAMED_FILENAME, ORIGINAL_FILENAME \r\n"
+				"SELECT RNUM, N_NO, N_TITLE, N_WRITER_ID, N_CREATE_DATE, N_READCOUNT, N_STATUS,N_RENAMED_FILENAME, N_ORIGINAL_FILENAME \r\n"
 				+ "FROM (\r\n"
-				+ "    SELECT ROWNUM AS RNUM, NO, TITLE, WRITER_ID, CREATE_DATE, READCOUNT, STATUS ,RENAMED_FILENAME, ORIGINAL_FILENAME\r\n"
+				+ "    SELECT ROWNUM AS RNUM, N_NO, N_TITLE, N_WRITER_ID, N_CREATE_DATE, N_READCOUNT, N_STATUS,N_RENAMED_FILENAME, N_ORIGINAL_FILENAME \r\n"
 				+ "    FROM (\r\n"
-				+ "        SELECT  NO, TITLE, WRITER_ID, CREATE_DATE, READCOUNT, STATUS , RENAMED_FILENAME, ORIGINAL_FILENAME\r\n"
+				+ "        SELECT  N_NO, N_TITLE, N_WRITER_ID, N_CREATE_DATE, N_READCOUNT, N_STATUS,N_RENAMED_FILENAME, N_ORIGINAL_FILENAME \r\n"
 				+ "        FROM NOTICE  \r\n"
-				+ "        WHERE STATUS = 'Y'  ORDER BY NO DESC\r\n"
+				+ "        WHERE N_STATUS = 'Y'  ORDER BY N_NO DESC\r\n"
 				+ "    )\r\n"
 				+ ")WHERE RNUM BETWEEN ? and ?";
 		
@@ -60,18 +60,19 @@ public class NoticeDao {
 			pstm.setInt(2, pageInfo.getEndList());
 
 			rs = pstm.executeQuery();
+			
 			while(rs.next()) {
 				Notice notice = new Notice();
 
 				notice.setRowNum(rs.getInt("RNUM"));
-				notice.setWriterId(rs.getString("WRITER_ID"));
-				notice.setTitle(rs.getString("TITLE"));
-				notice.setNo(rs.getInt("NO"));
-				notice.setCreateDate(rs.getDate("CREATE_DATE"));
-				notice.setReadCount(rs.getInt("READCOUNT"));
-				notice.setStatus(rs.getString("STATUS"));
-				notice.setOriginalFileName(rs.getString("ORIGINAL_FILENAME"));
-				notice.setRenamedFileName(rs.getString("RENAMED_FILENAME"));
+				notice.setWriterId(rs.getString("N_WRITER_ID"));
+				notice.setTitle(rs.getString("N_TITLE"));
+				notice.setNo(rs.getInt("N_NO"));
+				notice.setCreateDate(rs.getDate("N_CREATE_DATE"));
+				notice.setReadCount(rs.getInt("N_READCOUNT"));
+				notice.setStatus(rs.getString("N_STATUS"));
+				notice.setOriginalFileName(rs.getString("N_ORIGINAL_FILENAME"));
+				notice.setRenamedFileName(rs.getString("N_RENAMED_FILENAME"));
 
 				list.add(notice);
 			}
@@ -97,9 +98,9 @@ public class NoticeDao {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		
-		String query    = "SELECT  NO, TITLE, WRITER_ID, READCOUNT, CONTENT, CREATE_DATE,ORIGINAL_FILENAME,RENAMED_FILENAME\r\n"
+		String query    = "SELECT  N_NO, N_TITLE, N_WRITER_ID, N_READCOUNT, N_CONTENT, N_CREATE_DATE,N_ORIGINAL_FILENAME,N_RENAMED_FILENAME\r\n"
 				+ "FROM NOTICE \r\n"
-				+ "WHERE STATUS = 'Y' AND NO=?";
+				+ "WHERE N_STATUS = 'Y' AND N_NO=?";
 		
 		try {
 			pstm = connection.prepareStatement(query);
@@ -107,14 +108,14 @@ public class NoticeDao {
 			rs = pstm.executeQuery();
 			
 			if(rs.next()) {
-				notice.setTitle(rs.getString("TITLE"));
-				notice.setNo(rs.getInt("NO"));
-				notice.setWriterId(rs.getString("WRITER_ID"));
-				notice.setReadCount(rs.getInt("READCOUNT"));
-				notice.setContent(rs.getString("CONTENT"));
-				notice.setCreateDate(rs.getDate("CREATE_DATE"));
-				notice.setOriginalFileName(rs.getString("ORIGINAL_FILENAME"));
-				notice.setRenamedFileName(rs.getString("RENAMED_FILENAME"));
+				notice.setTitle(rs.getString("N_TITLE"));
+				notice.setNo(rs.getInt("N_NO"));
+				notice.setWriterId(rs.getString("N_WRITER_ID"));
+				notice.setReadCount(rs.getInt("N_READCOUNT"));
+				notice.setContent(rs.getString("N_CONTENT"));
+				notice.setCreateDate(rs.getDate("N_CREATE_DATE"));
+				notice.setOriginalFileName(rs.getString("N_ORIGINAL_FILENAME"));
+				notice.setRenamedFileName(rs.getString("N_RENAMED_FILENAME"));
 
 			}
 			
@@ -135,7 +136,7 @@ public class NoticeDao {
 	public int updateReadCount(Connection connection, Notice notice) {
 		int result = 0;
 		PreparedStatement pstm = null;
-		String query = "UPDATE NOTICE SET READCOUNT=? WHERE NO=?";
+		String query = "UPDATE NOTICE SET N_READCOUNT=? WHERE N_NO=?";
 		
 		try {
 			pstm  =connection.prepareStatement(query);
@@ -190,7 +191,7 @@ public class NoticeDao {
 	public int updateStatus(Connection connection, int no, String status) {
 		int result = 0;
 		PreparedStatement pstm = null;
-		String query = "UPDATE NOTICE SET STATUS=? WHERE NO=?";
+		String query = "UPDATE NOTICE SET N_STATUS=? WHERE N_NO=?";
 		
 		try {
 			pstm = connection.prepareStatement(query);
@@ -213,8 +214,8 @@ public class NoticeDao {
 		
 		PreparedStatement pstm = null;
 		String query = "UPDATE NOTICE "
-				+ "SET TITLE=?,CONTENT=?,ORIGINAL_FILENAME=?,RENAMED_FILENAME=? "
-				+ " WHERE NO=?";
+				+ "SET N_TITLE=?,N_CONTENT=?,N_ORIGINAL_FILENAME=?,N_RENAMED_FILENAME=? "
+				+ " WHERE N_NO=?";
 		
 		try {
 			pstm = connection.prepareStatement(query);

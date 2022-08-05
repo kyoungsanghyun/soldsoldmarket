@@ -14,6 +14,7 @@ import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
+import com.soldsoldMarket.product.model.vo.Trade;
 
 
 public class ProductDao {
@@ -527,5 +528,91 @@ public class ProductDao {
 		}
 		
 		return list;
+	}
+
+	// 구매 확인 체크
+	public Trade tradingcheck(Connection connetion,  int no, String id, String sname) {
+		Trade trade = null;
+		PreparedStatement pstm = null;
+		String query = " SELECT P_NO, B_ID, S_ID FROM TRADING WHERE P_NO=? AND B_ID=? AND S_ID=?";
+		ResultSet rs = null;
+		
+		try {
+			pstm = connetion.prepareStatement(query);
+			pstm.setInt(1, no);
+			pstm.setString(2, id);
+			pstm.setString(3, sname);
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				trade = new Trade();
+				trade.setPNo(rs.getInt("P_NO"));
+				trade.setBId(rs.getString("B_ID"));
+				trade.setSId(rs.getString("S_ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+		}
+		
+		return trade;
+	}
+
+	// 구매요청 리스트 업
+	public int insertTrade(Connection connection, int no, String id,  String sname) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = 	"INSERT INTO TRADING (T_NO, P_NO, B_ID, S_ID) "
+			+	"SELECT SEQ_TRADING_NO.NEXTVAL, ? , ? , ? "
+			+	"FROM DUAL "
+			+	"WHERE NOT EXISTS ( "
+			+	    "SELECT P_NO, B_ID, S_ID "
+			+	    "FROM TRADING "
+			+	    "WHERE P_NO = ? AND B_ID = ? AND S_ID = ? "
+			+	    ")";
+
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+			pstmt.setString(2, id);
+			pstmt.setString(3, sname);
+			pstmt.setInt(4, no);
+			pstmt.setString(5, id);
+			pstmt.setString(6, sname);
+			
+			result = pstmt.executeUpdate();	
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	// 구매요청 삭제 리스트업
+	public int deleteTrade(Connection connection, int no, String id, String sname) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = 	"DELETE FROM TRADING WHERE P_NO=? AND B_ID=? AND S_ID=?";
+
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+			pstmt.setString(2, id);
+			pstmt.setString(3, sname);
+			
+			result = pstmt.executeUpdate();	
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

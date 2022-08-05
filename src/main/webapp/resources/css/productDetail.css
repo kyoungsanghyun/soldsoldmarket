@@ -14,7 +14,7 @@ li{
     margin: 0 auto;
     display: grid;
     grid-template-columns: 160px 530px 450px;
-    grid-template-rows: 100px 250px 150px 1fr 0.1fr 200px 0px;
+    grid-template-rows: 100px 250px 150px 1fr 0.001fr 200px 0px;
     height: 100%;
     width: 100%;
     grid-gap: 30px;
@@ -103,7 +103,7 @@ li{
     line-height: 20px;
 }
 #product_name hr{
-    width: 390px;
+    width: 420px;
 }
 
 /* 게시글 상세 영역 */
@@ -124,6 +124,7 @@ li{
 #product_info_fixval {
     grid-area: fix;
     padding-left: 10px;
+    padding-top: 3px
 }
 #product_info_varival {
     grid-area: vari;
@@ -178,7 +179,8 @@ li{
 #toolbar_share{
     grid-area: share;
 }
-/* 툴바 공유버튼 */
+
+/* 툴바 공유버튼 팝업창 */
 .toolbar_share_modal {
     position: fixed;
     top: 0;
@@ -202,6 +204,7 @@ li{
     width: 400px;
     height: 400px;
     padding: 15px;
+    
   }
 
   .toolbar_share_modalBox span {
@@ -209,7 +212,7 @@ li{
     margin: 0 auto;
   }
 
-  .hidden {
+  .hiddenShare {
     display: none;
   }
   .toolbar_share_modalBox li {
@@ -222,6 +225,63 @@ li{
     cursor: pointer;
   }
 
+
+  /* 구마하기 팝업창 */
+  .toolbar_buy_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .toolbar_buy_modal .toolbar_buy_modal_bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .toolbar_buy_modalBox {
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 400px;
+    padding: 15px;
+    margin : -20px
+  }
+
+  .toolbar_buy_modal span {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .hiddenBuy {
+    display: none;
+  }
+  .toolbar_buy_modal li {
+    line-height: 30px;
+    padding-top: 30px;
+    padding-left: 10px;
+
+  }
+  .toolbar_buy_modalBox img {
+    cursor: pointer;
+  }
+  
+    .toolbar_buy_modalBox_answer {
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 400px;
+    padding: 15px;
+    margin : -20px
+  }
+
+
+/* 툴바 레이아웃 */
 #toolbar_buy{
     grid-area: buy;    
 }

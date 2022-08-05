@@ -243,7 +243,7 @@ public class ProductService {
 		int result = 0;
 		Connection connection = getConnection();
 		
-//		result = new productRegistDao().updateProductImg(connection, padd, product);
+		result = new productRegistDao().updateProductImg(connection, padd, product);
 		
 		if (result > 0) {
 			commit(connection);
@@ -333,6 +333,4 @@ public class ProductService {
 	}
 
 
-
-	
 }

@@ -34,8 +34,7 @@ public class ProductUpdateServlet extends HttpServlet {
     	System.out.println("게시글 번호 : " + no);
     	
     	product = new ProductService().getProductByNo(no, false);
-    	
-    	System.out.println(product);
+    	padd = new ProductService().getProductimgByNo(no);
     	
     	request.setAttribute("product", product);
     	request.setAttribute("padd", padd);
@@ -90,13 +89,13 @@ public class ProductUpdateServlet extends HttpServlet {
             
             if (i == 1) {
                if(fileName == null) {
-            	   padd.setPAimg5(mr.getParameter("imgpre1"));
+            	   padd.setPAimg5(mr.getParameter("imgpre5"));
                }else {
             	   padd.setPAimg5(fileName);
                }
             } else if (i == 2) {
                if(fileName == null) {
-            	   padd.setPAimg4(mr.getParameter("imgpre2"));
+            	   padd.setPAimg4(mr.getParameter("imgpre4"));
                }else {
             	   padd.setPAimg4(fileName);
                }
@@ -108,13 +107,13 @@ public class ProductUpdateServlet extends HttpServlet {
                }
             } else if (i == 4) {
                 if(fileName == null) {
-                	padd.setPAimg2(mr.getParameter("imgpre4"));
+                	padd.setPAimg2(mr.getParameter("imgpre2"));
                  }else {
                 	padd.setPAimg2(fileName);
                  }
             } else if (i == 5) {
                 if(fileName == null) {
-                	padd.setPAimg1(mr.getParameter("imgpre5"));
+                	padd.setPAimg1(mr.getParameter("imgpre1"));
                    }else {
                 	padd.setPAimg1(fileName);
                    }

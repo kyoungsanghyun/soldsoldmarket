@@ -1,4 +1,5 @@
 package com.soldsoldMarket.product.model.service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,12 +7,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.close;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.commit;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.getConnection;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.rollback;
 
-import com.soldsoldMarket.product.model.dao.productRegistDao;
+
+import java.sql.Connection;
+import java.util.List;
 
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
+import com.soldsoldMarket.product.model.dao.productRegistDao;
 import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Pcomment;
@@ -100,23 +107,23 @@ public class ProductService {
 
 
 	// 상품 삭제 (status 로 구현됨)
-	public int deleteProduct(int no) {
-		int result = 0;
-		Connection connection = getConnection();
-		
-		result = new ProductDao().deleteStatus(connection, no);
-		
-		System.out.println("service result : " + result);
-		if(result > 0) {
-			commit(connection);
-		} else {
-			rollback(connection);
-		}
-		
-		close(connection);
-		
-		return result;
-	}
+//	public int deleteProduct(int no) {
+//		int result = 0;
+//		Connection connection = getConnection();
+//		
+//		result = new ProductDao().deleteStatus(connection, no);
+//		
+//		System.out.println("service result : " + result);
+//		if(result > 0) {
+//			commit(connection);
+//		} else {
+//			rollback(connection);
+//		}
+//		
+//		close(connection);
+//		
+//		return result;
+//	}
 
 	// 댓글 삭제
 	public int deletePcomment(int no) {
@@ -239,6 +246,8 @@ public class ProductService {
 		
 		return result;
 	}
+	
+	// 상품 수정
 
 	public int updateProduct(Product product) {
 		int result = 0;
@@ -257,12 +266,14 @@ public class ProductService {
 		return result;
 	
 	}
+	
+	// 상품 이미지 수정
 
 	public int updateProductImg(PAdd padd, Product product) {
 		int result = 0;
 		Connection connection = getConnection();
 		
-//		result = new productRegistDao().updateProductImg(connection, padd, product);
+		result = new productRegistDao().updateProductImg(connection, padd, product);
 		
 		if (result > 0) {
 			commit(connection);
@@ -411,6 +422,4 @@ public class ProductService {
 		}
 	
 
-
-	
 }

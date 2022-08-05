@@ -50,14 +50,15 @@
     <!-- intro end -->
     <hr>
     <div>
-        <div class="product">상품</div>  
-        <select class="absolute">
-            <option selected>전체</option>
-            <option>판매중</option>
-            <option>판매완료</option>
-            <option>예약중</option>
-        </select>
-    </div>
+	    <div>
+	        <h2>상품</h2>
+	        <select class="absolute">
+	            <option selected>전체</option>
+	            <option>판매중</option>
+	            <option>판매완료</option>
+	            <option>예약중</option>
+	        </select>
+	    </div>
 
     <hr>
 
@@ -93,4 +94,5 @@
         </li>
     </ul>
 	</div>
+    </div>
 <jsp:include page="/views/common/footer.jsp" /> 

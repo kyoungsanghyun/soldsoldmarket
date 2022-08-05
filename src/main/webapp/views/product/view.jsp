@@ -142,10 +142,11 @@
 			</div>
 			
 			<hr>
+
 				<!--  작성자는 수정 버튼 / 일반회원은 구매버튼이 나오는 로직 -->
 				<!-- 수정 버튼 (작성자)-->
 				<c:if test="${not empty member && member.id == product.MId}">
-					<span id="toolbar_buy"><img src="${ path }/resources/images/button/modbtn.png"></span>
+					<span id="toolbar_buy"><img src="${ path }/resources/images/button/modbtn.png" onclick="location.href='${ path }/product/update?no=${ product.PNo }'"></span>
 				</c:if>	
 				<!-- 구매 버튼 (일반회원) -->
 				<c:if test="${member.id != product.MId}">
@@ -178,6 +179,7 @@
 				<!-- 댓글 바로가기 -->    
 				<span id="toolbar_comment"><img src="${ path }/resources/images/button/cmtbtn.png"></span>
        	</div>
+
         
         <!-- 게시글 내용 -->
         <div class="product_detail">

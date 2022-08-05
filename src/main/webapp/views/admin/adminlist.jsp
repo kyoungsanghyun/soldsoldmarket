@@ -16,7 +16,7 @@
 <section id="content">
 	<br>
 	<h3 align="center">관리자페이지</h3>
-	
+	<br>
 	<nav>
 			<ul class="main-nav">
 				<li class="admin-member"><a href="${ path }/admin/member">회원관리</a></li>
@@ -26,21 +26,20 @@
 			</ul>
 		</nav>
 		
-		<br>
+		<br><br>
 		
-		
-		<div id="mainWrapper">
 
         <ul>
             <!-- 게시판 제목 -->
             <h5 align="center">게시판 관리</h5>
 
             <!-- 게시판 목록  -->
-            <table class="table">
+            <table class="table align-middle">
+            <br>
 			<tr>
 				<th>번호</th>
 				<th>작성자</th>
-				<th>게시글명</th>
+				<th>게시글내용</th>
 				<th>제목</th>
 				<th>작성일</th>
 				<th>삭제</th>
@@ -56,15 +55,12 @@
 			<c:if test="${ not empty list }">
 				<c:forEach var="board" items="${ list }">
 					<tr>
-						<td>${product.PName}</td>
-						<td>${product.PPrice}</td>
-						<td>
-							<a href="${ path }/board/view?no=${ board.b_id }">
-								${ board.b_content }
-							</a>
-						</td>
-						<td>${board.b_title}</td>
-						<td>${board.b_timestamp}</td>
+						<td>${board.BId}</td>
+						<td>${board.MId}</td>
+						<td>${board.BContent}</td>
+						<td>${board.BTitle}</td>
+						<td>${board.BTimeStamp}</td>
+						<td><button class="btn btn-primary btn-sm" type="submit">삭제</button></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -93,7 +89,9 @@
 			<!--  10개 페이지 목록 -->
 			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
 				<c:if test="${ status.current == pageInfo.currentPage }">
-					<li class="page-item"><a href='${ status.current }'></a></li>
+					<li class="page-item active">
+					<a href='${ status.current }'></a>
+					</li>
 				</c:if>
 				<c:if test="${ status.current != pageInfo.currentPage }">
 					<li class="page-item"><a class="page-link" href='${ path }/admin/adminlist?page=${ status.current }'>${ status.current }</a></li>

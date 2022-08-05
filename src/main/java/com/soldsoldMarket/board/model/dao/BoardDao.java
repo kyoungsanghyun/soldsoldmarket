@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
+import com.soldsoldMarket.board.model.vo.BAdd;
 import com.soldsoldMarket.board.model.vo.board;
 import com.soldsoldMarket.common.util.PageInfo;
 
@@ -90,6 +91,55 @@ public class BoardDao {
 		}		
 		
 		return list;
+	}
+	
+	public int insertInquiry(Connection connection, board board) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO BOARD VALUES(SEQ_PRODUCT_NO.NEXTVAL,?,?,DEFAULT,DEFAULT,DEFAULT,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,?,DEFAULT)";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, String.valueOf(board.getBType()));
+			pstmt.setString(2, board.getBTitle());
+			pstmt.setString(3, board.getBContent());
+			pstmt.setString(4, board.getMId());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	public int insertBadd(Connection connection, BAdd badd, board board) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "INSERT INTO BADD VALUES(SEQ_BADD_NO.NEXTVAL,?,?,?,?,?,SEQ_PRODUCT_NO.NEXTVAL-1)";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+
+			pstmt.setString(1, badd.getBAimg1());
+			pstmt.setString(2, badd.getBAimg2());
+			pstmt.setString(3, badd.getBAimg3());
+			pstmt.setString(4, badd.getBAimg4());
+			pstmt.setString(5, badd.getBAimg5());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

@@ -18,7 +18,7 @@
     <div class="board_list_wrap">
             <h2>문의내역</h2>
         <table class="board_list">
-			<button type="button" onclick="location.href='${path}/board/write'">글쓰기</button>
+			<button type="button" onclick="location.href='${path}/mypage/askwrite'">글쓰기</button>
                 <tr>
                     <th>번호</th>
                     <th>날짜</th>
@@ -35,6 +35,7 @@
                 </c:if>
                 <c:if test="${ not empty list }">
 	                <c:forEach var="board" items="${ list }">
+		                <c:if test="${ member.id == board.writerId }">
 		                <tr>
 		                	<td>${ board.rowNum }</td>
 		                    <td>${ board.createDate }</td>
@@ -46,6 +47,7 @@
 		                    </td>
 		                    <td>${ board.answerStatus }</td>
 		                </tr>
+		                </c:if>
 	                </c:forEach>
                 </c:if>
         </table>

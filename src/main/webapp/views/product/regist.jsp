@@ -40,9 +40,9 @@
 				<br>
 				<span><b>상품 상태</b></span>
 				<br><br>
-				<input type="radio" name="condition" value="open"/> 개봉
-				<input type="radio" name="condition" value="new"/>거의 새것
-				<input type="radio" name="condition" value="used"/>사용감 있음
+				<input type="radio" name="condition" value="개봉"/> 개봉
+				<input type="radio" name="condition" value="거의새것"/>거의 새것
+				<input type="radio" name="condition" value="사용감있음"/>사용감 있음
 				<hr style="width:90%; margin: 20px 0 0 5%;">
 				<br>
 				<span><b>거래지역 *</b></span>

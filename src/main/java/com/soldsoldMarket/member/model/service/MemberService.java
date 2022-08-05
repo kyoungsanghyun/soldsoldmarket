@@ -1,6 +1,10 @@
 package com.soldsoldMarket.member.model.service;
 
-import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.close;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.commit;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.getConnection;
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.List;
 
@@ -59,7 +63,7 @@ public class MemberService {
 		
 		Connection connection = getConnection();
 		
-		if(member.getNo() != 0) {
+		if(member.getId() != null) {
 			result = new MemberDao().updateMember(connection,member);
 		} else {
 			result = new MemberDao().insertMember(connection, member);

@@ -12,11 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.soldsoldMarket.member.model.vo.Member;
-import com.soldsoldMarket.product.model.service.ProductService;
-import com.soldsoldMarket.product.model.vo.Product;
 import com.soldsoldMarket.board.model.vo.BAdd;
 import com.soldsoldMarket.board.model.vo.board;
-import com.soldsoldMarket.board.service.BoardService;
+import com.soldsoldMarket.board.model.service.BoardService;
 import com.soldsoldMarket.common.util.FileRename;
 
 
@@ -51,7 +49,7 @@ public class inquiryServlet extends HttpServlet {
     	int maxSize = 10485760;
 		
     	// 파일 저장 경로
-    	String path = getServletContext().getRealPath("/resources/upload/product");
+    	String path = getServletContext().getRealPath("/resources/upload/board");
     	
     	// 인코딩 설정
     	String encoding = "UTF-8";
@@ -63,9 +61,9 @@ public class inquiryServlet extends HttpServlet {
     	String m_id = mr.getParameter("writer");
     	
     	// 폼파라미터
-    	String BType = mr.getParameter("category");
-    	String BTitle = mr.getParameter("title");
-    	String BContent = mr.getParameter("content");
+    	char bType = mr.getParameter("category").charAt(0);
+    	String bTitle = mr.getParameter("title");
+    	String bContent = mr.getParameter("content");
     	
     	// 파일 정보 가져오기
        	Enumeration<?> files = mr.getFileNames();
@@ -94,11 +92,15 @@ public class inquiryServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		Member member = (session == null) ? null : (Member) session.getAttribute("member");
-		
 
 			if (member != null) {    	
 			board = new board();
-	    	 
+	    
+			board.setMId(m_id);
+			board.setBType(bType);
+			board.setBTitle(bTitle);
+			board.setBContent(bContent);
+			
 	    	result = new BoardService().insertInquiry(board);
 	    	result2 = new BoardService().insertBAdd(badd, board);
 	    	

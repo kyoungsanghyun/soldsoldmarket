@@ -5,20 +5,18 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
+<link rel="stylesheet" href="${ path }/resources/css/asklist.css">
+
 <jsp:include page="/views/common/header.jsp" />
 
-<style>
-	div #pageBar{margin-top:10px; text-align:center; }
-	h2 { text-align: center;}
-</style>
+   <div class="section">
 
-<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
-
-
-    <div class="board_list_wrap">
             <h2>문의내역</h2>
+
+            <hr>
+
         <table class="board_list">
-			<button type="button" onclick="location.href='${path}/mypage/askwrite'">글쓰기</button>
+			<button id="writebtn" type="button" onclick="location.href='${path}/mypage/askwrite'">글쓰기</button>
                 <tr>
                     <th>번호</th>
                     <th>날짜</th>
@@ -51,7 +49,8 @@
 	                </c:forEach>
                 </c:if>
         </table>
-        <div id="pageBar">
+        <div class="page_wrap">
+            <div class="page_nation">
 			<!-- 맨 처음으로 -->
 			<button onclick="location.href='${ path }/mypage/asklist?page=1'">&lt;&lt;</button>
 
@@ -74,7 +73,7 @@
 
 			<!-- 맨 끝으로 -->
 			<button onclick="location.href='${ path }/mypage/asklist?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			</div>
 		</div>
     </div>
-</div>
 <jsp:include page="/views/common/footer.jsp" /> 

@@ -28,14 +28,6 @@ div.section {
     margin: auto;
 }
 
-.btn {
-    background-color: #0232e4;
-    color: white;
-    width: 90px;
-    height: 35px;
-}
-
-
 .amount {
     position: relative;
     display: flex;
@@ -108,75 +100,3 @@ div.section {
 
 
 
-/* 1:1 문의 */
-button {
-    text-decoration: none;
-    color: inherit;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-.board_list_wrap {
-    padding: 50px;
-}
-
-.board_list {
-    width: 90%;
-    margin: auto;
-    border-top: 2px solid #999;
-}
-
-.board_list tr {
-    border-bottom: 1px solid #ccc;
-}
-
-.board_list th,
-.board_list td {
-    padding: 10px;
-}
-
-.board_list td {
-    text-align: center;
-}
-
-.board_list .tit {
-    text-align: left;
-}
-
-.board_list tit:hover {
-    text-decoration: underline;
-}
-
-.board_list_wrap .paging {
-    text-align: center;
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 0;
-}
-
-.board_list_wrap .paging a{
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 12px
-
-}
-
-.board_list_wrap .paging button:first-child {
-    margin-left: 0;
-}
-
-.caption1 {
-    margin-bottom: 40px;
-    font-size: 20px;
-}
-
-.product_list td {
-    padding: 20px;
-}
-
-.product_list {
-    margin-left:auto;
-    margin-right:auto;
-}

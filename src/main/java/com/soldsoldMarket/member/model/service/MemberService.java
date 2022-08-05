@@ -113,4 +113,24 @@ public class MemberService {
 		return list;
 	}
 
+	public int save3(Member memberUpdate) {
+		int result = 0;
+		
+		Connection connection = getConnection();
+		
+		if(memberUpdate.getId() != null) {
+			result = new MemberDao().updateMember(connection, memberUpdate);
+		}
+			if(result > 0 ) {
+				commit(connection);
+			}else {
+				rollback(connection);
+			}
+			
+		close(connection);
+		
+		return result;
+		
+	}
 }
+

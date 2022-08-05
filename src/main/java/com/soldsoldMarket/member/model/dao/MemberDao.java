@@ -1,6 +1,8 @@
 package com.soldsoldMarket.member.model.dao;
 
 
+import static com.soldsoldMarket.common.jdbc.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.member.model.vo.Member;
@@ -90,18 +90,26 @@ public class MemberDao {
 		return result;
 	}
 
-	public int updateMember(Connection connection, Member member) {
+	public int updateMember(Connection connection, Member memberUpdate) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE MEMBER SET NAME=?,PHONE=?,ADDRESS=? WHERE ID=?";
+		String query = "UPDATE MEMBER SET M_PHONE=?, M_ADDRESS=?, INTRO=? WHERE M_ID=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, memberUpdate.getPhone());
+			pstmt.setString(2, memberUpdate.getAddress());
+			pstmt.setString(3, memberUpdate.getIntro());
+			pstmt.setString(4, memberUpdate.getId());
+			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-		
-		
 		return result;
 	}
 

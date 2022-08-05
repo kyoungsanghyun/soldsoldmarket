@@ -9,7 +9,7 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
+<link rel="stylesheet" href="${ path }/resources/css/memberInfo.css">
 
        <div class="section">
 
@@ -18,9 +18,7 @@
         <hr>
 
 		<form id="memberFrm" action="${ path }/mypage/memberinfo" method="post">
-			<!-- 
-			<input type="hidden" name="userNo" value="${ loginMember.no }">
-			-->
+			
 			<table class="board_list">
 	            <tr>
 	                <th>프로필 사진</th>
@@ -33,14 +31,14 @@
 	                <th>이름</th>
 					<td>
 						<input type="text" name="nameUpdate" id="nameUpdate" 
-							value="${ member.name }" required>				
+							value="${ member.name }" required readonly>				
 					</td> 	
 	            </tr>
 	            <tr>
 	                <th>아이디</th>
 					<td>
 						<input type="text" name="idUpdate" id="idUpdate" 
-							value="${ member.id }" required>				
+							value="${ member.id }" required readonly>				
 					</td> 	
 	            </tr>
 	            <tr>
@@ -55,7 +53,7 @@
 	                <th>생일</th>
 					<td>
 						<input type="date" name="bDay" id="bDay" 
-							value="${ member.BDay }">				
+							value="${ member.BDay }" readonly>				
 					</td> 	
 	            </tr>
 	            
@@ -63,7 +61,7 @@
 	                <th>성별</th>
 					<td>
 						<input type="text" name="gender" id="gender" 
-							value="${ member.gender }" required>				
+							value="${ member.gender }" required readonly>				
 					</td> 	
 	            </tr>
       	        <tr>
@@ -88,8 +86,13 @@
 						</td> 	
 	            </tr>
 	        </table>
+	        
+	        <div class="page_wrap">
+	       
 	        <input class="btn" type="submit" value="정보수정">
 	        <input class="btn" type="button" id="btnDelete" value="탈퇴">
+	        </div>
+	        
 	 	</form>
 </div>
 

@@ -42,8 +42,8 @@ public class AsklistServlet extends HttpServlet {
 			}
 	    	
 	    	listCount = new BoardService().getBoardCount();
-	    	pageInfo = new PageInfo(page, 5, listCount, 5); // 게시글 갯수 설정
-	    	list = new BoardService().getBoardList(pageInfo);
+	    	pageInfo = new PageInfo(page, 10, listCount, 10); // 게시글 갯수 설정
+	    	list = new BoardService().getBoardList(pageInfo, loginMember);
 	    	
 	    	request.setAttribute("pageInfo", pageInfo);
 	    	request.setAttribute("list", list);

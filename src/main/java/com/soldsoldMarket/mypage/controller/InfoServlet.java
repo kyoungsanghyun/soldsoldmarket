@@ -46,11 +46,11 @@ public class InfoServlet extends HttpServlet {
 		    	Member memberUpdate = new Member();
 				      
 		    	memberUpdate.setId(request.getParameter("idUpdate"));
-		    	memberUpdate.setName(request.getParameter("nameUpdate"));
 		    	memberUpdate.setPhone(request.getParameter("phone"));
 		    	memberUpdate.setAddress(request.getParameter("address"));
-				  
-				result = new MemberService().save2(member);			
+		    	memberUpdate.setIntro(request.getParameter("introduceUpdate"));
+		    	
+				result = new MemberService().save3(memberUpdate);			
 				  
 				  if (result > 0) {
 					  session.setAttribute("loginMember", new MemberService().findMemberById(member.getId()));

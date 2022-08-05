@@ -5,6 +5,7 @@ import java.util.List;
 
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 import com.soldsoldMarket.common.util.PageInfo;
+import com.soldsoldMarket.member.model.vo.Member;
 import com.soldsoldMarket.mypage.model.dao.BoardDao;
 import com.soldsoldMarket.mypage.model.vo.M_Board;
 
@@ -21,11 +22,11 @@ public class BoardService {
 		return count;
 	}
 
-	public List<M_Board> getBoardList(PageInfo pageInfo) {
+	public List<M_Board> getBoardList(PageInfo pageInfo, Member loginMember) {
 		List<M_Board> list = null;
 		Connection connection = getConnection();
 		
-		list = new BoardDao().findAll(connection, pageInfo);
+		list = new BoardDao().findAll(connection, pageInfo, loginMember);
 		
 		close(connection);
 		

@@ -5,47 +5,15 @@
 
 <jsp:include page="/views/common/header.jsp" />
 
-<style>
-	div#board-write-container
-	{
-		width:600px;
-		margin:0 auto;
-		text-align:center;
-	}
-	
-	div#board-write-container h2
-	{
-		margin:10px 0;
-	}
-	
-	table#tbl-board
-	{
-		width:500px;
-		margin:0 auto;
-		border:1px solid black;
-		border-collapse:collapse;
-	}
-	
-	table#tbl-board th
-	{
-		width:125px;
-		border:1px solid;
-		padding:5px 0;
-		text-align:center;
-	}
-	
-	table#tbl-board td
-	{
-		border:1px solid;
-		padding:5px 0 5px 10px;
-		text-align:left;
-	}
-</style>
-<section id="content">
-	<div id='board-write-container'>
+<link rel="stylesheet" href="${ path }/resources/css/askwrite.css">
+
+<div class="section">
 		<h2>게시판 작성</h2>
+
+		<hr>
+
 		<form action="${ path }/mypage/askwrite" method="POST" enctype="multipart/form-data">
-			<table id='tbl-board'>
+			<table class="board_list">
 				<tr>
 					<th>제목</th>
 					<td><input type="text" name="title" id="title"></td>
@@ -70,7 +38,7 @@
 				</tr>
 			</table>
 		</form>
-	</div>
-</section>
+		<button class="btns" type="button" onclick="location.href='${ path }/mypage/asklist'">목록으로</button>
+</div>
 
 <jsp:include page="/views/common/footer.jsp" /> 

@@ -39,7 +39,7 @@ public class BoardDao {
 		return count;
 	}
 
-	public List<M_Board> findAll(Connection connection, PageInfo pageInfo) {
+	public List<M_Board> findAll(Connection connection, PageInfo pageInfo, Member loginMember) {
 		List<M_Board> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -67,7 +67,7 @@ public class BoardDao {
 				+ 							"A.STATUS "
 				+ 							"FROM ASKBOARD A "
 				+ 							"JOIN MEMBER M ON(A.WRITER_ID = M.M_ID) "
-				+ 							"WHERE A.STATUS = 'Y' "
+				+ 							"WHERE A.STATUS = 'Y' AND A.WRITER_ID = ? "
 				+ 							"ORDER BY NO DESC"
 				+ 					")"
 				+ ") WHERE RNUM BETWEEN ? and ? ";
@@ -75,9 +75,9 @@ public class BoardDao {
 		try {
 			pstmt = connection.prepareStatement(query);
 			
-			pstmt.setInt(1, pageInfo.getStartList());
-			pstmt.setInt(2, pageInfo.getEndList());
-			
+			pstmt.setString(1, loginMember.getId());
+			pstmt.setInt(2, pageInfo.getStartList());
+			pstmt.setInt(3, pageInfo.getEndList());
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

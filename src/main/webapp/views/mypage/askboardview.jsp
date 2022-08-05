@@ -49,7 +49,6 @@
       
       <div class="buttons">
                     <c:if test="${ member.id == board.writerId }">
-                        <button type="button" onclick="location.href='${ path }/mypage/askboardview?no=${ board.no }'">수정</button>
                         <button type="button" id="btnDelete">삭제</button>
                     </c:if>
                     <button type="button" onclick="location.href='${ path }/mypage/asklist'">목록으로</button>
@@ -67,7 +66,7 @@
 		});
 		
 		$("#fileDown").on("click", () => {
-			location.assign("${ path }/board/fileDown?oname=${ board.originalFileName }&rname=${ board.renamedFileName }")
+			location.assign("${ path }/mypage/filedown?oname=${ board.originalFileName }&rname=${ board.renamedFileName }")
 		});
 		
 	});

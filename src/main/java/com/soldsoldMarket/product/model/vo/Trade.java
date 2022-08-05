@@ -19,4 +19,11 @@ public class Trade {
 	
 	private String SId;
 	
+	private String TPName;
+	
+	private int TPPrice;
+	
+	private String TPThumb;
+	
+	
 }

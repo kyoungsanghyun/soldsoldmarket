@@ -31,22 +31,30 @@
 	            <table class="board_list">
 	                <thead>
 	                    <tr>
-	                        <th>날짜</th>
 	                        <th>상품</th>
 	                        <th>상품명</th>
+	                        <th>가격</th>
 	                        <th>거래상태</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                
-	                	<c:forEach var="product" items="${ list }">	                	
+	                	<c:forEach var="trade" items="${ list }">	                	
 		                    <tr>
-		                        <td class="td1">${ product.PDate }</td>
-		                        <td class="td2"><img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지"></td>
+		                        <td class="td2"><img src="${ path }/resources/upload/product/${ trade.TPThumb }" alt="이미지"></td>
 		                        <td class="td3">
-		                            <a href="${path}/product/view?no=${product.PNo}" name="no">${ product.PName }</a>
+		                            <a href="${path}/product/view?no=${trade.PNo}" name="no">${ trade.TPName }</a>
 		                        </td>
-		                        <td class="td4"><span class="pTrading">${ product.PTrading }</span></td>
+		                        <td class="td1"><fmt:formatNumber value="${ trade.TPPrice }" pattern="#,###" />원</td>
+		                        <td class="td4">
+		                        	<c:if test="${ trade.BId == memberId }">
+				                        <span class="pTrading1">구매 요청 보냄</span>		                        	
+		                        	</c:if>
+		                        	<c:if test="${ trade.SId == memberId }">
+				                        <span class="pTrading2">판매 요청 받음</span>		                        	
+		                        	</c:if>
+		                        
+		                        </td>
 		                    </tr>
 	                    </c:forEach>
 	                    	

@@ -31,7 +31,7 @@
 	            <table class="board_list">
 	                <thead>
 	                    <tr>
-	                        <th>날짜</th>
+	                        <th>상품 등록 날짜</th>
 	                        <th>상품</th>
 	                        <th>상품명</th>
 	                        <th>가격</th>

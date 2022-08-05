@@ -4,95 +4,94 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="product" value="${ list }"/>
+
 
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
+<link rel="stylesheet" href="${ path }/resources/css/mystore.css">
 
-    <div class="section">
-        <div class="intro_text">
-            <table class="information">
-				<tr>
-                    <td>프로필 사진</td>
-                    <td>${ member.img }</td>
-                </tr>            
-                <tr>
-                    <td>회원아이디 : </td>
-                    <td>${ member.id }</td>
-                </tr>
-                <tr>
-                    <td>신고당한 수 : </td>
-                    <td>${ member.report }</td>
-                </tr>
-                <tr>
-                    <td>주요 거래지역 : </td>
-                    <td>${ member.area }</td>
-                </tr>
-                <tr>
-                    <td>판매횟수 : </td>
-                    <td>${ member.sellAmount }</td>
-                </tr>
-                <tr>
-                    <td>방문횟수 : </td>
-                    <td>${ member.visit }</td>
-                </tr>
-                <tr>
-                    <td>가입일 : </td>
-                    <td>${ member.joinDate }</td>
-                </tr>
-                <tr>
-                    <td>소개글 : </td>
-                    <td>${ member.intro }</td>
-                </tr>
-            </table>
+        <!-- ====================================================== -->
+        <!-- 본문 -->
+        <div class="section">
+
+            <h2>내 상점</h2>
+
+            <hr>
+            
+
+	        <h3 class="productCount"> ${ trading }&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>
+            
+	           	<select class="myProductTrading" name="myProductTrading" id="myProductTrading"> 
+					<option class="mptList" value="전체상품" selected="selected">전체상품</option>
+					<option class="mptList" value="판매중">판매중</option>
+					<option class="mptList" value="예약중">예약중</option>
+					<option class="mptList" value="판매완료">판매완료</option>
+				</select>
+			
+			
+
+            <!-- ====================================================== -->
+            <!-- 표 -->
+            
+            <c:if test="${ empty list }">
+	            <br><br><br><br>
+	            <h2>등록한 상품이 없습니다.</h2>
+	            <br><br><br><br>
+            </c:if>
+            
+            <c:if test="${ not empty list }">
+		             <ul class="pro-list">	
+	             <c:forEach var="product" items="${ list }">
+		                 <li>
+		                     <a href="${path}/product/view?no=${product.PNo}" name="no"></a>
+		                         <span class="thum">		                             
+		                         	<img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지">
+		                         </span>
+		                         <div class="pro-list-name"> ${ product.PName }</div>
+		                         <div class="pro-list-price">
+		                         	<span><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</span>
+		                         	<span class="pro-list-trading">${ product.PTrading }</span>
+		                         </div>
+	                         </a>
+		                 </li>
+	             </c:forEach>
+		             </ul>
+             </c:if>           
+
+
+            <!-- ====================================================== -->
+            <!-- 페이지 버튼 -->
+            <div class="page_wrap">
+                <div class="page_nation">
+                    <a class="arrow pprev" href="${ path }/mypage/mystore?page=1">&#60;&#60;</a>
+                    <a class="arrow prev" href="${ path }/mypage/mystore?page=${ pageInfo.prevPage }">&#60;</a>
+                    
+			   		<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+						<c:if test="${ status.current == pageInfo.currentPage }">
+							<a href="#" class="active">${ status.current }</a>
+						</c:if>
+						<c:if test="${ status.current != pageInfo.currentPage }">
+							<a href="${ path }/mypage/mystore?page=${ status.current }">${ status.current }</a>
+						</c:if>
+					</c:forEach>
+			
+                    <a class="arrow next" href="${ path }/mypage/mystore?page=${ pageInfo.nextPage }">&#62;</a>
+                    <a class="arrow nnext" href="${ path }/mypage/mystore?age=${ pageInfo.maxPage }">&#62;&#62;</a>
+                </div>
+            </div>
         </div>
-    
-    <!-- intro end -->
-    <hr>
-    <div>
-	    <div>
-	        <h2>상품</h2>
-	        <select class="absolute">
-	            <option selected>전체</option>
-	            <option>판매중</option>
-	            <option>판매완료</option>
-	            <option>예약중</option>
-	        </select>
-	    </div>
+        
 
-    <hr>
+<script>
+  $(function() {
+      $("#myProductTrading").on("change", function() {
+    	  var trading = $(this).val();
+    	  
+    	  trading.submit();
+      });
 
-    <div class="product_count">전체 0개</div>
-    <br>
-    <ul class="product_enroll">
-        <li>
-            <div class="product_img">
-            </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-        <li>
-            <div class="product_img">
-                    <img src="/resources/image/flower1.PNG" alt="">
-            </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-        <li>
-            <div class="product_img">
-                    <img src="/resources/image/flower1.PNG" alt="">
-            </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-        <li>
-            <div class="product_img">
-                    <img src="/resources/image/flower1.PNG" alt="">
-            </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-    </ul>
-	</div>
-    </div>
+   });
+  </script>
+        
 <jsp:include page="/views/common/footer.jsp" /> 

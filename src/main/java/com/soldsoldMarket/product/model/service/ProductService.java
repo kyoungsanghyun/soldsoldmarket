@@ -1,21 +1,15 @@
 package com.soldsoldMarket.product.model.service;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.close;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.commit;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.getConnection;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.rollback;
 
-import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
-
-import com.soldsoldMarket.product.model.dao.productRegistDao;
+import java.sql.Connection;
+import java.util.List;
 
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.product.model.dao.ProductDao;
+import com.soldsoldMarket.product.model.dao.productRegistDao;
 import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Pcomment;

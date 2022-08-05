@@ -5,7 +5,7 @@
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 <jsp:include page="/views/common/header.jsp" />
-
+<jsp:include page="/views/notice/popup.jsp" />
 <link rel="stylesheet" href="${ path }/resources/css/main.css?ver=1"> 
 <link rel="stylesheet" href="${ path }/resources/css/chat.css"> 
 
@@ -65,8 +65,33 @@ $(document).ready(function(){
 	
 })
  
- 
- 
+</script>
+<script language="JavaScript">
+        function setCookie( name, value, expiredays ) {
+            var todayDate = new Date();
+            todayDate.setDate( todayDate.getDate() + expiredays ); 
+            document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+        }
+        
+        var deleteCookie = function(name) {
+        	document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;'+ " path=/;"
+        }
+        
+        function closePop() {
+            if ( document.pop_form.chkbox.checked ){
+                setCookie( "maindiv", "done" , 1 );
+            }
+            document.getElementById('layer_popup').style.visibility = "hidden";
+        }
+</script>
+ <script language="Javascript">
+    cookiedata = document.cookie;   
+    if ( cookiedata.indexOf("maindiv=done") < 0 ){     
+    	document.getElementById('layer_popup').style.visibility = "visible";
+    }
+    else {
+    	document.getElementById('layer_popup').style.visibility = "hidden";
+    }
 </script>
 
 <jsp:include page="/views/common/footer.jsp" />

@@ -6,9 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.*;
 
 import com.soldsoldMarket.common.util.PageInfo;
+import com.soldsoldMarket.member.model.vo.Member;
 import com.soldsoldMarket.mypage.model.vo.M_Board;
 
 public class BoardDao {
@@ -148,7 +152,7 @@ public class BoardDao {
 	public int updateStatus(Connection connection, int no, String status) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE BOARD SET STATUS=? WHERE NO=?";
+		String query = "UPDATE ASKBOARD SET STATUS=? WHERE NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -169,7 +173,7 @@ public class BoardDao {
 	public int insertBoard(Connection connection, M_Board board) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "INSERT INTO BOARD VALUES(SEQ_BOARD_NO.NEXTVAL,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
+		String query = "INSERT INTO ASKBOARD VALUES(SEQ_BOARD_NO.NEXTVAL,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
 		
 		try {
 			pstmt = connection.prepareStatement(query);

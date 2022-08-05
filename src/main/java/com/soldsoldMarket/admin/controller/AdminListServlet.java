@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.soldsoldMarket.common.util.PageInfo;
-import com.soldsoldMarket.board.service.BoardService;
+import com.soldsoldMarket.board.model.service.BoardService;
 import com.soldsoldMarket.board.model.vo.board;
 
 @WebServlet("/admin/adminlist")

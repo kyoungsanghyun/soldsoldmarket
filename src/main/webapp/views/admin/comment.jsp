@@ -16,7 +16,7 @@
 <section id="content">
 	<br>
 	<h3 align="center">관리자페이지</h3>
-	
+	<br>
 	<nav>
 			<ul class="main-nav">
 				<li class="admin-member"><a href="${ path }/admin/member">회원관리</a></li>
@@ -26,7 +26,7 @@
 			</ul>
 		</nav>
 		
-		<br>
+		<br><br>
 		
 		<div id="mainWrapper">
 
@@ -36,12 +36,11 @@
 
             <!-- 게시판 목록  -->
             <table class="table">
+            <br>
 			<tr>
 				<th>번호</th>
 				<th>작성자</th>
-				<th>게시글명</th>
 				<th>댓글 내용</th>
-				<th>작성일</th>
 				<th>삭제</th>
 			</tr>
                     <!-- 게시물이 출력될 영역 -->
@@ -53,17 +52,12 @@
 				</tr>	
 			</c:if>
 			<c:if test="${ not empty list }">
-				<c:forEach var="board" items="${ list }">
+				<c:forEach var="commnet" items="${ list }">
 					<tr>
-						<td>${product.PName}</td>
-						<td>${product.PPrice}</td>
-						<td>
-							<a href="${ path }/board/view?no=${ board.b_id }">
-								${ board.b_content }
-							</a>
-						</td>
-						<td>${board.b_title}</td>
-						<td>${board.b_timestamp}</td>
+						<td>${comment.CMid}</td>
+						<td>${comment.BId}</td>
+						<td>${comment.CMcontent}</td>
+						<td><button class="btn btn-primary btn-sm" type="submit">삭제</button></td>
 					</tr>
 				</c:forEach>
 			</c:if>

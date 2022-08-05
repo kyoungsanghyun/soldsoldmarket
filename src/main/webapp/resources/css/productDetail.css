@@ -14,7 +14,7 @@ li{
     margin: 0 auto;
     display: grid;
     grid-template-columns: 160px 530px 450px;
-    grid-template-rows: 100px 250px 150px 1fr 0.1fr 200px;
+    grid-template-rows: 100px 250px 150px 1fr 0.1fr 200px 0px;
     height: 100%;
     width: 100%;
     grid-gap: 30px;
@@ -24,7 +24,8 @@ li{
     'side_img main_img toolbar'
     'side_img product_detail product_detail'
     'reply_contents reply_contents reply_contents'
-    'reply_write reply_write reply_write';
+    'reply_write reply_write reply_write'
+    'footercss footercss footercss';
 
 }
 

@@ -29,7 +29,7 @@
                 <nav>
                 
                     <ul class="nav_top">
-                     	<li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height=25px;"></a></li>
+                     	<li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height:25px;  vertical-align : middle;">&nbsp공지사항</a></li>
                         <li><a href="${path}/login">로그인</a></li>
                         <li><a href="${path}/enrollCheck">회원가입</a></li>
                     </ul>
@@ -38,7 +38,7 @@
                 <c:if test="${not empty member }">
                 <nav>
                     <ul class="nav_top">
-                        <li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height=25px;"></a></li> 
+                        <li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height:25px;  vertical-align : middle;">&nbsp공지사항</a></li> 
                         <li>${member.name} 님 </li>
                         <c:if test="${member.authority == 'C' }">
                         <li><a href="#">내 상점</a></li>
@@ -46,7 +46,7 @@
                         </c:if>
                         
                         <c:if test="${member.authority == 'M' }">
-                        <li><a href="#">관리자 페이지</a></li>
+                        <li><a href="${path }/admin/member">관리자 페이지</a></li>
                         <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                     </ul>
@@ -88,12 +88,12 @@
                                 <li>
                                     <a href="${ path }/mypage/memberinfo">회원정보</a>
                                 </li>
-                                <li><a href="${ path }/views/mypage/asklist.jsp">문의내역</a></li>
+                                <li><a href="${ path }/mypage/asklist">문의내역</a></li>
                                 <li><a href="${ path }/mypage/soldlist">거래내역</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="${ path }/mypage/likelist">
                                 <img src="${ path }/resources/images/icon/favorite.png" width="23" height="24" alt="찜하기 아이콘"> 찜하기
                             </a>
                         </li>

@@ -55,73 +55,7 @@ public class ProductService {
 		
 	}
 	
-	// 좋아요 로직
-	public int likelogic(Heart heart, Product product) {
-		
-		Connection connection = getConnection();
-		
 
-		int result = new ProductDao().likelogic(connection, heart);
-		if(result > 0) {
-			commit(connection);
-		} else {
-			rollback(connection);
-		}
-		close(connection);
-
-		return result;
-	}
-	
-	// 좋아요 숫자 증가 로직
-	public int likelogicCount(Heart heart, Product product) {
-		System.out.println("접근확인 카운트");
-		Connection connection = getConnection();
-		
-		int result = new ProductDao().likelogicCount(connection, heart, product);
-
-		if(result > 0) {
-			commit(connection);
-		} else {
-			rollback(connection);
-		}
-		close(connection);
-
-		return result;
-	}
-
-	// 좋아요 취소 로직
-	public int dislikelogic(Heart heart, Product product) {
-		
-		Connection connection = getConnection();
-		
-		int result = new ProductDao().dislikelogic(connection, heart);
-		
-		if(result > 0) {
-			commit(connection);
-		} else {
-			rollback(connection);
-		}
-		close(connection);
-		
-		return result;
-	}
-	// 좋아요 숫자 감소 로직
-	public int dislikelogicCount(Heart heart, Product product) {
-		System.out.println("접근확인 카운트");
-		Connection connection = getConnection();
-		
-		int result = new ProductDao().dislikelogicCount(connection, heart, product);
-		
-		if(result > 0) {
-			commit(connection);
-		} else {
-			rollback(connection);
-		}
-		close(connection);
-		
-		return result;
-	}
-	
 	
 	// 좋아요 체크 로직
 	public Heart likecheck(String hid, int hno) {
@@ -137,23 +71,23 @@ public class ProductService {
 
 
 	// 상품 삭제 (status 로 구현됨)
-	public int deleteProduct(int no) {
-		int result = 0;
-		Connection connection = getConnection();
-		
-		result = new ProductDao().deleteStatus(connection, no);
-		
-		System.out.println("service result : " + result);
-		if(result > 0) {
-			commit(connection);
-		} else {
-			rollback(connection);
-		}
-		
-		close(connection);
-		
-		return result;
-	}
+//	public int deleteProduct(int no) {
+//		int result = 0;
+//		Connection connection = getConnection();
+//		
+//		result = new ProductDao().deleteStatus(connection, no);
+//		
+//		System.out.println("service result : " + result);
+//		if(result > 0) {
+//			commit(connection);
+//		} else {
+//			rollback(connection);
+//		}
+//		
+//		close(connection);
+//		
+//		return result;
+//	}
 
 	// 댓글 삭제
 	public int deletePcomment(int no) {
@@ -173,9 +107,6 @@ public class ProductService {
 		return result;
 	}
 
-	
-	
-	
 	
 	// 상품 코멘트 달기
 
@@ -279,6 +210,8 @@ public class ProductService {
 		
 		return result;
 	}
+	
+	// 상품 수정
 
 	public int updateProduct(Product product) {
 		int result = 0;
@@ -297,6 +230,8 @@ public class ProductService {
 		return result;
 	
 	}
+	
+	// 상품 이미지 수정
 
 	public int updateProductImg(PAdd padd, Product product) {
 		int result = 0;
@@ -315,9 +250,81 @@ public class ProductService {
 		return result;
 	}
 
+	public Heart findHeartByNoAndId(int no, String id) {
+		Heart heart = null;
+		
+		//조회되는 데이터가 있으면 return 줌 없으면 null
+		Connection connetion = getConnection();
+		
+		heart = new ProductDao().likecheck(connetion, id, no);
+		
+		close(connetion);
+
+		return heart;
+	}
+
+	public int heartSave(int no, String id) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new ProductDao().insertHeart(connection, id, no);
+		
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		return result;
+	}
+
+	public int heartDelete(int no, String id) {
+		
+		Connection connection = getConnection();
+		
+		int result = new ProductDao().deleteHeart(connection, id, no);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+		
+		return result;
+
+	}
+	public int likeminusCount(int no, String id) {
+		Connection connection = getConnection();
+		
+		int result = new ProductDao().minusLike(connection, id, no);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+		
+		return result;
+	}
+
+	public int likeplusCount(int no, String id) {
+
+		Connection connection = getConnection();
+		
+		int result = new ProductDao().plusLike(connection, id, no);
+
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+
+		return result;
+	}
 
 
-
-
-	
 }

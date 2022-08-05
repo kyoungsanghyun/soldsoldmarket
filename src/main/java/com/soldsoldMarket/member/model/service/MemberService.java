@@ -63,7 +63,7 @@ public class MemberService {
 		
 		Connection connection = getConnection();
 		
-		if(member.getNo() != 0) {
+		if(member.getId() != null) {
 			result = new MemberDao().updateMember(connection,member);
 		} else {
 			result = new MemberDao().insertMember(connection, member);

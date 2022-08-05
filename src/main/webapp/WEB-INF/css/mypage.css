@@ -9,6 +9,20 @@
     color: #000;
 }
 
+div.section {
+    width: 100%;
+    padding-top: 0px;
+    margin-bottom: 55px;
+    text-align: center;
+    margin: auto;
+}
+
+
+
+.section > hr{
+    margin-bottom: 50px;
+}
+
 .information {
     text-align: center;
     margin: auto;

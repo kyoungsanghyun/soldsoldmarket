@@ -11,14 +11,17 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/mypage.css">
 
-       <section id="content">
-        <h2 align="center">회원 정보 수정</h2>
-    <div id="view-container">
+       <div class="section">
+
+        <h2>회원 정보 수정</h2>
+
+        <hr>
+
 		<form id="memberFrm" action="${ path }/mypage/memberinfo" method="post">
 			<!-- 
 			<input type="hidden" name="userNo" value="${ loginMember.no }">
 			-->
-			<table>
+			<table class="board_list">
 	            <tr>
 	                <th>프로필 사진</th>
 					<td>
@@ -88,8 +91,6 @@
 	        <input class="btn" type="submit" value="정보수정">
 	        <input class="btn" type="button" id="btnDelete" value="탈퇴">
 	 	</form>
- 	</div>
-</section>
-
 </div>
+
 <jsp:include page="/views/common/footer.jsp" /> 

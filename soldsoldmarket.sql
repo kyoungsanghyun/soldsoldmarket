@@ -104,6 +104,29 @@ INSERT INTO MEMBER (
 );
 
 ------------------------------------------------
+-------------- 회원신고 관련 테이블 -------------
+------------------------------------------------
+CREATE TABLE REPORT (
+	R_NO	NUMBER		NOT NULL,
+	M_ID	VARCHAR2(500)		NOT NULL,
+	R_ID	VARCHAR2(500)		NULL
+);
+
+-- 회원신고 테이블 코멘트 생성
+COMMENT ON COLUMN REPORT.R_NO IS '신고번호';
+COMMENT ON COLUMN REPORT.M_ID IS '신고당한회원아이디';
+COMMENT ON COLUMN REPORT.R_ID IS '신고한회원아이디';
+
+-- 회원신고 시퀀스 생성
+CREATE SEQUENCE SEQ_REPORT_NO;
+
+-- 회원신고 테이블 PK
+ALTER TABLE REPORT ADD CONSTRAINT PK_REPORT PRIMARY KEY (
+	R_NO
+);
+
+
+------------------------------------------------
 -------------- PRODUCT 관련 테이블 -------------
 ------------------------------------------------
 
@@ -431,31 +454,17 @@ CREATE SEQUENCE SEQ_TRADING_NO;
 DROP TABLE TRADING;
 INSERT INTO TRADING (T_NO, P_NO, B_ID, S_ID) VALUES (?, ?, ?);
 
-INSERT INTO TRADE (P_NO, B_ID, S_ID)
-SELECT ? , ? , ?
-FROM DUAL
-WHERE NOT EXISTS (
-    SELECT 1, 2, 3
-    FROM TRADING   
-    WHERE P_NO = ? AND B_ID = ? AND S_ID = ?
-    );
+-- 상품 거래 체크 쿼리문
+--INSERT INTO TRADE (P_NO, B_ID, S_ID)
+--SELECT ? , ? , ?
+--FROM DUAL
+--WHERE NOT EXISTS (
+--    SELECT 1, 2, 3
+--    FROM TRADING   
+--    WHERE P_NO = ? AND B_ID = ? AND S_ID = ?
+--    );
     
-INSERT INTO TRADING (T_NO, P_NO, B_ID, S_ID)
-SELECT SEQ_TRADING_NO.NEXTVAL, 1 , 'E' , 'Q'
-FROM DUAL
-WHERE NOT EXISTS (
-    SELECT T_NO, P_NO, B_ID, S_ID
-    FROM TRADING  
-    WHERE P_NO = 1 AND B_ID = 'E' AND S_ID = 'B'
-    );
-    
-    "INSERT INTO HEART (M_ID, P_NO) "
-+	"SELECT ?, ? "
-+	"FROM DUAL "
-+	"WHERE NOT EXISTS ( "
-+	"SELECT 1, 2 "
-+	"FROM HEART "
-+	"WHERE M_ID = ? AND P_NO = ?) ";
+
 ------------------------------------------------
 --------------- 게시판 관련 테이블 ------------------
 ------------------------------------------------

@@ -24,7 +24,7 @@ public class Member {
 	private int visit;
 	private String img;
 	private String phone;
-	private String report;
+	private int report;
 	private String area;
 	private String email;
 	private String authority;

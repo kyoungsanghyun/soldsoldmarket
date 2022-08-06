@@ -65,14 +65,17 @@
                     <li><input type="hidden" name="snamae" value="${product.MId}">${product.MId}
 	                	<!-- 작성자는 삭제버튼 / 일반회원은 신고버튼이 나오는 로직 -->
 	                	
+		            	
 		            	<!-- 삭제 버튼 (작성자)-->
-		            	<c:if test="${not empty member && member.id == product.MId}">
-		                	 <span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png">삭제하기</span></li>
-		                </c:if>
+		                <!-- 버튼안보임 (비회원) -->
 		            	<!-- 신고 버튼 (일반회원) -->
-		                <c:if test="${empty member || member.id != product.MId}">
-		                	<span id="product_info_varival_report"><img src="${ path }/resources/images/icon/report.png">신고하기</span></li>
-		                </c:if>	
+		            	<!-- 신고 취소버튼 (신고한 일반회원) -->
+		            	<c:choose>
+		            		<c:when test="${not empty member && member.id == product.MId}"><span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png">삭제하기</span></li></c:when>
+		                	<c:when test="${empty member}"></c:when>
+		                	<c:when test="${empty report && member.id != product.MId}"><span id="product_info_varival_report"><img src="${ path }/resources/images/icon/report.png">신고하기</span></li></c:when>
+		                	<c:when test="${not empty report && member.id != product.MId}"><span id="product_info_varival_report"><img src="${ path }/resources/images/icon/xmark.png">신고취소</span></li></c:when>
+		                </c:choose>
                     <li><fmt:formatDate type="both"  pattern="yyyy년 MM월 dd일" value="${product.PDate}"/></li>
                     <li>${product.PLocation}</li>
 	                    <li>
@@ -258,12 +261,53 @@
 					}
 				});
 			
-			// 신고 하기
-					$("#product_info_varival_report").on("click", () => {
-					if(confirm("신고하시겠습니까?")) {
-						location.replace("${ path }/product/delete?no=${ board.no }");
-					}
-				});
+
+				// 회원 신고 기능
+			    $('#product_info_varival_report').on("click", function(event){
+				
+				    let loginid = '${member.id}';
+					let sname = '${product.MId}';
+					let check = '${report}';
+			 		if(check == '') {
+		 		    	if(confirm("해당 회원을 신고하시겠습니까?")) {
+		 		    		$.ajax({
+							      type : "POST",
+				 		          url : "${path}/reporting.do",
+						          data : {loginid , sname},
+							      dataType : "json",
+							      success : function(obj) {
+						    			console.log(obj)
+						    			location.reload();
+						    			},
+			   		              error : function(error){
+							            console.log(error);
+							            },
+					             complete : function(){
+							            }
+								
+							  });
+							 }
+			 		} else {
+		 		    	if(confirm("회원 신고를 취소하시겠습니까?")) {
+		 		    		$.ajax({
+							      type : "POST",
+				 		          url : "${path}/reporting.do",
+						          data : {loginid , sname},
+							      dataType : "json",
+							      success : function(obj) {
+						    			console.log(obj)
+						    			location.reload();
+						    			},
+			   		              error : function(error){
+							            console.log(error);
+							            },
+					             complete : function(){
+							            }
+								
+							  });
+							 }
+			 			}
+			 		});
 
 		    // 댓글창 바로가기 기능
 		    $('#toolbar_comment').on("click", () =>{
@@ -427,6 +471,9 @@
 		        	});
 		    	}
 			});
+			
+			
+
 		
 			// 비회원 좋아요시 로그인팝업
 		    $('#toolbar_like_guest').on("click", () =>{

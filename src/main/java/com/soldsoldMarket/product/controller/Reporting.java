@@ -10,40 +10,39 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.soldsoldMarket.member.model.service.MemberService;
 import com.soldsoldMarket.member.model.vo.Member;
-import com.soldsoldMarket.product.model.service.ProductService;
-import com.soldsoldMarket.product.model.vo.Trade;
+import com.soldsoldMarket.member.model.vo.Report;
 
 
-@WebServlet("/trading.do")
-public class Trading extends HttpServlet {
+@WebServlet("/reporting.do")
+public class Reporting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public Trading() {
+    public Reporting() {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
     	Member loginMember = (session == null) ? null : (Member) session.getAttribute("member");
     	
-		int no = Integer.parseInt(request.getParameter("no"));
 		String sname = request.getParameter("sname");
-		Trade trade = new Trade();
+		Report report = new Report();
 		int result = 0;
 
 		
 		
 		
-		if(trade != null) {
-			trade = new ProductService().findTradeByNoAndId(no, loginMember.getId(),sname);			
+		if(report != null) {
+			report = new MemberService().findReportByNoAndId(loginMember.getId(), sname);			
 		} else {			
-			trade = new ProductService().findTradeByNoAndId(no, loginMember.getId(),sname);			
+			report = new MemberService().findReportByNoAndId(loginMember.getId(), sname);			
 		}
 
 		
 		response.setContentType("application/json;charset=UTF-8");
 		
-		new Gson().toJson(trade, response.getWriter());
+		new Gson().toJson(report, response.getWriter());
 		
 		
 	}

@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.soldsoldMarket.member.model.service.MemberService;
 import com.soldsoldMarket.member.model.vo.Member;
+import com.soldsoldMarket.member.model.vo.Report;
 import com.soldsoldMarket.product.model.service.ProductService;
 import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
@@ -82,6 +84,12 @@ public class ProductDetailServlet extends HttpServlet {
     		
     		request.setAttribute("buy", buy);
     		System.out.println(buy);
+    		
+    		// 해당글에 판매자를 신고했는지 체크
+    		Report report = new MemberService().reportingcheck(loginMember.getId(), product.getMId());
+    		
+    		request.setAttribute("report", report);
+    		System.out.println(report);
 
     		// like가 null 이면 안보이게
     		Heart like = new ProductService().likecheck(loginMember.getId(), no);

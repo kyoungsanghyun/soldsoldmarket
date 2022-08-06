@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.soldsoldMarket.common.util.PageInfo;
+import com.soldsoldMarket.member.model.vo.Report;
 import com.soldsoldMarket.product.model.dao.ProductDao;
 import com.soldsoldMarket.product.model.dao.productRegistDao;
 import com.soldsoldMarket.product.model.vo.Heart;
@@ -420,6 +421,8 @@ public class ProductService {
 			
 			return result;
 		}
+
+
 	
 
 }

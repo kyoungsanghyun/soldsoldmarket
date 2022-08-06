@@ -38,12 +38,9 @@
             <table class="table">
             <br>
 			<tr>
-				<th>번호</th>
-				<th>작성자</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th>신고취소</th>
-				<th>삭제</th>
+				<th>회원아이디</th>
+				<th>신고받은횟수</th>
+				<th>회원차단</th>
 			</tr>
                     <!-- 게시물이 출력될 영역 -->
                     <c:if test="${ empty list }">
@@ -54,17 +51,11 @@
 				</tr>	
 			</c:if>
 			<c:if test="${ not empty list }">
-				<c:forEach var="board" items="${ list }">
+				<c:forEach var="member" items="${ list }">
 					<tr>
-						<td>${product.PName}</td>
-						<td>${product.PPrice}</td>
-						<td>
-							<a href="${ path }/board/view?no=${ board.b_id }">
-								${ board.b_content }
-							</a>
-						</td>
-						<td>${board.b_title}</td>
-						<td>${board.b_timestamp}</td>
+						<td>${member.id}</td>
+						<td>${member.report}</td>
+						<td><button class="btn btn-primary btn-sm" type="submit">차단</button></td>
 					</tr>
 				</c:forEach>
 			</c:if>

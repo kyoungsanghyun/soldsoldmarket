@@ -41,6 +41,7 @@ public class MemberDao {
 				member.setGender(rs.getString("M_GENDER"));
 				member.setJoinDate(rs.getDate("M_JOINDATE"));
 				member.setAuthority(rs.getString("M_AUTHORIZATION"));
+				member.setReport(rs.getInt("M_REPORTCOUNT"));
 			}
 			
 			
@@ -151,20 +152,22 @@ public class MemberDao {
 		List<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "SELECT RNUM, M_ID, M_NAME, M_PHONE, M_ADDRESS, M_STATUS "
+		String query = "SELECT RNUM, M_ID, M_NAME, M_PHONE, M_ADDRESS, M_STATUS, M_REPORTCOUNT "
 						+ "FROM ("
 						+    "SELECT ROWNUM AS RNUM, "
 						+           "M_ID, "
 						+           "M_NAME, "
 						+ 			"M_PHONE, "
 						+ 			"M_ADDRESS, "
-						+ 			"M_STATUS "
+						+ 			"M_STATUS, "
+						+ 			"M_REPORTCOUNT "
 						+ 	 "FROM ("
 						+ 	    "SELECT M.M_ID, "
 						+ 			   "M.M_NAME, "
 						+  			   "M.M_PHONE, "
 						+ 			   "M.M_ADDRESS, "
-						+ 			   "M.M_STATUS "
+						+ 			   "M.M_STATUS, "
+						+ 			   "M.M_REPORTCOUNT "
 						+ 		"FROM MEMBER M "
 						+ 		"WHERE M.M_STATUS = 'Y' ORDER BY M.M_ID DESC"
 						+ 	 ")"
@@ -187,6 +190,7 @@ public class MemberDao {
 				member.setPhone(rs.getString("M_PHONE"));
 				member.setAddress(rs.getString("M_ADDRESS"));
 				member.setStatus(rs.getString("M_STATUS"));
+				member.setReport(rs.getInt("M_REPORTCOUNT"));
 				
 				list.add(member);
 			}

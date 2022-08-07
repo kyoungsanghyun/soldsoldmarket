@@ -28,7 +28,7 @@ public class InfoServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/mypage/memberinfo.jsp").forward(request, response);
 		} else {
 			request.setAttribute("msg", "로그인 후 회원정보를 수정해 주세요.");
-			request.setAttribute("location", "/");
+		request.setAttribute("location", "/");
 			
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
@@ -53,7 +53,7 @@ public class InfoServlet extends HttpServlet {
 				result = new MemberService().save3(memberUpdate);			
 				  
 				  if (result > 0) {
-					  session.setAttribute("loginMember", new MemberService().findMemberById(member.getId()));
+					  session.setAttribute("member", new MemberService().findMemberById(member.getId()));
 					  request.setAttribute("msg", "회원 정보 수정 완료");
 			          request.setAttribute("location", "/mypage/memberinfo");
 					  

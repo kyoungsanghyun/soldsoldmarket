@@ -42,6 +42,7 @@ public class MemberDao {
 				member.setJoinDate(rs.getDate("M_JOINDATE"));
 				member.setAuthority(rs.getString("M_AUTHORIZATION"));
 				member.setReport(rs.getInt("M_REPORTCOUNT"));
+				member.setIntro(rs.getString("M_INTRO"));
 			}
 			
 			
@@ -96,7 +97,7 @@ public class MemberDao {
 	public int updateMember(Connection connection, Member memberUpdate) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE MEMBER SET M_PHONE=?, M_ADDRESS=?, INTRO=? WHERE M_ID=?";
+		String query = "UPDATE MEMBER SET M_PHONE=?, M_ADDRESS=?, M_INTRO=? WHERE M_ID=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);

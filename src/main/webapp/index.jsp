@@ -38,9 +38,9 @@
          <div class="pro-wrap">
              <h2>최근 등록된 상품</h2>
 
-		             <ul class="pro-list">	
+		             <div class="pro-list">	
 			             <c:forEach var="product" items="${ list }">
-				                 <li>
+				                 <div class="pro-list-in">
 				                     <a href="${path}/product/view?no=${product.PNo}" name="no">
 				                         <div class="thum">
 				                             <img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지">
@@ -48,9 +48,9 @@
 			                         <div class="pro-list-name"> ${ product.PName }</div>
 			                         <div class="pro-list-price"><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</div>
 				                     </a>
-				                 </li>
+				                 </div>
 			             </c:forEach>
-		             </ul>
+		             </div>
 		             
          </div>
      </div>

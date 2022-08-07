@@ -17,42 +17,35 @@
             <h2>찜한 상품</h2>
 
             <hr>
+            <h3 class="productCount"> 찜한&nbsp상품&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>
 
             <!-- ====================================================== -->
             <!-- 표 -->
             
-            <c:if test="${ empty list }">
+           
+           <c:if test="${ empty list }">
 	            <br><br><br><br>
 	            <h2>찜한 상품이 없습니다.</h2>
 	            <br><br><br><br>
             </c:if>
             
-            <c:if test="${ not empty list }">       
-	            <table class="board_list">
-	                <thead>
-	                    <tr>
-	                        <th>상품 등록 날짜</th>
-	                        <th>상품</th>
-	                        <th>상품명</th>
-	                        <th>가격</th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                
-	                	<c:forEach var="product" items="${ list }">	                	
-		                    <tr>
-		                        <td class="td1">${ product.PDate }</td>
-		                        <td class="td2"><img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지"></td>
-		                        <td class="td3">
-		                            <a href="${path}/product/view?no=${product.PNo}" name="no">${ product.PName }</a>
-		                        </td>
-		                        <td class="td4"><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</td>
-		                    </tr>
-	                    </c:forEach>
-	                    	
-	                </tbody>
-	            </table>
-           </c:if>
+            <c:if test="${ not empty list }">
+		             <div class="pro-list">	
+	             <c:forEach var="product" items="${ list }">
+		                 <div class="pro-list-in">
+		                     <a href="${path}/product/view?no=${product.PNo}" name="no">
+		                         <span class="thum">		                             
+		                         	<img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지">
+		                         </span>
+		                         <div class="pro-list-name"> ${ product.PName }</div>
+	                         </a>
+		                         <div class="pro-list-price">
+		                         	<span><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</span>
+		                         </div>
+		                 </div>
+	             </c:forEach>
+		             </div>
+             </c:if>           
 
 
             <!-- ====================================================== -->
@@ -76,6 +69,6 @@
                 </div>
             </div>
         </div>
-        
+
         
 <jsp:include page="/views/common/footer.jsp" /> 

@@ -41,6 +41,7 @@ public class SoldlistServlet extends HttpServlet {
     	int listCount = 0; // 상품의 수
     	PageInfo pageInfo = null; // 페이지 정보
     	String memberId = null; // 로그인멤버 아이디
+    	String BIdPhone = null;
     	
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -54,9 +55,11 @@ public class SoldlistServlet extends HttpServlet {
 		list = new SoldlistService().getMemberProductList(memberId, pageInfo);
 		
 		request.setAttribute("memberId", memberId);
+		request.setAttribute("BIdPhone", BIdPhone);
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("page", page);
+    	request.setAttribute("listCount", listCount);
     	request.getRequestDispatcher("/views/mypage/soldlist.jsp").forward(request, response);
 		
 	}

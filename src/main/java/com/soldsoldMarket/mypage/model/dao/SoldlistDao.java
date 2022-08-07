@@ -19,18 +19,20 @@ public class SoldlistDao {
 		List<Trade> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "SELECT RNUM, P_NO, P_NAME, P_PRICE, M_ID, B_ID, S_ID, T_NO, MAXPAIMG1 "
-						+ "FROM ( "
-						+ "SELECT ROWNUM AS RNUM, P_NO, P_NAME, P_PRICE, M_ID, B_ID, S_ID, T_NO, MAXPAIMG1 "
-						+ "FROM ( "
-						+ "SELECT PT.P_NO, PT.P_NAME, PT.P_PRICE, PT.M_ID, PT.B_ID, PT.S_ID, PT.T_NO, MAX(PA.PA_IMG1) AS MAXPAIMG1 "
-						+ "FROM( "
-						+ "SELECT P.P_NO, P.P_NAME, P.P_PRICE, P.M_ID, T.B_ID, T.S_ID, T.T_NO "
-						+ "FROM PRODUCT P JOIN TRADING T ON(P.P_NO = T.P_NO)) PT JOIN PADD PA ON (PT.P_NO = PA.P_NO) "
-						+ "GROUP BY PT.P_NO, PT.P_NAME, PT.P_PRICE, PT.M_ID, PT.B_ID, PT.S_ID, PT.T_NO "
-						+ "ORDER BY PT.T_NO DESC )"
-						+ "WHERE B_ID LIKE ? OR S_ID LIKE ?)"
-						+ "WHERE RNUM BETWEEN ? and ? ";	
+		String query = "SELECT RNUM, P_NO, P_NAME, P_PRICE, M_ID, B_ID, S_ID, T_NO, MAXPAIMG1, BIDPHONE\r\n"
+						+ "FROM (\r\n"
+						+ "SELECT ROWNUM AS RNUM, P_NO, P_NAME, P_PRICE, M_ID, B_ID, S_ID, T_NO, MAXPAIMG1, BIDPHONE\r\n"
+						+ "FROM (\r\n"
+						+ "SELECT PTPA.P_NO, PTPA.P_NAME, PTPA.P_PRICE, PTPA.M_ID, PTPA.B_ID, PTPA.S_ID, PTPA.T_NO, MAXPAIMG1, M.M_PHONE AS BIDPHONE\r\n"
+						+ "FROM(\r\n"
+						+ "SELECT PT.P_NO, PT.P_NAME, PT.P_PRICE, PT.M_ID, PT.B_ID, PT.S_ID, PT.T_NO, MAX(PA.PA_IMG1) AS MAXPAIMG1\r\n"
+						+ "FROM(\r\n"
+						+ "SELECT P.P_NO, P.P_NAME, P.P_PRICE, P.M_ID, T.B_ID, T.S_ID, T.T_NO\r\n"
+						+ "FROM PRODUCT P JOIN TRADING T ON(P.P_NO = T.P_NO)) PT JOIN PADD PA ON (PT.P_NO = PA.P_NO)\r\n"
+						+ "GROUP BY PT.P_NO, PT.P_NAME, PT.P_PRICE, PT.M_ID, PT.B_ID, PT.S_ID, PT.T_NO) PTPA JOIN MEMBER M ON (PTPA.B_ID = M.M_ID)\r\n"
+						+ "ORDER BY PTPA.T_NO DESC)\r\n"
+						+ "WHERE B_ID LIKE ? OR S_ID LIKE ?)\r\n"
+						+ "WHERE RNUM BETWEEN ? and ?";	
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -50,6 +52,7 @@ public class SoldlistDao {
 				trade.setBId(rs.getString("B_ID"));
 				trade.setSId(rs.getString("S_ID"));
 				trade.setTPThumb(rs.getString("MAXPAIMG1"));
+				trade.setBIdPhone(rs.getString("BIDPHONE"));
 				
 				list.add(trade);
 			}
@@ -95,7 +98,6 @@ public class SoldlistDao {
 		
 		return count;
 	}
-
 	
 	
 	

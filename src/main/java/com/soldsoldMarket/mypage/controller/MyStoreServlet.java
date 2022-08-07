@@ -40,25 +40,29 @@ public class MystoreServlet extends HttpServlet {
     	int listCount = 0; // 상품의 수
     	PageInfo pageInfo = null; // 페이지 정보
     	String memberId = null; // 로그인멤버 아이디
-    	String trading = "판매중"; // 거래상태
+    	String trading = null; // 거래상태
+    	int soldCount = 0;
     	
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
 		} catch (NumberFormatException e) {
 			page = 1;
 		}
+		
     	
-//		trading = request.getParameter("trading");
+		trading = request.getParameter("trading");
 		memberId = loginMember.getId();
 		listCount = new MystoreService().getMemberProductCount(memberId, trading);
 		pageInfo = new PageInfo(page, 5, listCount, 5);
 		list = new MystoreService().getMemberProductList(memberId, pageInfo, trading);
+		soldCount = new MystoreService().getMemberProductCount(memberId, "판매완료");
 		
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("page", page);
     	request.setAttribute("listCount", listCount);
     	request.setAttribute("trading", trading);
+    	request.setAttribute("soldCount", soldCount);
     	request.getRequestDispatcher("/views/mypage/mystore.jsp").forward(request, response);
 		
 	}

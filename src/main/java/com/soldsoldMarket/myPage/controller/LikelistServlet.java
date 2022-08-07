@@ -49,12 +49,13 @@ public class LikelistServlet extends HttpServlet {
     	
 		memberId = loginMember.getId();
 		listCount = new LikelistService().getMemberProductCount(memberId);
-		pageInfo = new PageInfo(page, 5, listCount, 3);
+		pageInfo = new PageInfo(page, 5, listCount, 5);
 		list = new LikelistService().getMemberProductList(memberId, pageInfo);
 		
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("page", page);
+    	request.setAttribute("listCount", listCount);
     	request.getRequestDispatcher("/views/mypage/likelist.jsp").forward(request, response);
 		
 	}

@@ -25,16 +25,29 @@ public class MystoreDao {
 						+ "SELECT P.P_NO, P.M_ID, P.P_DATE, P.P_NAME, P_PRICE, P.P_TRADING, MAX(PA.PA_IMG1) AS MAXPAIMG1 "
 						+ "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) "
 						+ "GROUP BY P.P_NO, P.M_ID, P.P_DATE, P.P_NAME, P_PRICE, P.P_TRADING "
-						+ "ORDER BY P.P_DATE DESC) "
-						+ "WHERE M_ID LIKE ? AND P_TRADING LIKE ? ) "
-						+ "WHERE RNUM BETWEEN ? and ?";	
+						+ "ORDER BY P.P_DATE DESC) ";
+						
+						if(trading == null) {
+							query += "WHERE M_ID LIKE ? ) ";
+						} else {
+							query += "WHERE M_ID LIKE ? AND P_TRADING LIKE ? ) ";
+						}
+		
+						query += "WHERE RNUM BETWEEN ? and ?";	
 		
 		try {
 			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, memberId);
-			pstmt.setString(2, trading);
-			pstmt.setInt(3, pageInfo.getStartList());
-			pstmt.setInt(4, pageInfo.getEndList());
+			
+			if(trading == null) {
+				pstmt.setString(1, memberId);
+				pstmt.setInt(2, pageInfo.getStartList());
+				pstmt.setInt(3, pageInfo.getEndList());	
+			} else {
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, trading);
+				pstmt.setInt(3, pageInfo.getStartList());
+				pstmt.setInt(4, pageInfo.getEndList());				
+			}
 			
 			rs = pstmt.executeQuery();
 			
@@ -71,14 +84,25 @@ public class MystoreDao {
 						+ "SELECT P.M_ID, P.P_DATE, P.P_NAME, P.P_TRADING, MAX(PA.PA_IMG1) AS MAXPAIMG1 "
 						+ "FROM PRODUCT P JOIN PADD PA ON(P.P_NO = PA.P_NO) "
 						+ "GROUP BY P.M_ID, P.P_DATE, P.P_NAME, P.P_TRADING "
-						+ "ORDER BY P.P_DATE DESC) "
-						+ "WHERE M_ID LIKE ? AND P_TRADING LIKE ? ";
+						+ "ORDER BY P.P_DATE DESC) ";
+		
+						if(trading == null) {
+							query += "WHERE M_ID LIKE ? ";
+						} else {
+							query += "WHERE M_ID LIKE ? AND P_TRADING LIKE ? ";
+						}
+
 
 		
 		try {
 			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, memberId);
-			pstmt.setString(2, trading);
+			
+			if(trading == null) {
+				pstmt.setString(1, memberId);	
+			} else {
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, trading);			
+			}
 			
 			rs = pstmt.executeQuery();
 			

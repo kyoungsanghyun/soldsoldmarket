@@ -14,20 +14,49 @@
         <!-- ====================================================== -->
         <!-- 본문 -->
         <div class="section">
-
+        <div class="intro_text">
+        
+                 <div class="memberimg">
+                        <img src="${ path }/resources/upload/product/고래인형.jpg" height="200" alt="프로필사진">
+                  </div>
+                  
+            <table class="information">            
+                <tr>
+                    <td>회원아이디</td>
+                    <td>: ${ member.id }</td>
+                </tr>
+                <tr>
+                    <td>판매횟수</td>
+                    <td>: ${ soldCount }</td>
+                </tr>
+                <tr>
+                    <td>가입일</td>
+                    <td>: ${ member.joinDate }</td>
+                </tr>
+            </table>
+        </div>
+			
+			<hr>
+			
             <h2>내 상점</h2>
 
             <hr>
             
-
-	        <h3 class="productCount"> ${ trading }&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>
+			<c:if test="${ trading != null }">
+	        <h3 class="productCount"> ${ trading }&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>			
+			</c:if>
+			<c:if test="${ trading == null }">
+	        <h3 class="productCount"> 전체상품&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>			
+			</c:if>
             
-	           	<select class="myProductTrading" name="myProductTrading" id="myProductTrading"> 
-					<option class="mptList" value="전체상품" selected="selected">전체상품</option>
-					<option class="mptList" value="판매중">판매중</option>
-					<option class="mptList" value="예약중">예약중</option>
-					<option class="mptList" value="판매완료">판매완료</option>
-				</select>
+				
+				
+			<ul class="list-rank">
+               <li><a class="rankBtn" href="${ path }/mypage/mystore">전체상품</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=판매중">판매중</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=예약중">예약중</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=판매완료">판매완료</a></li>
+              </ul>
 			
 			
 
@@ -35,28 +64,46 @@
             <!-- 표 -->
             
             <c:if test="${ empty list }">
-	            <br><br><br><br>
-	            <h2>등록한 상품이 없습니다.</h2>
-	            <br><br><br><br>
+	            <c:if test="${ trading != null }">
+		            <br><br><br><br>
+		            <h2>${ trading }&nbsp 상품이 없습니다.</h2>
+		            <br><br><br><br>			
+			</c:if>
+			<c:if test="${ trading == null }">
+		            <br><br><br><br>
+		            <h2>등록한 상품이 없습니다.</h2>
+		            <br><br><br><br>			
+			</c:if>
             </c:if>
             
             <c:if test="${ not empty list }">
-		             <ul class="pro-list">	
+		             <div class="pro-list">	
 	             <c:forEach var="product" items="${ list }">
-		                 <li>
-		                     <a href="${path}/product/view?no=${product.PNo}" name="no"></a>
+		                 <div class="pro-list-in">
+		                     <a href="${path}/product/view?no=${product.PNo}" name="no">
 		                         <span class="thum">		                             
 		                         	<img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지">
 		                         </span>
 		                         <div class="pro-list-name"> ${ product.PName }</div>
 		                         <div class="pro-list-price">
 		                         	<span><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</span>
-		                         	<span class="pro-list-trading">${ product.PTrading }</span>
+		                         	
+		                         	<c:choose>
+			                         	<c:when test="${ product.PTrading == '예약중' }">
+				                         	<span class="pro-list-trading" style="color: black;">${ product.PTrading }</span>
+			                         	</c:when>
+			                         	<c:when test="${ product.PTrading == '판매중' }">
+				                         	<span class="pro-list-trading">${ product.PTrading }</span>
+			                         	</c:when>
+			                         	<c:when test="${ product.PTrading == '판매완료' }">
+				                         	<span class="pro-list-trading" style="color: red;">${ product.PTrading }</span>
+			                         	</c:when>
+		                         	</c:choose>
 		                         </div>
 	                         </a>
-		                 </li>
+		                 </div>
 	             </c:forEach>
-		             </ul>
+		             </div>
              </c:if>           
 
 
@@ -83,15 +130,5 @@
         </div>
         
 
-<script>
-  $(function() {
-      $("#myProductTrading").on("change", function() {
-    	  var trading = $(this).val();
-    	  
-    	  trading.submit();
-      });
-
-   });
-  </script>
-        
+       
 <jsp:include page="/views/common/footer.jsp" /> 

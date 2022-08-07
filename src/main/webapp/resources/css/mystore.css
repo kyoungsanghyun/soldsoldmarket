@@ -7,6 +7,21 @@ div.section {
     margin: auto;
 }
 
+.intro_text {
+	display: flex;
+	align-items: center;
+}
+
+.memberimg {
+    margin-left: 400px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.information {
+ margin-left: 30px;
+}
+
 h2 {
 	text-align: center;
 }
@@ -18,6 +33,28 @@ h2 {
 .productCount{
 	float: left;
 	margin: 0;
+}
+
+.list-rank {
+    height: 50px;
+    margin: auto;
+    list-style-type: none;
+    text-align: right;
+}
+
+.list-rank li {
+    display: inline;
+    border-left: 1px solid #c0c0c0;
+    padding: 0px 20px 0px 20px;
+    margin: 5px 0px 5px 0px;
+}
+
+.list-rank li:first-child {
+    border-left: none;
+}
+
+.list-rank li:last-child{
+    padding-right: 0px
 }
 
 .myProductTrading{
@@ -41,7 +78,7 @@ h2 {
 }
 
 
-ul.pro-list {
+.pro-list {
     width: 100%;
     margin: auto;
     height: auto;
@@ -53,9 +90,9 @@ ul.pro-list {
     padding-left: 0px;
 }
 
-ul.pro-list li {
+.pro-list-in {
     
-    width: 20%;
+    width: 240px;
     float: left;
     height: 300px;
     background-color: white;
@@ -64,7 +101,7 @@ ul.pro-list li {
     border: 1px solid #D2D2D2;
 }
 
-.pro-list li a {
+.pro-list-in a {
     color: black;
 }
 

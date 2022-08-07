@@ -17,6 +17,14 @@
             <h2>거래내역</h2>
 
             <hr>
+            
+       	    <h3 class="productCount"> 전체&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>
+           
+           	<select class="myProductTrading" name="myProductTrading" id="myProductTrading"> 
+				<option class="mptList" value="전체상품" selected="selected">전체 내역</option>
+				<option class="mptList" value="판매중">판매&nbsp요청</option>
+				<option class="mptList" value="예약중">구매&nbsp요청</option>
+			</select>
 
             <!-- ====================================================== -->
             <!-- 표 -->
@@ -34,6 +42,7 @@
 	                        <th>상품</th>
 	                        <th>상품명</th>
 	                        <th>가격</th>
+	                        <th>요청자 전화번호</th>
 	                        <th>거래상태</th>
 	                    </tr>
 	                </thead>
@@ -46,15 +55,18 @@
 		                            <a href="${path}/product/view?no=${trade.PNo}" name="no">${ trade.TPName }</a>
 		                        </td>
 		                        <td class="td1"><fmt:formatNumber value="${ trade.TPPrice }" pattern="#,###" />원</td>
-		                        <td class="td4">
-		                        	<c:if test="${ trade.BId == memberId }">
+	                        	<c:if test="${ trade.BId == memberId }">
+			                        <td class="td1"></td>
+			                        <td class="td4">
 				                        <span class="pTrading1">구매 요청 보냄</span>		                        	
-		                        	</c:if>
-		                        	<c:if test="${ trade.SId == memberId }">
-				                        <span class="pTrading2">판매 요청 받음</span>		                        	
-		                        	</c:if>
-		                        
-		                        </td>
+			                        </td>
+	                        	</c:if>
+	                        	<c:if test="${ trade.SId == memberId }">
+			                        <td class="td1">${ trade.BIdPhone }</td>
+			                        <td class="td4">
+			                       		<span class="pTrading2">판매 요청 받음</span>		                        	
+			                        </td>
+	                        	</c:if>
 		                    </tr>
 	                    </c:forEach>
 	                    	

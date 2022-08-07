@@ -25,5 +25,7 @@ public class Trade {
 	
 	private String TPThumb;
 	
+	private String BIdPhone;
+	
 	
 }

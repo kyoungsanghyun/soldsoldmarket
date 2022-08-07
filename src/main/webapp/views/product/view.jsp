@@ -81,9 +81,9 @@
 	                    <li>
 	                    <!-- 상태 NE-->
 		                    <c:choose>
-		                    	<c:when test="${product.PQlt eq 'new'}">거의 새것</c:when>
-		                    	<c:when test="${product.PQlt eq 'open'}">개봉됨</c:when>
-		                    	<c:when test="${product.PQlt eq 'used'}">사용감 있음</c:when>
+		                    	<c:when test="${product.PQlt eq '거의새것'}">거의 새것</c:when>
+		                    	<c:when test="${product.PQlt eq '개봉'}">개봉됨</c:when>
+		                    	<c:when test="${product.PQlt eq '사용감있음'}">사용감 있음</c:when>
 		                    </c:choose>
 	                    </li>
                     	<li>

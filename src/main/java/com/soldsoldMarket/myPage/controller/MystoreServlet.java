@@ -55,7 +55,7 @@ public class MyStoreServlet extends HttpServlet {
 		listCount = new MystoreService().getMemberProductCount(memberId, trading);
 		pageInfo = new PageInfo(page, 5, listCount, 5);
 		list = new MystoreService().getMemberProductList(memberId, pageInfo, trading);
-		soldCount = new MystoreService().getMemberProductCount(memberId, "판매완료");
+		soldCount = new MystoreService().getMemberProductCount(memberId, "거래완료");
 		
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);

@@ -7,6 +7,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
+<style>
+	.board_list td {
+		width: calc(100% - 350px);
+	}
+	
+</style>
+
 <jsp:include page="/views/common/header.jsp" />
 
 <link rel="stylesheet" href="${ path }/resources/css/memberInfo.css">
@@ -19,6 +26,7 @@
 
 		<form id="memberFrm" action="${ path }/mypage/memberinfo" method="post">
 			
+
 			<table class="board_list">
 	            <tr>
 	                <th>프로필 사진</th>
@@ -30,45 +38,34 @@
 	            <tr>
 	                <th>이름</th>
 					<td>
-						<input type="text" name="nameUpdate" id="nameUpdate" 
-							value="${ member.name }" required readonly>				
+						${ member.name }		
 					</td> 	
 	            </tr>
 	            <tr>
 	                <th>아이디</th>
 					<td>
-						<input type="text" name="idUpdate" id="idUpdate" 
-							value="${ member.id }" required readonly>				
+						<input type="text" name="idUpdate" id="idUpdate" readonly
+									value="${ member.id }">		
 					</td> 	
 	            </tr>
-	            <tr>
-	                <th>비밀번호</th>
-					<td>
-						<input type="text" name="passwordUpdate" id="passwordUpdate" 
-							value="${ member.pwd }" required>				
-					</td> 	
-	            </tr>
-	            
 	            <tr>
 	                <th>생일</th>
 					<td>
-						<input type="date" name="bDay" id="bDay" 
-							value="${ member.BDay }" readonly>				
+						${ member.BDay }			
 					</td> 	
 	            </tr>
 	            
 	            <tr>
 	                <th>성별</th>
 					<td>
-						<input type="text" name="gender" id="gender" 
-							value="${ member.gender }" required readonly>				
+						${ member.gender }			
 					</td> 	
 	            </tr>
       	        <tr>
 	                <th>휴대폰</th>
 	                <td>
-	                    <input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" 
-	                    	value="${ member.phone }" maxlength="11">
+	                    <input type="tel" placeholder="010-1234-5678" name="phone" id="phone" 
+	                    	value="${ member.phone }" maxlength="13">
 	                </td>
 	            </tr>
 	            <tr>
@@ -85,10 +82,8 @@
 								value="${ member.intro }">
 						</td> 	
 	            </tr>
-	        </table>
-	        
+	        </table>  
 	        <div class="page_wrap">
-	       
 	        <input class="btn" type="submit" value="정보수정">
 	        <input class="btn" type="button" id="btnDelete" value="탈퇴">
 	        </div>

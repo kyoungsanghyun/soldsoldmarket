@@ -12,9 +12,6 @@ import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.member.model.dao.MemberDao;
 import com.soldsoldMarket.member.model.vo.Member;
 import com.soldsoldMarket.member.model.vo.Report;
-import com.soldsoldMarket.product.model.dao.ProductDao;
-import com.soldsoldMarket.product.model.service.ProductService;
-import com.soldsoldMarket.product.model.vo.Trade;
 
 public class MemberService {
 	

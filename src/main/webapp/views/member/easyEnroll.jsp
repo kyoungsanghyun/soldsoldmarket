@@ -29,9 +29,9 @@
             <form id="enrollForm" action="${path }/enroll2" method="post">
                     <input type="text" name="enrollId" id="enrollId" value='${member.id}' readonly>
                     <br>
-                    <input type="text" name="enrollName" value='${member.name}' readonly>
+                    <input type="text" name="enrollName" id="enrollName" value='${member.name}' readonly>
                     <br>
-                    <input type="text" name="enrollAdress" placeholder="주소">
+                    <input type="text" name="enrollAdress" id="enrollAdress" placeholder="주소">
                     <br>
                     <input type="text" name="enrollBY" id="birthYear" placeholder="년(4자)" >
                     <select id="birthMonth" name="enrollBM" style="height: 45px;">
@@ -57,15 +57,47 @@
                         <option value="F">여자</option>
                     </select>
                     <br>
-                    <input type="tel" name="enrollPhone" placeholder="(예시))010-1234-5678">
+                    <input type="tel" name="enrollPhone" id="enrollPhone" placeholder="(예시))010-1234-5678">
                     <br>
 					<input type="submit" id="enrollbtn" value="카카오로 회원가입" style="background-color: #F7E600; color: #3A1D1D;">        
 					    </form>
-    </div>
-</div>
+	    </div>
+	</div>
+	
 
             <jsp:include page="/views/common/footerSk.jsp" />
 
+<script type="text/javascript">
+
+let btn = document.getElementById('enrollbtn');
+btn.addEventListener('click',function(event){
+	
+    let name = document.getElementById('enrollName').value;
+    let phone = document.getElementById('enrollPhone').value;
+    let by = document.getElementById('birthYear').value;
+    let bd = document.getElementById('birthDay').value;
+	
+	
+	
+	
+	
+ if(!/^[0-9]{3}-[0-9]{3,4}-[0-9]{3,4}$/.test(phone)){
+    alert('휴대폰 번호를 확인하세요');
+    //메소드 방식에서는 아래와같이 이벤트를 제거해야 한다.
+    event.preventDefault();
+}else if(!/^[0-9]{4}$/.test(by)){
+    alert('생년을 확인하세요');
+    //메소드 방식에서는 아래와같이 이벤트를 제거해야 한다.
+    event.preventDefault();
+}else if(bd>31 || bd <= 0){
+    alert('생일를 확인하세요');
+    //메소드 방식에서는 아래와같이 이벤트를 제거해야 한다.
+    event.preventDefault();
+}
+
+})
+	
+	</script>
     
 </body>
 </html>

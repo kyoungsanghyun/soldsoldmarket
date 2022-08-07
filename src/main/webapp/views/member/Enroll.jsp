@@ -161,7 +161,7 @@ if(!/[a-zA-Z]/.test(id[0])){
     alert('생년을 확인하세요');
     //메소드 방식에서는 아래와같이 이벤트를 제거해야 한다.
     event.preventDefault();
-}else if(bd>32 || bd <= 0){
+}else if(bd>31 || bd <= 0){
     alert('생일를 확인하세요');
     //메소드 방식에서는 아래와같이 이벤트를 제거해야 한다.
     event.preventDefault();

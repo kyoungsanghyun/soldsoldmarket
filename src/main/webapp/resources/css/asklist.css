@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 div.section {
     width: 100%;
     padding-top: 0px;
@@ -8,48 +7,17 @@ div.section {
     margin: auto;
 }
 
+#writebtn {
+  	margin-bottom : 10px;
+
+}
 
 table {
     border-collapse: collapse;
 }
 
-.list-rank {
-    height: 50px;
-    margin: auto;
-    list-style-type: none;
-    text-align: right;
-}
-
-.list-rank li {
-    display: inline;
-    border-left: 1px solid #c0c0c0;
-    padding: 0px 20px 0px 20px;
-    margin: 5px 0px 5px 0px;
-}
-
-.list-rank li:first-child {
-    border-left: none;
-}
-
-.list-rank li:last-child{
-    padding-right: 0px
-}
-
 .section > hr{
-    margin-bottom: 30px;
-}
-
-.productCount{
-	float: left;
-	margin: 0;
-}
-
-.myProductTrading{
-	width: 102px;
-	height: 32px;
-	padding-left: 5px;
-    font-size: 16px;
-	float: right;
+    margin-bottom: 40px;
 }
 
 .board_list_wrap {
@@ -57,10 +25,9 @@ table {
 }
 
 .board_list {
-    width: 100%;
+    width: 90%;
     margin: auto;
     border-top: 2px solid #999;
-    margin-top: 30px;
 }
 
 .board_list tr {
@@ -83,43 +50,6 @@ table {
 .board_list .tit {
     text-align: left;
 }
-
-.board_list tit:hover {
-    text-decoration: underline;
-}
-
-/* .td1, .td2, .td4 {
-	width: 25%;
-}
-
-.thd3 {
-	width: 25%;
-} */
-
-.pTrading1{
-	background-color: #0232e4;
-	color: white;
-	font-weight: 600; 
-	padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 10px;
-}
-
-.pTrading2{
-	background-color: #FF2424;
-	color: white;
-	font-weight: 600; 
-	padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 10px;
-}
-
-
-
 
 /* =============== 페이지 버튼 =============== */
 .page_wrap {

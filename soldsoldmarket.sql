@@ -6,6 +6,20 @@
 -- DROP TABLE CATEGORY CASCADE CONSTRAINTS;
 
 
+-- 테이블 드랍시 순서대로
+--DROP TABLE PADD;
+--DROP TABLE PCOMMENTS;
+--DROP TABLE HEART;
+--DROP TABLE BADD;
+--DROP TABLE COMMENTS;
+--DROP TABLE BOARD;
+--DROP TABLE PRODUCT;
+--DROP TABLE MEMBER;
+--DROP TABLE CATEGORY;
+
+-- 시퀀스 드랍문
+--DROP SEQUENCE SEQ_PCOMMENTS_NO;
+
 ------------------------------------------------
 --------------- MEMBER 관련 테이블 ---------------
 ------------------------------------------------
@@ -90,6 +104,29 @@ INSERT INTO MEMBER (
 );
 
 ------------------------------------------------
+-------------- 회원신고 관련 테이블 -------------
+------------------------------------------------
+CREATE TABLE REPORT (
+	R_NO	NUMBER		NOT NULL,
+	M_ID	VARCHAR2(500)		NOT NULL,
+	R_ID	VARCHAR2(500)		NULL
+);
+
+-- 회원신고 테이블 코멘트 생성
+COMMENT ON COLUMN REPORT.R_NO IS '신고번호';
+COMMENT ON COLUMN REPORT.M_ID IS '신고당한회원아이디';
+COMMENT ON COLUMN REPORT.R_ID IS '신고한회원아이디';
+
+-- 회원신고 시퀀스 생성
+CREATE SEQUENCE SEQ_REPORT_NO;
+
+-- 회원신고 테이블 PK
+ALTER TABLE REPORT ADD CONSTRAINT PK_REPORT PRIMARY KEY (
+	R_NO
+);
+
+
+------------------------------------------------
 -------------- PRODUCT 관련 테이블 -------------
 ------------------------------------------------
 
@@ -110,7 +147,8 @@ CREATE TABLE PRODUCT (
 	P_LIKE	NUMBER	DEFAULT 0 NULL, -- DEFAULT 0 값 생성됨
 	C_ID	VARCHAR2(100) NOT NULL, -- NUMBER -> VARCHAR2로 수정 
 	P_DATE	DATE	DEFAULT SYSDATE    NULL,
-    P_COMMENTS VARCHAR2(3000) NULL
+    P_COMMENTS VARCHAR2(3000) NULL,
+    STATUS VARCHAR2(1) DEFAULT 'Y' CHECK (STATUS IN('Y', 'N'))
 );
 
 -- 상품 테이블 코멘트 생성
@@ -334,7 +372,6 @@ CREATE SEQUENCE SEQ_PADD_NO;
 --------------- 상품 댓글 테이블 -----------------
 ------------------------------------------------
 -- 상품댓글 테이블
-DROP TABLE PCOMMENTS;
 CREATE TABLE PCOMMENTS (
     CM_NO   NUMBER NOT NULL,
 	CM_ID   VARCHAR2(500)	NOT NULL,
@@ -362,7 +399,6 @@ ALTER TABLE PCOMMENTS ADD CONSTRAINT PK_PCOMMENTS PRIMARY KEY (
 --------------- 상품 좋아요 테이블 ---------------
 ------------------------------------------------
 -- 좋아요 테이블
-DROP TABLE HEART;
 CREATE TABLE HEART (
     M_ID VARCHAR2(500),
     P_NO NUMBER
@@ -372,25 +408,62 @@ COMMENT ON COLUMN HEART.M_ID IS '좋아요누른회원아이디';
 COMMENT ON COLUMN HEART.P_NO IS '좋아요누른상품번호';
 
 -- 좋아요 중복 방지 쿼리문
-INSERT INTO HEART (M_ID, P_NO)
-SELECT ? , ?
-FROM DUAL
-WHERE NOT EXISTS (
-    SELECT 1, 2
-    FROM HEART     
-    WHERE M_ID = ? AND P_NO = ?
-    );
+--INSERT INTO HEART (M_ID, P_NO)
+--SELECT ? , ?
+--FROM DUAL
+--WHERE NOT EXISTS (
+--    SELECT 1, 2
+--    FROM HEART     
+--    WHERE M_ID = ? AND P_NO = ?
+--    );
     
 -- 상품테이블 좋아요 추가 쿼리문
-UPDATE PRODUCT P
-SET P.P_LIKE = P.P_LIKE + 1
-WHERE P.P_NO IN (
-    SELECT P.P_NO
-    FROM PRODUCT P
-    JOIN HEART H ON (H.P_NO = P.P_NO)
-    WHERE H.P_NO = ? AND H.M_ID = ?
+--UPDATE PRODUCT P
+--SET P.P_LIKE = P.P_LIKE + 1
+--WHERE P.P_NO IN (
+--    SELECT P.P_NO
+--    FROM PRODUCT P
+--    JOIN HEART H ON (H.P_NO = P.P_NO)
+--    WHERE H.P_NO = ? AND H.M_ID = ?
+--);
+
+------------------------------------------------
+--------------- 상품 거래 테이블 -----------------
+------------------------------------------------
+CREATE TABLE TRADING (
+    T_NO    NUMBER NOT NULL,
+	P_NO	NUMBER	NOT NULL,
+	B_ID	VARCHAR2(500)	NOT NULL,
+	S_ID	VARCHAR2(500)	NOT NULL
 );
 
+-- 상품 거래 테이블 코멘트 생성
+COMMENT ON COLUMN TRADING.T_NO IS '거래번호';
+COMMENT ON COLUMN TRADING.P_NO IS '상품번호';
+COMMENT ON COLUMN TRADING.B_ID IS '구매회원';
+COMMENT ON COLUMN TRADING.S_ID IS '판매회원';
+
+-- 상품 거래 테이블 PK FK 값
+ALTER TABLE TRADING ADD CONSTRAINT PK_TRADING PRIMARY KEY (
+	T_NO
+);
+
+-- 상품 거래 시퀀스 테이블
+CREATE SEQUENCE SEQ_TRADING_NO;
+
+DROP TABLE TRADING;
+INSERT INTO TRADING (T_NO, P_NO, B_ID, S_ID) VALUES (?, ?, ?);
+
+-- 상품 거래 체크 쿼리문
+--INSERT INTO TRADE (P_NO, B_ID, S_ID)
+--SELECT ? , ? , ?
+--FROM DUAL
+--WHERE NOT EXISTS (
+--    SELECT 1, 2, 3
+--    FROM TRADING   
+--    WHERE P_NO = ? AND B_ID = ? AND S_ID = ?
+--    );
+    
 
 ------------------------------------------------
 --------------- 게시판 관련 테이블 ------------------

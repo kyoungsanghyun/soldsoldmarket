@@ -11,6 +11,10 @@ import java.util.List;
 import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.member.model.dao.MemberDao;
 import com.soldsoldMarket.member.model.vo.Member;
+import com.soldsoldMarket.member.model.vo.Report;
+import com.soldsoldMarket.product.model.dao.ProductDao;
+import com.soldsoldMarket.product.model.service.ProductService;
+import com.soldsoldMarket.product.model.vo.Trade;
 
 public class MemberService {
 	
@@ -113,4 +117,127 @@ public class MemberService {
 		return list;
 	}
 
+	public int save3(Member memberUpdate) {
+		int result = 0;
+		
+		Connection connection = getConnection();
+		
+		if(memberUpdate.getId() != null) {
+			result = new MemberDao().updateMember(connection, memberUpdate);
+		}
+			if(result > 0 ) {
+				commit(connection);
+			}else {
+				rollback(connection);
+			}
+			
+		close(connection);
+		
+		return result;
+		
+	}
+	
+	
+	// 신고하기 체크 로직 (서블렛용)
+	public Report reportingcheck(String loginid, String sname) {
+		Connection connetion = getConnection();
+		
+		Report report = new MemberDao().reportingcheck(connetion, loginid, sname);
+		
+		close(connetion);
+		
+		return report;
+	}
+	// 신고했는지 확인
+	public Report findReportByNoAndId(String loginid, String sname) {
+		Report report = null;
+		int result = 0;
+		int update = 0;
+		
+		Connection connetion = getConnection();
+		
+		report = new MemberDao().reportingcheck(connetion, loginid, sname);
+		
+		if(report != null) {
+			update = new MemberService().reportminusCount(loginid, sname);
+			result = new MemberService().cancelReport(loginid, sname);
+		} else {
+			result = new MemberService().wantReport(loginid, sname);
+			update = new MemberService().reportplusCount(loginid, sname);
+		}
+		
+		close(connetion);
+
+		return report;
+	}
+	
+	// 멤버 테이블에 신고당한횟수 증가
+	private int reportplusCount(String loginid, String sname) {
+		Connection connection = getConnection();
+		
+		int result = new MemberDao().plusReport(connection, loginid, sname);
+
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+
+		return result;
+	}
+	// 멤버 테이블에 신고당한횟수 감소
+	private int reportminusCount(String loginid, String sname) {
+		Connection connection = getConnection();
+		
+		int result = new MemberDao().minusReport(connection, loginid, sname);
+
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+
+		return result;
+	}
+
+	// 신고 취소
+	private int cancelReport(String loginid, String sname) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new MemberDao().deleteReport(connection, loginid, sname);
+			
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
+	// 신고 넣기
+	private int wantReport(String loginid, String sname) {
+		
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new MemberDao().insertReport(connection, loginid, sname);
+			
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
 }
+

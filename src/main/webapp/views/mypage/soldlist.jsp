@@ -17,6 +17,25 @@
             <h2>거래내역</h2>
 
             <hr>
+            
+			
+			<c:choose>
+				<c:when test="${ trading == null }">
+					<h3 class="productCount"> 전체&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>	
+				</c:when>
+				<c:when test="${ trading == 'sell' }">
+					<h3 class="productCount"> 판매&nbsp요청&nbsp&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>	
+				</c:when>
+				<c:when test="${ trading == 'buy' }">
+					<h3 class="productCount"> 구매&nbsp요청&nbsp&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>	
+				</c:when>
+			</c:choose>
+			
+			 <ul class="list-rank">
+               <li><a class="rankBtn" href="${ path }/mypage/soldlist">전체 내역</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/soldlist?trading=sell">판매 요청</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/soldlist?trading=buy">구매 요청</a></li>
+              </ul>
 
             <!-- ====================================================== -->
             <!-- 표 -->
@@ -31,22 +50,34 @@
 	            <table class="board_list">
 	                <thead>
 	                    <tr>
-	                        <th>날짜</th>
 	                        <th>상품</th>
 	                        <th>상품명</th>
+	                        <th>가격</th>
+	                        <th>요청자 전화번호</th>
 	                        <th>거래상태</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                
-	                	<c:forEach var="product" items="${ list }">	                	
+	                	<c:forEach var="trade" items="${ list }">	                	
 		                    <tr>
-		                        <td class="td1">${ product.PDate }</td>
-		                        <td class="td2"><img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지"></td>
+		                        <td class="td2"><img src="${ path }/resources/upload/product/${ trade.TPThumb }" alt="이미지"></td>
 		                        <td class="td3">
-		                            <a href="${path}/product/view?no=${product.PNo}" name="no">${ product.PName }</a>
+		                            <a href="${path}/product/view?no=${trade.PNo}" name="no">${ trade.TPName }</a>
 		                        </td>
-		                        <td class="td4"><span class="pTrading">${ product.PTrading }</span></td>
+		                        <td class="td1"><fmt:formatNumber value="${ trade.TPPrice }" pattern="#,###" />원</td>
+	                        	<c:if test="${ trade.BId == memberId }">
+			                        <td class="td1"></td>
+			                        <td class="td4">
+				                        <span class="pTrading1">구매 요청 보냄</span>		                        	
+			                        </td>
+	                        	</c:if>
+	                        	<c:if test="${ trade.SId == memberId }">
+			                        <td class="td1">${ trade.BIdPhone }</td>
+			                        <td class="td4">
+			                       		<span class="pTrading2">판매 요청 받음</span>		                        	
+			                        </td>
+	                        	</c:if>
 		                    </tr>
 	                    </c:forEach>
 	                    	

@@ -41,7 +41,7 @@
                         <li><a href="${path}/notice/list?page=1"><img src="${path}/resources/images/공지.png" style="width:25px; height:25px;  vertical-align : middle;">&nbsp공지사항</a></li> 
                         <li>${member.name} 님 </li>
                         <c:if test="${member.authority == 'C' }">
-                        <li><a href="#">내 상점</a></li>
+                        <li><a href="${path }/mypage/mystore">내 상점</a></li>
                         <li><a href="${path }/logout">로그아웃</a></li>
                         </c:if>
                         

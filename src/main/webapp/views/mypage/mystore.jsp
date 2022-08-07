@@ -4,95 +4,131 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="product" value="${ list }"/>
+
 
 <jsp:include page="/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${ path }/resources/css/mypage.css">
+<link rel="stylesheet" href="${ path }/resources/css/mystore.css">
 
-    <div class="section">
+        <!-- ====================================================== -->
+        <!-- 본문 -->
+        <div class="section">
         <div class="intro_text">
-            <table class="information">
-				<tr>
-                    <td>프로필 사진</td>
-                    <td>${ member.img }</td>
-                </tr>            
+        
+                 <div class="memberimg">
+                        <img src="${ path }/resources/upload/product/고래인형.jpg" height="200" alt="프로필사진">
+                  </div>
+                  
+            <table class="information">            
                 <tr>
-                    <td>회원아이디 : </td>
-                    <td>${ member.id }</td>
+                    <td>회원아이디</td>
+                    <td>: ${ member.id }</td>
                 </tr>
                 <tr>
-                    <td>신고당한 수 : </td>
-                    <td>${ member.report }</td>
+                    <td>판매횟수</td>
+                    <td>: ${ soldCount }</td>
                 </tr>
                 <tr>
-                    <td>주요 거래지역 : </td>
-                    <td>${ member.area }</td>
-                </tr>
-                <tr>
-                    <td>판매횟수 : </td>
-                    <td>${ member.sellAmount }</td>
-                </tr>
-                <tr>
-                    <td>방문횟수 : </td>
-                    <td>${ member.visit }</td>
-                </tr>
-                <tr>
-                    <td>가입일 : </td>
-                    <td>${ member.joinDate }</td>
-                </tr>
-                <tr>
-                    <td>소개글 : </td>
-                    <td>${ member.intro }</td>
+                    <td>가입일</td>
+                    <td>: ${ member.joinDate }</td>
                 </tr>
             </table>
         </div>
-    
-    <!-- intro end -->
-    <hr>
-    <div>
-	    <div>
-	        <h2>상품</h2>
-	        <select class="absolute">
-	            <option selected>전체</option>
-	            <option>판매중</option>
-	            <option>판매완료</option>
-	            <option>예약중</option>
-	        </select>
-	    </div>
+			
+			<hr>
+			
+            <h2>내 상점</h2>
 
-    <hr>
+            <hr>
+            
+			<c:if test="${ trading != null }">
+	        <h3 class="productCount"> ${ trading }&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>			
+			</c:if>
+			<c:if test="${ trading == null }">
+	        <h3 class="productCount"> 전체상품&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>			
+			</c:if>
+            
+				
+				
+			<ul class="list-rank">
+               <li><a class="rankBtn" href="${ path }/mypage/mystore">전체상품</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=거래중">거래중</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=예약">예약</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=거래완료">거래완료</a></li>
+              </ul>
+			
+			
 
-    <div class="product_count">전체 0개</div>
-    <br>
-    <ul class="product_enroll">
-        <li>
-            <div class="product_img">
+            <!-- ====================================================== -->
+            <!-- 표 -->
+            
+            <c:if test="${ empty list }">
+	            <c:if test="${ trading != null }">
+		            <br><br><br><br>
+		            <h2>${ trading }&nbsp 상품이 없습니다.</h2>
+		            <br><br><br><br>			
+			</c:if>
+			<c:if test="${ trading == null }">
+		            <br><br><br><br>
+		            <h2>등록한 상품이 없습니다.</h2>
+		            <br><br><br><br>			
+			</c:if>
+            </c:if>
+            
+            <c:if test="${ not empty list }">
+		             <div class="pro-list">	
+	             <c:forEach var="product" items="${ list }">
+		                 <div class="pro-list-in">
+		                     <a href="${path}/product/view?no=${product.PNo}" name="no">
+		                         <span class="thum">		                             
+		                         	<img src="${ path }/resources/upload/product/${ product.PThumb }" alt="이미지">
+		                         </span>
+		                         <div class="pro-list-name"> ${ product.PName }</div>
+		                         <div class="pro-list-price">
+		                         	<span><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</span>
+		                         	
+		                         	<c:choose>
+			                         	<c:when test="${ product.PTrading == '예약' }">
+				                         	<span class="pro-list-trading" style="color: black;">${ product.PTrading }</span>
+			                         	</c:when>
+			                         	<c:when test="${ product.PTrading == '거래중' }">
+				                         	<span class="pro-list-trading">${ product.PTrading }</span>
+			                         	</c:when>
+			                         	<c:when test="${ product.PTrading == '거래완료' }">
+				                         	<span class="pro-list-trading" style="color: red;">${ product.PTrading }</span>
+			                         	</c:when>
+		                         	</c:choose>
+		                         </div>
+	                         </a>
+		                 </div>
+	             </c:forEach>
+		             </div>
+             </c:if>           
+
+
+            <!-- ====================================================== -->
+            <!-- 페이지 버튼 -->
+            <div class="page_wrap">
+                <div class="page_nation">
+                    <a class="arrow pprev" href="${ path }/mypage/mystore?page=1">&#60;&#60;</a>
+                    <a class="arrow prev" href="${ path }/mypage/mystore?page=${ pageInfo.prevPage }">&#60;</a>
+                    
+			   		<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">
+						<c:if test="${ status.current == pageInfo.currentPage }">
+							<a href="#" class="active">${ status.current }</a>
+						</c:if>
+						<c:if test="${ status.current != pageInfo.currentPage }">
+							<a href="${ path }/mypage/mystore?page=${ status.current }">${ status.current }</a>
+						</c:if>
+					</c:forEach>
+			
+                    <a class="arrow next" href="${ path }/mypage/mystore?page=${ pageInfo.nextPage }">&#62;</a>
+                    <a class="arrow nnext" href="${ path }/mypage/mystore?age=${ pageInfo.maxPage }">&#62;&#62;</a>
+                </div>
             </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-        <li>
-            <div class="product_img">
-                    <img src="/resources/image/flower1.PNG" alt="">
-            </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-        <li>
-            <div class="product_img">
-                    <img src="/resources/image/flower1.PNG" alt="">
-            </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-        <li>
-            <div class="product_img">
-                    <img src="/resources/image/flower1.PNG" alt="">
-            </div>
-            <div class="product_name">상품이름</div>
-            <div class="product_price">상품가격</div>
-        </li>
-    </ul>
-	</div>
-    </div>
+        </div>
+        
+
+       
 <jsp:include page="/views/common/footer.jsp" /> 

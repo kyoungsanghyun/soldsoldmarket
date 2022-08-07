@@ -29,7 +29,7 @@ public class LikelistDao {
 						+ "JOIN HEART H ON (H.P_NO = P.P_NO) "
 						+ "WHERE H.M_ID LIKE ? ) PL JOIN PADD PA ON(PL.P_NO = PA.P_NO) "
 						+ "GROUP BY PL.P_NO, PL.P_NAME, PL.P_DATE, PL.P_PRICE "
-						+ "ORDER BY PL.P_NO "
+						+ "ORDER BY PL.P_NO DESC"
 						+ ") "
 						+ ") "
 						+ "WHERE RNUM BETWEEN ? and ? ";	

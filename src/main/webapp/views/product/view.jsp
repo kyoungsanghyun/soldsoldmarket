@@ -62,17 +62,20 @@
             <!-- 변화값 -->
             <div id="product_info_varival">
                 <ul>
-                    <li>${product.MId}
+                    <li><input type="hidden" name="snamae" value="${product.MId}">${product.MId}
 	                	<!-- 작성자는 삭제버튼 / 일반회원은 신고버튼이 나오는 로직 -->
 	                	
+		            	
 		            	<!-- 삭제 버튼 (작성자)-->
-		            	<c:if test="${not empty member && member.id == product.MId}">
-		                	 <span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png">삭제하기</span></li>
-		                </c:if>
+		                <!-- 버튼안보임 (비회원) -->
 		            	<!-- 신고 버튼 (일반회원) -->
-		                <c:if test="${empty member || member.id != product.MId}">
-		                	<span id="product_info_varival_report"><img src="${ path }/resources/images/icon/report.png">신고하기</span></li>
-		                </c:if>	
+		            	<!-- 신고 취소버튼 (신고한 일반회원) -->
+		            	<c:choose>
+		            		<c:when test="${not empty member && member.id == product.MId}"><span id="product_info_varival_delete"><img src="${ path }/resources/images/icon/delete.png">삭제하기</span></li></c:when>
+		                	<c:when test="${empty member}"></c:when>
+		                	<c:when test="${empty report && member.id != product.MId}"><span id="product_info_varival_report"><img src="${ path }/resources/images/icon/report.png">신고하기</span></li></c:when>
+		                	<c:when test="${not empty report && member.id != product.MId}"><span id="product_info_varival_report"><img src="${ path }/resources/images/icon/xmark.png">신고취소</span></li></c:when>
+		                </c:choose>
                     <li><fmt:formatDate type="both"  pattern="yyyy년 MM월 dd일" value="${product.PDate}"/></li>
                     <li>${product.PLocation}</li>
 	                    <li>
@@ -91,7 +94,13 @@
 	                    	</c:choose>
                     	</li>
                     <li>${product.PQtt}</li>
-                    <li>${product.PTrading}</li>
+                    <li>
+                    	<c:choose> 
+                    		<c:when test="${not empty buy && not empty member}">${buy.BId}님과 거래중🤝</c:when>
+                    		<c:when test="${empty buy && not empty member}">지금거래가능👋</c:when>                    	
+	                    	<c:when test="${empty buy || empty member}">로그인을 해주세요 🤐</c:when>
+                    	</c:choose>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -117,11 +126,11 @@
             <c:if test="${empty member}">
 				<span id="toolbar_like">찜하기<span  id="toolbar_like_guest"><img src="${ path }/resources/images/icon/heartempty.png">${product.PLike} </span> </span>
             </c:if>
-      
+        
             <span id="toolbar_view">조회수<img src="${ path }/resources/images/icon/view.png">${product.PView}</span>
             <span id="toolbar_share" class="toolbar_share_pop">공유하기<img src="${ path }/resources/images/icon/share.png"></span>
 			<!-- 공유하기 팝업창 -->
-			<div class="toolbar_share_modal hidden">
+			<div class="toolbar_share_modal hiddenShare">
 				<div class="toolbar_share_modal_bg"></div>
 				<div class="toolbar_share_modalBox">
 					<ul>
@@ -134,20 +143,46 @@
 					<span><img class="toolbar_share_modalclose" src="${ path }/resources/images/button/closebtn.png"></span>
 				</div>
 			</div>
-
+			
 			<hr>
-            <!--  작성자는 수정 버튼 / 일반회원은 구매버튼이 나오는 로직 -->
-            	<!-- 수정 버튼 (작성자)-->
-            	<c:if test="${not empty member && member.id == product.MId}">
-                	<span id="toolbar_buy"><img src="${ path }/resources/images/button/modbtn.png" onclick="location.href='${ path }/product/update?no=${ product.PNo }'"></span>
-                </c:if>	
-            	<!-- 구매 버튼 (일반회원) -->
-                <c:if test="${empty member || member.id != product.MId}">
-                	<span id="toolbar_buy"><img src="${ path }/resources/images/button/buybtn.png"></span>
-                </c:if>	
-            <!-- 댓글 바로가기 -->    
-            <span id="toolbar_comment"><img src="${ path }/resources/images/button/cmtbtn.png"></span>
-        </div>
+
+				<!--  작성자는 수정 버튼 / 일반회원은 구매버튼이 나오는 로직 -->
+				<!-- 수정 버튼 (작성자)-->
+				<c:if test="${not empty member && member.id == product.MId}">
+					<span id="toolbar_buy"><img src="${ path }/resources/images/button/modbtn.png" onclick="location.href='${ path }/product/update?no=${ product.PNo }'"></span>
+				</c:if>	
+				<!-- 구매 버튼 (일반회원) -->
+				<c:if test="${member.id != product.MId}">
+					<span id="toolbar_buy" class="toolbar_buy_pop"><img src="${ path }/resources/images/button/buybtn.png"></span>
+				</c:if>	
+				<!-- 비회원 -->
+				<c:if test="${empty member}">
+					<span id="toolbar_buy" class="toolbar_buy_guest"><img src="${ path }/resources/images/button/buybtn.png"></span>
+				</c:if>	
+				<!-- 구매하기 팝업창 -->
+				<div class="toolbar_buy_modal hiddenBuy">
+					<div class="toolbar_buy_modal_bg"></div>
+					<div class="toolbar_buy_modalBox">
+						<c:if test="${empty buy}">
+						<h1>&nbsp;&nbsp;&nbsp;&nbsp;${member.name} 회원님 ! 😊<h1>
+						<h3>&nbsp;&nbsp;&nbsp;&nbsp;구매를 원하시면 고객님의 구매의사가<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;${product.MId} 님께 전달됩니다.</h3>
+						<p>&nbsp;&nbsp;&nbsp;고객님의 연락처 확인 : ${member.phone}</p>
+						</c:if>
+						<c:if test="${not empty buy}">
+						<h1>&nbsp;&nbsp;&nbsp;&nbsp;${member.name} 회원님 ! 😢<h1>
+						<h3>&nbsp;&nbsp;&nbsp;&nbsp;구매의사를 취소하시겠습니까 ?<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;${product.MId} 님께 전달됩니다.</h3>
+						</c:if>
+						<p>&nbsp;&nbsp;&nbsp;구매 상품 확인 : ${product.PName}</p>
+						<p>&nbsp;&nbsp;&nbsp;구매 가격 확인 : <fmt:formatNumber type="number" value="${product.PPrice}" groupingUsed="true"/>원</p><br><br>
+						<span><img class="toolbar_buy_modalsendbtn" src="${ path }/resources/images/button/sendbtn.png"><img class="toolbar_buy_modalclose" src="${ path }/resources/images/button/closebtn.png"></span>
+					</div>
+				</div>
+				<!-- 댓글 바로가기 -->    
+				<span id="toolbar_comment"><img src="${ path }/resources/images/button/cmtbtn.png"></span>
+       	</div>
+
         
         <!-- 게시글 내용 -->
         <div class="product_detail">
@@ -155,8 +190,8 @@
         </div>
         
         <!-- 댓글 불러오기 -->
-        <div class="reply_contents">
         <input type="hidden" name="pcnum" value="${Pconmment.PCm_no}">
+        <div class="reply_contents">
             <ul>						
 				<c:forEach var="Pconmment" items="${ product.pcomments }">
                		<li>
@@ -190,10 +225,10 @@
             <c:if test="${empty member}">
 				<span><img src="${ path }/resources/images/icon/user.png" id="reply_write_id_icon"></span><span id="reply_write_id">GUEST</span>
 			          <form  action="${path}/product/comment" method="POST">
-             				<textarea placeholder="로그인 후 이용해주세요." style="resize: none;" id="reply_write_area" readonly="readonly"></textarea>
+             				<textarea placeholder="로그인 후 이용해주세요." style="resize: none;" id="reply_write_area" readonly="readonly" class="reply_write_area_guest"></textarea>
    					  </form>
                 </c:if>	
-    	
+    	</div>
 	</div>
 	
     <script src="${ path }/resources/js/jquery-3.6.0.min.js"></script>
@@ -211,48 +246,127 @@
 		            $(event.target).fadeTo(100 , 1);
 		        }
 		    });
-		    
-		    
-		    
+
+		    // 메인이미지 클릭 변경
 		    $('.side_img_box>img').on("click", () =>{
 		        let srcAdd = $(event.target).attr("src");
 		        console.log(srcAdd);
 		        $("#main_img_box>img").attr("src",srcAdd);
 		    });
 		    
-		
 			// 게시글 삭제
 					$("#product_info_varival_delete").on("click", () => {
 					if(confirm("정말로 삭제 하시겠습니까?")) {
 						location.replace("${ path }/product/delete?no=${ product.PNo }");
 					}
 				});
-			// 신고 하기
-					$("#product_info_varival_report").on("click", () => {
-					if(confirm("신고하시겠습니까?")) {
-						location.replace("${ path }/product/delete?no=${ board.no }");
-					}
-				});
+			
 
-		
-		
-		
+				// 회원 신고 기능
+			    $('#product_info_varival_report').on("click", function(event){
+				
+				    let loginid = '${member.id}';
+					let sname = '${product.MId}';
+					let check = '${report}';
+			 		if(check == '') {
+		 		    	if(confirm("해당 회원을 신고하시겠습니까?")) {
+		 		    		$.ajax({
+							      type : "POST",
+				 		          url : "${path}/reporting.do",
+						          data : {loginid , sname},
+							      dataType : "json",
+							      success : function(obj) {
+						    			console.log(obj)
+						    			location.reload();
+						    			},
+			   		              error : function(error){
+							            console.log(error);
+							            },
+					             complete : function(){
+							            }
+								
+							  });
+							 }
+			 		} else {
+		 		    	if(confirm("회원 신고를 취소하시겠습니까?")) {
+		 		    		$.ajax({
+							      type : "POST",
+				 		          url : "${path}/reporting.do",
+						          data : {loginid , sname},
+							      dataType : "json",
+							      success : function(obj) {
+						    			console.log(obj)
+						    			location.reload();
+						    			},
+			   		              error : function(error){
+							            console.log(error);
+							            },
+					             complete : function(){
+							            }
+								
+							  });
+							 }
+			 			}
+			 		});
+
 		    // 댓글창 바로가기 기능
 		    $('#toolbar_comment').on("click", () =>{
 		        $('#reply_write_area').focus();
 		    });
 		
 			// 공유하기 팝업창
-			const open = () =>{
-				document.querySelector(".toolbar_share_modal").classList.remove("hidden")
+			const openS = () =>{
+				document.querySelector(".toolbar_share_modal").classList.remove("hiddenShare")
 			}
-			const close = () => {
-				document.querySelector(".toolbar_share_modal").classList.add("hidden");
+			const closeS = () => {
+				document.querySelector(".toolbar_share_modal").classList.add("hiddenShare");
 			}
 
-			document.querySelector(".toolbar_share_pop").addEventListener("click", open);
-			document.querySelector(".toolbar_share_modalclose").addEventListener("click", close);
-			document.querySelector(".toolbar_share_modal_bg").addEventListener("click", close);
+			document.querySelector(".toolbar_share_pop").addEventListener("click", openS);
+			document.querySelector(".toolbar_share_modalclose").addEventListener("click", closeS);
+			document.querySelector(".toolbar_share_modal_bg").addEventListener("click", closeS);
+			
+			// 구매하기 팝업창
+			const openB = () =>{
+				document.querySelector(".toolbar_buy_modal").classList.remove("hiddenBuy")
+			}
+			const closeB = () => {
+				document.querySelector(".toolbar_buy_modal").classList.add("hiddenBuy");
+			}
+
+			document.querySelector(".toolbar_buy_pop").addEventListener("click", openB);
+			document.querySelector(".toolbar_buy_modalclose").addEventListener("click", closeB);
+			document.querySelector(".toolbar_buy_modal_bg").addEventListener("click", closeB);
+			
+			// 구매하기 확인 닫기
+			$('.toolbar_buy_modalsendbtn').on('click', ()=>{
+				alert("판매자님께 전달되었습니다 !");
+				location.reload();
+				document.querySelector(".toolbar_buy_modal").classList.add("hiddenBuy");
+				document.querySelector(".toolbar_buy_modalclose").addEventListener("click", closeB);
+				document.querySelector(".toolbar_buy_modal_bg").addEventListener("click", closeB);
+		    });
+			
+			 // 구매의사 전달 로직 
+			 $('.toolbar_buy_modalsendbtn').on("click", function(event){
+			      let no = ${product.PNo};
+				  let sname = '${product.MId}';
+				  
+					$.ajax({
+			            type : "POST",
+			            url : "${path}/trading.do",
+			            data : {no , sname},
+			            dataType : "json",
+			            success : function(obj) {
+			    			console.log(obj)
+			    			},
+			            error : function(error){
+			                console.log(error);
+			            },
+			            complete : function(){
+			            }
+			        });
+			 })
 			
 			// url 주소 선언
 			let urladd = 'http://localhost:8090${path}/product/view?no=${product.PNo}';
@@ -330,11 +444,8 @@
 				document.execCommand("copy");
 				document.body.removeChild(textarea)
 				
-			alert("Url 주소 복사 완료.")
-			})
-			
-			
-
+				alert("Url 주소 복사 완료.")
+			}) 
 		    
 		    // 댓글 삭제 기능
 		    $('.reply_contents_delete').on("click", function(event){
@@ -360,14 +471,29 @@
 		        	});
 		    	}
 			});
+			
+			
 
-		
 		
 			// 비회원 좋아요시 로그인팝업
 		    $('#toolbar_like_guest').on("click", () =>{
 		        alert("로그인 후 이용해주세요.")
 				location.replace("${path}/login");
 		    });
+			
+			// 비회원 구매하기시 로그인팝업
+		    $('.toolbar_buy_guest').on("click", () =>{
+		        alert("로그인 후 이용해주세요.")
+				location.replace("${path}/login");
+		    });
+			
+			// 비회원 댓글창 입력시 로그인팝업
+			$('.reply_write_area_guest').on("click", () =>{
+		        alert("로그인 후 이용해주세요.")
+				location.replace("${path}/login");
+		    });
+			
+
 
 			 // 좋아요 로직 
 			 $('#toolbar_like').on("click", function(event){

@@ -1,19 +1,30 @@
 package com.soldsoldMarket.product.model.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.close;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.commit;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.getConnection;
 import static com.soldsoldMarket.common.jdbc.JDBCTemplate.rollback;
 
+
 import java.sql.Connection;
 import java.util.List;
 
 import com.soldsoldMarket.common.util.PageInfo;
+import com.soldsoldMarket.member.model.vo.Report;
 import com.soldsoldMarket.product.model.dao.ProductDao;
 import com.soldsoldMarket.product.model.dao.productRegistDao;
 import com.soldsoldMarket.product.model.vo.Heart;
 import com.soldsoldMarket.product.model.vo.PAdd;
 import com.soldsoldMarket.product.model.vo.Pcomment;
 import com.soldsoldMarket.product.model.vo.Product;
+import com.soldsoldMarket.product.model.vo.Trade;
 public class ProductService {
 
 
@@ -55,6 +66,33 @@ public class ProductService {
 		
 	}
 	
+	// 좋아요 체크 및 값 변경 로직
+	public Heart findHeartByNoAndId(int no, String id) {
+		Heart heart = null;
+		
+		//조회되는 데이터가 있으면 return 줌 없으면 null
+		Connection connetion = getConnection();
+		int result = 0;
+		int count = 0;
+		
+		heart = new ProductDao().likecheck(connetion, id, no);
+		
+		
+		if(heart != null) {
+			count = new ProductService().likeminusCount(no, id);
+			result = new ProductService().heartDelete(no,id);
+		
+		} else {
+			result = new ProductService().heartSave(no,id);
+			count = new ProductService().likeplusCount(no, id);
+			
+		}
+		
+		
+		close(connetion);
+
+		return heart;
+	}
 
 	
 	// 좋아요 체크 로직
@@ -67,7 +105,6 @@ public class ProductService {
 		
 		return heart;
 	}
-
 
 
 	// 상품 삭제 (status 로 구현됨)
@@ -250,19 +287,8 @@ public class ProductService {
 		return result;
 	}
 
-	public Heart findHeartByNoAndId(int no, String id) {
-		Heart heart = null;
-		
-		//조회되는 데이터가 있으면 return 줌 없으면 null
-		Connection connetion = getConnection();
-		
-		heart = new ProductDao().likecheck(connetion, id, no);
-		
-		close(connetion);
-
-		return heart;
-	}
-
+	
+	// 좋아요 테이블에 데이터 삽입
 	public int heartSave(int no, String id) {
 		int result = 0;
 		Connection connection = getConnection();
@@ -278,7 +304,8 @@ public class ProductService {
 		close(connection);
 		return result;
 	}
-
+	
+	// 좋아요 테이블에 데이터 지움
 	public int heartDelete(int no, String id) {
 		
 		Connection connection = getConnection();
@@ -293,8 +320,9 @@ public class ProductService {
 		close(connection);
 		
 		return result;
-
 	}
+	
+	// 좋아요 마이너스
 	public int likeminusCount(int no, String id) {
 		Connection connection = getConnection();
 		
@@ -309,7 +337,7 @@ public class ProductService {
 		
 		return result;
 	}
-
+	// 좋아요 플러스
 	public int likeplusCount(int no, String id) {
 
 		Connection connection = getConnection();
@@ -325,6 +353,76 @@ public class ProductService {
 
 		return result;
 	}
+	// 구매 확인 체크
+	public Trade findTradeByNoAndId(int no, String id, String sname) {
+		Trade trade = null;
+		int result = 0;
+		int update = 0;
+		
+		//조회되는 데이터가 있으면 return 줌 없으면 null
+		Connection connetion = getConnection();
+		
+		trade = new ProductDao().tradingcheck(connetion, no, id, sname);
+		
+		if(trade != null) {
+			result = new ProductService().cancelTrade(no, id, sname);
+		} else {
+			result = new ProductService().wantTrade(no, id, sname);
+		}
+		
+		close(connetion);
 
+		return trade;
+	}
+	
+	// 구매하기 체크 로직 (서블렛용)
+	public Trade tradecheck(int no, String id, String sname) {
+		Connection connetion = getConnection();
+		
+		Trade trade = new ProductDao().tradingcheck(connetion, no, id, sname);
+		
+		close(connetion);
+		
+		return trade;
+	}
+
+	// 구매하기 취소 로직
+	private int cancelTrade(int no, String id, String sname) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new ProductDao().deleteTrade(connection, no, id, sname);
+			
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
+	// 구매하기 승인 로직
+	public int wantTrade(int no, String id, String sname) {
+			int result = 0;
+			Connection connection = getConnection();
+			
+			result = new ProductDao().insertTrade(connection, no, id, sname);
+				
+			if (result > 0) {
+				commit(connection);
+			} else {
+				rollback(connection);
+			}
+			
+			close(connection);
+			
+			return result;
+		}
+
+
+	
 
 }

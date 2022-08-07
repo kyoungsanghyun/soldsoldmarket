@@ -44,15 +44,19 @@ table {
     height: 100px;
 }
 
-.board_list .tit {
-    text-align: left;
+
+.pTrading{
+	background-color: #0232e4;
+	color: white;
+	font-weight: 600; 
+	padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px;
 }
 
-.board_list tit:hover {
-    text-decoration: underline;
-}
-
-.page_wrap {
+.btns {
     margin-top: 70px;
     margin-bottom: 70px;
 }

@@ -14,6 +14,7 @@ import com.soldsoldMarket.common.util.PageInfo;
 import com.soldsoldMarket.member.model.vo.Member;
 import com.soldsoldMarket.mypage.model.service.SoldlistService;
 import com.soldsoldMarket.product.model.vo.Product;
+import com.soldsoldMarket.product.model.vo.Trade;
 
 @WebServlet("/mypage/soldlist")
 public class SoldlistServlet extends HttpServlet {
@@ -35,11 +36,13 @@ public class SoldlistServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 		
-    	List<Product> list = null; // 회원이 등록한 상품 리스트
+    	List<Trade> list = null; // 회원이 등록한 상품 리스트
     	int page = 0; // 페이지의 수
     	int listCount = 0; // 상품의 수
     	PageInfo pageInfo = null; // 페이지 정보
     	String memberId = null; // 로그인멤버 아이디
+    	String BIdPhone = null;
+    	String trading = null;
     	
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -47,14 +50,19 @@ public class SoldlistServlet extends HttpServlet {
 			page = 1;
 		}
     	
+		trading = request.getParameter("trading");
 		memberId = loginMember.getId();
-		listCount = new SoldlistService().getMemberProductCount(memberId);
+		listCount = new SoldlistService().getMemberProductCount(memberId, trading);
 		pageInfo = new PageInfo(page, 5, listCount, 3);
-		list = new SoldlistService().getMemberProductList(memberId, pageInfo);
+		list = new SoldlistService().getMemberProductList(memberId, trading, pageInfo);
 		
+		request.setAttribute("memberId", memberId);
+		request.setAttribute("BIdPhone", BIdPhone);
     	request.setAttribute("list", list);
     	request.setAttribute("pageInfo", pageInfo);
     	request.setAttribute("page", page);
+    	request.setAttribute("listCount", listCount);
+    	request.setAttribute("trading", trading);
     	request.getRequestDispatcher("/views/mypage/soldlist.jsp").forward(request, response);
 		
 	}

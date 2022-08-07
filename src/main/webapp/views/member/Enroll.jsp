@@ -24,7 +24,7 @@
     <div id="header01"></div>
 
     <div id="content01">
-            <img src="${path }/resources/images/로고.png" id="img01">
+            <img src="${path }/resources/images/로고.png" onclick="location.href='${ path }/home'" id="img01">
 
             <form id="enrollForm" action="${path }/enroll" method="post">
                     <input type="text" name="enrollId" id="enrollId" placeholder="아이디 (영문,숫자/영문자시작 4~12) ">

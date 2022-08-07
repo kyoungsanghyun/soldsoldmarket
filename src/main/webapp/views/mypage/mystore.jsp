@@ -30,8 +30,16 @@
                     <td>: ${ soldCount }</td>
                 </tr>
                 <tr>
+                    <td>신고당한 횟수</td>
+                    <td>: ${ member.report }</td>
+                </tr>
+                <tr>
                     <td>가입일</td>
                     <td>: ${ member.joinDate }</td>
+                </tr>
+                <tr>
+                    <td>소개글</td>
+                    <td>: ${ member.intro }</td>
                 </tr>
             </table>
         </div>

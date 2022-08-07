@@ -150,6 +150,7 @@
 				<!-- 수정 버튼 (작성자)-->
 				<c:if test="${not empty member && member.id == product.MId}">
 					<span id="toolbar_buy"><img src="${ path }/resources/images/button/modbtn.png" onclick="location.href='${ path }/product/update?no=${ product.PNo }'"></span>
+					<input type="hidden" class="toolbar_buy_pop">
 				</c:if>	
 				<!-- 구매 버튼 (일반회원) -->
 				<c:if test="${member.id != product.MId}">

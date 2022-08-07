@@ -53,9 +53,9 @@
 				
 			<ul class="list-rank">
                <li><a class="rankBtn" href="${ path }/mypage/mystore">전체상품</a></li>
-               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=판매중">판매중</a></li>
-               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=예약중">예약중</a></li>
-               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=판매완료">판매완료</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=거래중">거래중</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=예약">예약</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/mystore?trading=거래완료">거래완료</a></li>
               </ul>
 			
 			
@@ -89,13 +89,13 @@
 		                         	<span><fmt:formatNumber value="${ product.PPrice }" pattern="#,###" />원</span>
 		                         	
 		                         	<c:choose>
-			                         	<c:when test="${ product.PTrading == '예약중' }">
+			                         	<c:when test="${ product.PTrading == '예약' }">
 				                         	<span class="pro-list-trading" style="color: black;">${ product.PTrading }</span>
 			                         	</c:when>
-			                         	<c:when test="${ product.PTrading == '판매중' }">
+			                         	<c:when test="${ product.PTrading == '거래중' }">
 				                         	<span class="pro-list-trading">${ product.PTrading }</span>
 			                         	</c:when>
-			                         	<c:when test="${ product.PTrading == '판매완료' }">
+			                         	<c:when test="${ product.PTrading == '거래완료' }">
 				                         	<span class="pro-list-trading" style="color: red;">${ product.PTrading }</span>
 			                         	</c:when>
 		                         	</c:choose>

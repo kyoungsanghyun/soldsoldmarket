@@ -16,10 +16,10 @@ import com.soldsoldMarket.mypage.model.service.MystoreService;
 import com.soldsoldMarket.product.model.vo.Product;
 
 @WebServlet("/mypage/mystore")
-public class MystoreServlet extends HttpServlet {
+public class MyStoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MystoreServlet() {
+    public MyStoreServlet() {
     }
 
 	@Override

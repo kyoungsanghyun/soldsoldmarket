@@ -15,7 +15,7 @@ import com.soldsoldMarket.product.model.vo.Trade;
 
 public class SoldlistDao {
 	// 
-	public List<Trade> selectMemberProductList(Connection connection, String memberId, PageInfo pageInfo) {
+	public List<Trade> selectMemberProductList(Connection connection, String memberId, String trading, PageInfo pageInfo) {
 		List<Trade> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,16 +30,31 @@ public class SoldlistDao {
 						+ "SELECT P.P_NO, P.P_NAME, P.P_PRICE, P.M_ID, T.B_ID, T.S_ID, T.T_NO\r\n"
 						+ "FROM PRODUCT P JOIN TRADING T ON(P.P_NO = T.P_NO)) PT JOIN PADD PA ON (PT.P_NO = PA.P_NO)\r\n"
 						+ "GROUP BY PT.P_NO, PT.P_NAME, PT.P_PRICE, PT.M_ID, PT.B_ID, PT.S_ID, PT.T_NO) PTPA JOIN MEMBER M ON (PTPA.B_ID = M.M_ID)\r\n"
-						+ "ORDER BY PTPA.T_NO DESC)\r\n"
-						+ "WHERE B_ID LIKE ? OR S_ID LIKE ?)\r\n"
-						+ "WHERE RNUM BETWEEN ? and ?";	
+						+ "ORDER BY PTPA.T_NO DESC)\r\n";
+		
+		if(trading == null) {
+			query += "WHERE B_ID LIKE ? OR S_ID LIKE ?)\r\n";
+		} else if(trading.equals("sell")) {
+			query += "WHERE S_ID LIKE ?)";
+		} else {
+			query += "WHERE B_ID LIKE ?)";
+		}
+						
+						query += "WHERE RNUM BETWEEN ? and ?";	
 		
 		try {
 			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, memberId);
-			pstmt.setString(2, memberId);
-			pstmt.setInt(3, pageInfo.getStartList());
-			pstmt.setInt(4, pageInfo.getEndList());
+			
+			if(trading == null) {
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, memberId);
+				pstmt.setInt(3, pageInfo.getStartList());
+				pstmt.setInt(4, pageInfo.getEndList());			
+			} else {
+				pstmt.setString(1, memberId);
+				pstmt.setInt(2, pageInfo.getStartList());
+				pstmt.setInt(3, pageInfo.getEndList());	
+			}
 			
 			rs = pstmt.executeQuery();
 			
@@ -67,21 +82,34 @@ public class SoldlistDao {
 	}
 
 	// 회원 ID에 따른 판매완료 상품 개수 구하기
-	public int getMemberProductCount(Connection connection, String memberId) {
+	public int getMemberProductCount(Connection connection, String memberId, String trading) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query =  "SELECT COUNT(1) "
 						+ "FROM ( "
 						+ "SELECT P.P_NO, P.P_NAME, P.P_PRICE, P.M_ID, T.B_ID, T.S_ID, T.T_NO "
-						+ "FROM PRODUCT P JOIN TRADING T ON(P.P_NO = T.P_NO) "
-						+ "WHERE T.B_ID LIKE ? OR T.S_ID LIKE ?)";
+						+ "FROM PRODUCT P JOIN TRADING T ON(P.P_NO = T.P_NO) ";
+						
+		if(trading == null) {
+			query += "WHERE T.B_ID LIKE ? OR T.S_ID LIKE ?)";
+		} else if(trading.equals("sell")) {
+			query += "WHERE T.S_ID LIKE ?)";
+		} else {
+			query += "WHERE T.B_ID LIKE ?)";
+		}
+
 
 		
 		try {
 			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, memberId);
-			pstmt.setString(2, memberId);
+			
+			if(trading == null) {
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, memberId);				
+			} else {
+				pstmt.setString(1, memberId);
+			}
 
 			
 			rs = pstmt.executeQuery();

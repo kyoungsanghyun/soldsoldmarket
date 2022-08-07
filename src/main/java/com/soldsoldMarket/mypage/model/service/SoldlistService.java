@@ -13,11 +13,11 @@ import com.soldsoldMarket.product.model.vo.Trade;
 public class SoldlistService {
 
 	// 회원의 상품 리스트 가져오기
-	public List<Trade> getMemberProductList(String memberId, PageInfo pageInfo) {
+	public List<Trade> getMemberProductList(String memberId, String trading, PageInfo pageInfo) {
 		List<Trade> list = null;
 		Connection connection = getConnection();
 		
-		list = new SoldlistDao().selectMemberProductList(connection, memberId, pageInfo);
+		list = new SoldlistDao().selectMemberProductList(connection, memberId, trading, pageInfo);
 		
 		close(connection);
 				
@@ -25,11 +25,11 @@ public class SoldlistService {
 	}
 
 	// 회원의 상품 개수 가져오기
-	public int getMemberProductCount(String memberId) {
+	public int getMemberProductCount(String memberId, String trading) {
 		int count = 0;
 		Connection connection = getConnection();
 		
-		count = new SoldlistDao().getMemberProductCount(connection, memberId);
+		count = new SoldlistDao().getMemberProductCount(connection, memberId, trading);
 		
 		close(connection);
 				

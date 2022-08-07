@@ -18,13 +18,24 @@
 
             <hr>
             
-       	    <h3 class="productCount"> 전체&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>
-           
-           	<select class="myProductTrading" name="myProductTrading" id="myProductTrading"> 
-				<option class="mptList" value="전체상품" selected="selected">전체 내역</option>
-				<option class="mptList" value="판매중">판매&nbsp요청</option>
-				<option class="mptList" value="예약중">구매&nbsp요청</option>
-			</select>
+			
+			<c:choose>
+				<c:when test="${ trading == null }">
+					<h3 class="productCount"> 전체&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>	
+				</c:when>
+				<c:when test="${ trading == 'sell' }">
+					<h3 class="productCount"> 판매&nbsp요청&nbsp&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>	
+				</c:when>
+				<c:when test="${ trading == 'buy' }">
+					<h3 class="productCount"> 구매&nbsp요청&nbsp&nbsp내역&nbsp&nbsp  <span style="color: #0232e4;">${ listCount }</span>&nbsp개</h3>	
+				</c:when>
+			</c:choose>
+			
+			 <ul class="list-rank">
+               <li><a class="rankBtn" href="${ path }/mypage/soldlist">전체 내역</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/soldlist?trading=sell">판매 요청</a></li>
+               <li><a class="rankBtn" href="${ path }/mypage/soldlist?trading=buy">구매 요청</a></li>
+              </ul>
 
             <!-- ====================================================== -->
             <!-- 표 -->

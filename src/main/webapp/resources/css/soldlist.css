@@ -13,6 +13,28 @@ table {
     border-collapse: collapse;
 }
 
+.list-rank {
+    height: 50px;
+    margin: auto;
+    list-style-type: none;
+    text-align: right;
+}
+
+.list-rank li {
+    display: inline;
+    border-left: 1px solid #c0c0c0;
+    padding: 0px 20px 0px 20px;
+    margin: 5px 0px 5px 0px;
+}
+
+.list-rank li:first-child {
+    border-left: none;
+}
+
+.list-rank li:last-child{
+    padding-right: 0px
+}
+
 .section > hr{
     margin-bottom: 30px;
 }
@@ -38,7 +60,7 @@ table {
     width: 100%;
     margin: auto;
     border-top: 2px solid #999;
-    margin-top: 100px;
+    margin-top: 30px;
 }
 
 .board_list tr {

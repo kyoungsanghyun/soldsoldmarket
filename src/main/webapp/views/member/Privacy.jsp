@@ -22,7 +22,7 @@
         </div>
         
         <div id="content01">
-            <img src="${path }/resources/images/로고.png" id="img01">
+            <img src="${path }/resources/images/로고.png" onclick="location.href='${ path }/home'" id="img01">
             <h2>개인정보처리방침</h2>
                 <div id="forlog">
 

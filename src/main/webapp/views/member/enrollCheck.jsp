@@ -21,7 +21,7 @@
         <div id="header01">
         </div>
         <div id="content01">
-            <img src="${path }/resources/images/로고.png" id="img01">
+            <img src="${path }/resources/images/로고.png" onclick="location.href='${ path }/home'" id="img01">
                 <div id="forlog">
                     <div id="enrollCheck">
                             <ul>

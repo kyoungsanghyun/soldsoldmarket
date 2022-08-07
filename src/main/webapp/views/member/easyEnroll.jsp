@@ -24,7 +24,7 @@
     <div id="header01"></div>
 
     <div id="content01">
-            <img src="${path }/resources/images/로고.png" id="img01">
+            <img src="${path }/resources/images/로고.png" onclick="location.href='${ path }/home'" id="img01">
 
             <form id="enrollForm" action="${path }/enroll2" method="post">
                     <input type="text" name="enrollId" id="enrollId" value='${member.id}' readonly>
